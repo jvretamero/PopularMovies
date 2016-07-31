@@ -10,12 +10,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.R;
+import br.com.joaoretamero.popularmovies.modelo.ItemFilme;
 
 public class FilmesActivity extends AppCompatActivity {
 
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView listaFilmes;
+    private FilmesAdapter filmesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +32,23 @@ public class FilmesActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(FilmesActivity.this, 2);
 
+        filmesAdapter = new FilmesAdapter(FilmesActivity.this);
+        //TODO remover mais tarde
+        filmesAdapter.setListaFilmes(criaListaFilmes());
+
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.filmes_swipe);
 
         listaFilmes = (RecyclerView) findViewById(R.id.filmes_lista);
         listaFilmes.setLayoutManager(layoutManager);
         listaFilmes.setItemAnimator(new DefaultItemAnimator());
-        listaFilmes.setAdapter(null);
+        listaFilmes.setAdapter(filmesAdapter);
         listaFilmes.addOnItemTouchListener(null);
+    }
+
+    private List<ItemFilme> criaListaFilmes() {
+        List<ItemFilme> lista = new ArrayList<ItemFilme>();
+
+        return lista;
     }
 
     @Override
