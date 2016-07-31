@@ -42,12 +42,17 @@ public class FilmesActivity extends AppCompatActivity {
         listaFilmes.setLayoutManager(layoutManager);
         listaFilmes.setItemAnimator(new DefaultItemAnimator());
         listaFilmes.setAdapter(filmesAdapter);
-        listaFilmes.addOnItemTouchListener(null);
+        //TODO implementar o click
+        //listaFilmes.addOnItemTouchListener(null);
     }
 
+    //TODO remover mais tarde
     private List<ItemFilme> criaListaFilmes() {
         List<ItemFilme> lista = new ArrayList<ItemFilme>();
-
+        lista.add(new ItemFilme(100, "Filme 1"));
+        lista.add(new ItemFilme(200, "Filme 2"));
+        lista.add(new ItemFilme(300, "Filme 3"));
+        lista.add(new ItemFilme(400, "Filme 4"));
         return lista;
     }
 

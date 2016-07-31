@@ -5,7 +5,13 @@ public class ItemFilme {
     private int filmeId;
     private byte[] imagem;
     private String titulo;
-    
+
+    public ItemFilme(int filmeId, String titulo) {
+        this.filmeId = filmeId;
+        this.titulo = titulo;
+        this.imagem = null;
+    }
+
     public int getFilmeId() {
         return filmeId;
     }
