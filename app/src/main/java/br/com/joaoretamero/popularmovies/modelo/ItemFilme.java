@@ -3,13 +3,13 @@ package br.com.joaoretamero.popularmovies.modelo;
 public class ItemFilme {
 
     private int filmeId;
-    private byte[] imagem;
+    private String posterPath;
     private String titulo;
 
     public ItemFilme(int filmeId, String titulo) {
         this.filmeId = filmeId;
         this.titulo = titulo;
-        this.imagem = null;
+        this.posterPath = null;
     }
 
     public int getFilmeId() {
@@ -20,12 +20,12 @@ public class ItemFilme {
         this.filmeId = filmeId;
     }
 
-    public byte[] getImagem() {
-        return imagem;
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setImagem(byte[] imagem) {
-        this.imagem = imagem;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
     public String getTitulo() {
