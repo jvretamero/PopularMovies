@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +17,9 @@ import java.util.List;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.ItemFilme;
 
-public class FilmesActivity extends AppCompatActivity {
+public class FilmesActivity extends AppCompatActivity implements FilmesView {
 
+    private FilmesPresenter presenter;
     private SwipeRefreshLayout refreshLayout;
     private RecyclerView listaFilmes;
     private FilmesAdapter filmesAdapter;
@@ -39,6 +39,12 @@ public class FilmesActivity extends AppCompatActivity {
         filmesAdapter.setListaFilmes(criaListaFilmes());
 
         refreshLayout = (SwipeRefreshLayout) findViewById(R.id.filmes_swipe);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.onRefresh();
+            }
+        });
 
         listaFilmes = (RecyclerView) findViewById(R.id.filmes_lista);
         listaFilmes.setLayoutManager(layoutManager);
@@ -47,9 +53,12 @@ public class FilmesActivity extends AppCompatActivity {
         listaFilmes.addOnItemTouchListener(new FilmesAdapter.TouchListener(FilmesActivity.this, new FilmesAdapter.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                Toast.makeText(FilmesActivity.this, "" + posicao, Toast.LENGTH_SHORT).show();
+                presenter.onItemClick();
             }
         }));
+
+        presenter = new FilmesPresenter(FilmesActivity.this);
+        presenter.inicia();
     }
 
     //TODO remover mais tarde
@@ -73,11 +82,30 @@ public class FilmesActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.menu_ordem:
+                presenter.onMenuOrdemClick();
                 return true;
             case R.id.menu_configuracoes:
+                presenter.onMenuConfiguracoesClick();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void exibeFilmeDetalhe() {
+    }
+
+    @Override
+    public void exibeOpcoesOrdem() {
+    }
+
+    @Override
+    public void exibeConfiguracoes() {
+    }
+
+    @Override
+    public void setShowRefresh(boolean showRefresh) {
+        refreshLayout.setRefreshing(showRefresh);
     }
 }
