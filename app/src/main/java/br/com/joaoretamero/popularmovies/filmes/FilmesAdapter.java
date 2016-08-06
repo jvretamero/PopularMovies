@@ -43,7 +43,7 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder
         Filme filme = listaFilmes.get(position);
 
         holder.imagem.setImageResource(R.mipmap.ic_launcher);
-        holder.titulo.setText(filme.getTitulo());
+        holder.titulo.setText(filme.titulo);
     }
 
     @Override
