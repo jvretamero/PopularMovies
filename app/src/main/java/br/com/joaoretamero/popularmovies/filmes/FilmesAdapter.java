@@ -14,18 +14,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.modelo.ItemFilme;
+import br.com.joaoretamero.popularmovies.modelo.Filme;
 
 public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder> {
 
     private Context context;
-    private List<ItemFilme> listaFilmes;
+    private List<Filme> listaFilmes;
 
     public FilmesAdapter(Context context) {
         this.context = context;
     }
 
-    public void setListaFilmes(List<ItemFilme> listaFilmes) {
+    public void setListaFilmes(List<Filme> listaFilmes) {
         this.listaFilmes = listaFilmes;
         notifyDataSetChanged();
     }
@@ -38,10 +38,10 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ItemFilme itemFilme = listaFilmes.get(position);
+        Filme filme = listaFilmes.get(position);
 
         holder.imagem.setImageResource(R.mipmap.ic_launcher);
-        holder.titulo.setText(itemFilme.getTitulo());
+        holder.titulo.setText(filme.getTitulo());
     }
 
     @Override

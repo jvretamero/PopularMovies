@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.modelo.ItemFilme;
+import br.com.joaoretamero.popularmovies.modelo.Filme;
 
 public class FilmesActivity extends AppCompatActivity implements FilmesView {
 
@@ -62,12 +62,12 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
     }
 
     //TODO remover mais tarde
-    private List<ItemFilme> criaListaFilmes() {
-        List<ItemFilme> lista = new ArrayList<ItemFilme>();
-        lista.add(new ItemFilme(100, "Filme 1"));
-        lista.add(new ItemFilme(200, "Filme 2"));
-        lista.add(new ItemFilme(300, "Filme 3"));
-        lista.add(new ItemFilme(400, "Filme 4"));
+    private List<Filme> criaListaFilmes() {
+        List<Filme> lista = new ArrayList<Filme>();
+        lista.add(new Filme(100, "Filme 1"));
+        lista.add(new Filme(200, "Filme 2"));
+        lista.add(new Filme(300, "Filme 3"));
+        lista.add(new Filme(400, "Filme 4"));
         return lista;
     }
 
