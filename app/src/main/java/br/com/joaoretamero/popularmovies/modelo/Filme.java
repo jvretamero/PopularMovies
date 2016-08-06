@@ -13,4 +13,5 @@ public class Filme extends RealmObject {
     public String resumo;
     public String paginaOficial;
     public String idImdb;
+    public float nota;
 }
