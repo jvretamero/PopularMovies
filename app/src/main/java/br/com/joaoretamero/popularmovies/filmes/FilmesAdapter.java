@@ -15,6 +15,8 @@ import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.Filme;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder> {
 
@@ -86,14 +88,15 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.item_filmes_imagem)
         public ImageView imagem;
+
+        @BindView(R.id.item_filmes_titulo)
         public TextView titulo;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
-            this.imagem = (ImageView) itemView.findViewById(R.id.item_filmes_imagem);
-            this.titulo = (TextView) itemView.findViewById(R.id.item_filmes_titulo);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

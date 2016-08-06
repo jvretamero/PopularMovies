@@ -16,29 +16,34 @@ import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.Filme;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class FilmesActivity extends AppCompatActivity implements FilmesView {
 
     private FilmesPresenter presenter;
-    private SwipeRefreshLayout refreshLayout;
-    private RecyclerView listaFilmes;
+
     private FilmesAdapter filmesAdapter;
+
+    @BindView(R.id.filmes_swipe)
+    private SwipeRefreshLayout refreshLayout;
+
+    @BindView(R.id.filmes_lista)
+    private RecyclerView listaFilmes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filmes);
 
+        ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(FilmesActivity.this, 2);
-
         filmesAdapter = new FilmesAdapter(FilmesActivity.this);
-        //TODO remover mais tarde
-        filmesAdapter.setListaFilmes(criaListaFilmes());
+        filmesAdapter.setListaFilmes(criaListaFilmes()); //TODO remover mais tarde
 
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.filmes_swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -46,8 +51,7 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
             }
         });
 
-        listaFilmes = (RecyclerView) findViewById(R.id.filmes_lista);
-        listaFilmes.setLayoutManager(layoutManager);
+        listaFilmes.setLayoutManager(new GridLayoutManager(FilmesActivity.this, 2));
         listaFilmes.setItemAnimator(new DefaultItemAnimator());
         listaFilmes.setAdapter(filmesAdapter);
         listaFilmes.addOnItemTouchListener(new FilmesAdapter.TouchListener(FilmesActivity.this, new FilmesAdapter.ClickListener() {
@@ -61,13 +65,25 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
         presenter.inicia();
     }
 
-    //TODO remover mais tarde
     private List<Filme> criaListaFilmes() {
         List<Filme> lista = new ArrayList<Filme>();
-        lista.add(new Filme(100, "Filme 1"));
-        lista.add(new Filme(200, "Filme 2"));
-        lista.add(new Filme(300, "Filme 3"));
-        lista.add(new Filme(400, "Filme 4"));
+        Filme filme = null;
+
+        filme = new Filme();
+        filme.id = 11;
+        filme.titulo = "Filme 1";
+        lista.add(filme);
+
+        filme = new Filme();
+        filme.id = 12;
+        filme.titulo = "Filme 2";
+        lista.add(filme);
+
+        filme = new Filme();
+        filme.id = 13;
+        filme.titulo = "Filme 3";
+        lista.add(filme);
+
         return lista;
     }
 
