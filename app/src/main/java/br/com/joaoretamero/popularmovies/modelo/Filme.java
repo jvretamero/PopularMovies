@@ -17,4 +17,5 @@ public class Filme extends RealmObject {
     public float nota;
     public RealmList<Produtora> produtoras;
     public RealmList<Genero> generos;
+    public RealmList<Video> videos;
 }
