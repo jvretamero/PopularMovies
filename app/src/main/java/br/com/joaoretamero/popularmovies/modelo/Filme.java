@@ -16,4 +16,5 @@ public class Filme extends RealmObject {
     public String idImdb;
     public float nota;
     public RealmList<Produtora> produtoras;
+    public RealmList<Genero> generos;
 }
