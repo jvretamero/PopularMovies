@@ -1,5 +1,6 @@
 package br.com.joaoretamero.popularmovies.modelo;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -14,4 +15,5 @@ public class Filme extends RealmObject {
     public String paginaOficial;
     public String idImdb;
     public float nota;
+    public RealmList<Produtora> produtoras;
 }
