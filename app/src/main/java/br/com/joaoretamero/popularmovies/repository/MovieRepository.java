@@ -1,12 +1,12 @@
-package br.com.joaoretamero.popularmovies.services;
+package br.com.joaoretamero.popularmovies.repository;
 
 import br.com.joaoretamero.popularmovies.modelo.Movie;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
-public class MovieService extends BaseRealmService<Movie> {
+public class MovieRepository extends BaseRealmRepository<Movie> {
 
-    public MovieService() {
+    public MovieRepository() {
         super(Movie.class);
     }
 

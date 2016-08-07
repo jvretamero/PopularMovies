@@ -1,15 +1,15 @@
-package br.com.joaoretamero.popularmovies.services;
+package br.com.joaoretamero.popularmovies.repository;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 
-public class BaseRealmService<T extends RealmObject> {
+public class BaseRealmRepository<T extends RealmObject> {
 
     protected Realm realm;
     private Class<T> tClass;
 
-    public BaseRealmService(Class<T> tClass) {
+    public BaseRealmRepository(Class<T> tClass) {
         this.tClass = tClass;
         this.realm = Realm.getDefaultInstance();
     }

@@ -1,15 +1,15 @@
 package br.com.joaoretamero.popularmovies.movies;
 
-import br.com.joaoretamero.popularmovies.services.MovieService;
+import br.com.joaoretamero.popularmovies.repository.MovieRepository;
 
 public class MoviesPresenter {
 
     private MoviesView view;
-    private MovieService movieService;
+    private MovieRepository movieService;
 
     public MoviesPresenter(MoviesView view) {
         this.view = view;
-        this.movieService = new MovieService();
+        this.movieService = new MovieRepository();
     }
 
     public void start() {
