@@ -7,6 +7,6 @@ public class Video extends RealmObject {
 
     @PrimaryKey
     public String id;
-    public String nome;
+    public String name;
     public String youtubeId;
 }

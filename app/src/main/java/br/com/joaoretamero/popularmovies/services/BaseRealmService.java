@@ -1,12 +1,12 @@
-package br.com.joaoretamero.popularmovies.servicos;
+package br.com.joaoretamero.popularmovies.services;
 
 import io.realm.Realm;
 
-public class ServicoRealmBase {
+public abstract class BaseRealmService {
 
     protected Realm realm;
 
-    public ServicoRealmBase() {
+    public BaseRealmService() {
         this.realm = Realm.getDefaultInstance();
     }
 

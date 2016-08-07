@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.filmes;
+package br.com.joaoretamero.popularmovies.movies;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,22 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.modelo.Filme;
+import br.com.joaoretamero.popularmovies.modelo.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmResults;
 
-public class FilmesActivity extends AppCompatActivity implements FilmesView {
+public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
-    private FilmesPresenter presenter;
+    private MoviesPresenter presenter;
 
-    private FilmesAdapter filmesAdapter;
+    private MoviesAdapter moviesAdapter;
 
-    @BindView(R.id.filmes_swipe)
+    @BindView(R.id.movies_refresh_layout)
     private SwipeRefreshLayout refreshLayout;
 
-    @BindView(R.id.filmes_lista)
-    private RecyclerView listaFilmes;
+    @BindView(R.id.movies_list)
+    private RecyclerView moviesList;
 
     @BindView(R.id.toolbar)
     private Toolbar toolbar;
@@ -39,22 +39,22 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
 
         ButterKnife.bind(this);
 
-        configuraToolbar();
-        configuraAdapter();
-        configuraRefreshLayout();
-        configuraLista();
-        configuraPresenter();
+        initToolbar();
+        initAdapter();
+        initRefreshLayout();
+        initList();
+        initPresenter();
     }
 
-    private void configuraToolbar() {
+    private void initToolbar() {
         setSupportActionBar(toolbar);
     }
 
-    private void configuraAdapter() {
-        filmesAdapter = new FilmesAdapter(FilmesActivity.this);
+    private void initAdapter() {
+        moviesAdapter = new MoviesAdapter(MoviesActivity.this);
     }
 
-    private void configuraRefreshLayout() {
+    private void initRefreshLayout() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -63,11 +63,11 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
         });
     }
 
-    private void configuraLista() {
-        listaFilmes.setLayoutManager(new GridLayoutManager(FilmesActivity.this, 2));
-        listaFilmes.setItemAnimator(new DefaultItemAnimator());
-        listaFilmes.setAdapter(filmesAdapter);
-        listaFilmes.addOnItemTouchListener(new FilmesAdapter.TouchListener(FilmesActivity.this, new FilmesAdapter.ClickListener() {
+    private void initList() {
+        moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 2));
+        moviesList.setItemAnimator(new DefaultItemAnimator());
+        moviesList.setAdapter(moviesAdapter);
+        moviesList.addOnItemTouchListener(new MoviesAdapter.TouchListener(MoviesActivity.this, new MoviesAdapter.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
                 presenter.onItemClick();
@@ -75,14 +75,14 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
         }));
     }
 
-    private void configuraPresenter() {
-        presenter = new FilmesPresenter(FilmesActivity.this);
+    private void initPresenter() {
+        presenter = new MoviesPresenter(MoviesActivity.this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.inicia();
+        presenter.start();
     }
 
     @Override
@@ -95,11 +95,11 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
-            case R.id.menu_ordem:
-                presenter.onMenuOrdemClick();
+            case R.id.menu_sort:
+                presenter.onSortMenuClick();
                 return true;
-            case R.id.menu_configuracoes:
-                presenter.onMenuConfiguracoesClick();
+            case R.id.menu_configurations:
+                presenter.onConfigurationMenuClick();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -109,28 +109,28 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        presenter.finaliza();
+        presenter.destroy();
     }
 
     @Override
-    public void exibeFilmeDetalhe() {
+    public void showMovieDetail() {
     }
 
     @Override
-    public void exibeOpcoesOrdem() {
+    public void showSortingOptions() {
     }
 
     @Override
-    public void exibeConfiguracoes() {
+    public void showConfigurationScreen() {
     }
 
     @Override
-    public void exibeIndicadorAtualizando(boolean exibeIndicador) {
-        refreshLayout.setRefreshing(exibeIndicador);
+    public void showRefreshIndicator(boolean showRefreshIndicator) {
+        refreshLayout.setRefreshing(showRefreshIndicator);
     }
 
     @Override
-    public void exibeFilmes(RealmResults<Filme> filmes) {
-        filmesAdapter.updateData(filmes);
+    public void showMovies(RealmResults<Movie> movies) {
+        moviesAdapter.updateData(movies);
     }
 }

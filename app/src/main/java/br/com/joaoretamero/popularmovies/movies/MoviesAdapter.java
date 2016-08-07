@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.filmes;
+package br.com.joaoretamero.popularmovies.movies;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,32 +13,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.modelo.Filme;
+import br.com.joaoretamero.popularmovies.modelo.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmRecyclerViewAdapter;
 
-public class FilmesAdapter extends RealmRecyclerViewAdapter<Filme, FilmesAdapter.ViewHolder> {
+public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter.ViewHolder> {
 
     private Context context;
 
-    public FilmesAdapter(@NonNull Context context) {
+    public MoviesAdapter(@NonNull Context context) {
         super(context, null, false);
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_filmes, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Filme filme = getItem(position);
+        Movie movie = getItem(position);
 
         holder.imagem.setImageResource(R.mipmap.ic_launcher);
-        holder.titulo.setText(filme.titulo);
+        holder.titulo.setText(movie.title);
     }
 
     public interface ClickListener {
@@ -78,10 +78,10 @@ public class FilmesAdapter extends RealmRecyclerViewAdapter<Filme, FilmesAdapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.item_filmes_imagem)
+        @BindView(R.id.movie_item_poster)
         public ImageView imagem;
 
-        @BindView(R.id.item_filmes_titulo)
+        @BindView(R.id.movie_item_title)
         public TextView titulo;
 
         public ViewHolder(View itemView) {

@@ -2,6 +2,6 @@
     <string name="app_name">PopularMovies</string>
 
     <!--Generic strings-->
-    <string name="ordem">Ordem</string>
-    <string name="configuracoes">Configurações</string>
+    <string name="sort">Sort order</string>
+    <string name="configurations">Configurations</string>
 </resources>

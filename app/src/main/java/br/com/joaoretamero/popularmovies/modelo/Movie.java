@@ -4,18 +4,18 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Filme extends RealmObject {
+public class Movie extends RealmObject {
 
     @PrimaryKey
     public int id;
     public String poster;
     public String backdrop;
-    public String titulo;
-    public String resumo;
-    public String paginaOficial;
+    public String title;
+    public String overview;
+    public String homepage;
     public String idImdb;
-    public float nota;
-    public RealmList<Produtora> produtoras;
-    public RealmList<Genero> generos;
+    public float voteAverage;
+    public RealmList<ProductionCompany> productionCompanies;
+    public RealmList<Genre> genres;
     public RealmList<Video> videos;
 }

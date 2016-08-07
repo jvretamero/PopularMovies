@@ -3,9 +3,9 @@ package br.com.joaoretamero.popularmovies.modelo;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Genero extends RealmObject {
+public class Genre extends RealmObject {
 
     @PrimaryKey
     public int id;
-    public String nome;
+    public String name;
 }
