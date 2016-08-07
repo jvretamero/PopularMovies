@@ -38,7 +38,7 @@ public class MoviesPresenter {
     }
 
     private void listMovies() {
-        view.showMovies(movieService.getAllMovies());
+        view.showMovies(movieService.findAllSortByVote());
         view.showRefreshIndicator(false);
     }
 }
