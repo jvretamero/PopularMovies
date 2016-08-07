@@ -1,6 +1,6 @@
 package br.com.joaoretamero.popularmovies.movies;
 
-import br.com.joaoretamero.popularmovies.modelo.Movie;
+import br.com.joaoretamero.popularmovies.model.Movie;
 import io.realm.RealmResults;
 
 public interface MoviesView {

@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.modelo.Movie;
+import br.com.joaoretamero.popularmovies.model.Movie;
 import io.realm.RealmRecyclerViewAdapter;
 
 public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter.ViewHolder> {

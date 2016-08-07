@@ -12,7 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.modelo.Movie;
+import br.com.joaoretamero.popularmovies.model.Movie;
 import io.realm.Realm;
 import io.realm.RealmResults;
 

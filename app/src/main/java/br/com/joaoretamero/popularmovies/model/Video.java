@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.modelo;
+package br.com.joaoretamero.popularmovies.model;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
