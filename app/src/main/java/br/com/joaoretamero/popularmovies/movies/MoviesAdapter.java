@@ -14,8 +14,6 @@ import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.Movie;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.realm.RealmRecyclerViewAdapter;
 
 public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter.ViewHolder> {
@@ -37,8 +35,8 @@ public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movie movie = getItem(position);
 
-        holder.imagem.setImageResource(R.mipmap.ic_launcher);
-        holder.titulo.setText(movie.title);
+        holder.posterImage.setImageResource(R.mipmap.ic_launcher);
+        holder.title.setText(movie.title);
     }
 
     public interface ClickListener {
@@ -78,15 +76,17 @@ public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.movie_item_poster)
-        public ImageView imagem;
-
-        @BindView(R.id.movie_item_title)
-        public TextView titulo;
+        public ImageView posterImage;
+        public TextView title;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            bindViews();
+        }
+
+        private void bindViews() {
+            posterImage = (ImageView) itemView.findViewById(R.id.movie_item_poster);
+            title = (TextView) itemView.findViewById(R.id.movie_item_title);
         }
     }
 }

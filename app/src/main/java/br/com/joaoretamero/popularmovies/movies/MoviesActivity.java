@@ -13,31 +13,23 @@ import android.view.View;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.Movie;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import io.realm.Realm;
 import io.realm.RealmResults;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
-    private MoviesPresenter presenter;
-
-    private MoviesAdapter moviesAdapter;
-
-    @BindView(R.id.movies_refresh_layout)
     private SwipeRefreshLayout refreshLayout;
-
-    @BindView(R.id.movies_list)
     private RecyclerView moviesList;
-
-    @BindView(R.id.toolbar)
     private Toolbar toolbar;
+    private MoviesPresenter presenter;
+    private MoviesAdapter moviesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filmes);
 
-        ButterKnife.bind(this);
+        generateFakeData();
 
         initToolbar();
         initAdapter();
@@ -46,7 +38,38 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         initPresenter();
     }
 
+    // TODO remover
+    private void generateFakeData() {
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+
+            Movie movie = realm.createObject(Movie.class);
+            movie.id = 123;
+            movie.title = "Android forever";
+            movie.voteAverage = 8f;
+            realm.copyToRealmOrUpdate(movie);
+
+            movie = realm.createObject(Movie.class);
+            movie.id = 456;
+            movie.title = "iOS forever";
+            movie.voteAverage = 7.5f;
+            realm.copyToRealmOrUpdate(movie);
+
+            movie = realm.createObject(Movie.class);
+            movie.id = 789;
+            movie.title = "WinPhone forever";
+            movie.voteAverage = 4.5f;
+            realm.copyToRealmOrUpdate(movie);
+
+            realm.commitTransaction();
+        } finally {
+            realm.close();
+        }
+    }
+
     private void initToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -55,6 +78,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     private void initRefreshLayout() {
+        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.movies_refresh_layout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -64,6 +88,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     private void initList() {
+        moviesList = (RecyclerView) findViewById(R.id.movies_list);
         moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 2));
         moviesList.setItemAnimator(new DefaultItemAnimator());
         moviesList.setAdapter(moviesAdapter);

@@ -4,7 +4,7 @@ import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 
-public abstract class BaseRealmService<T extends RealmObject> {
+public class BaseRealmService<T extends RealmObject> {
 
     protected Realm realm;
     private Class<T> tClass;
