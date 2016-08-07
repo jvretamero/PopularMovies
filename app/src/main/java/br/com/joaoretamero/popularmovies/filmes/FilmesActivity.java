@@ -11,13 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.Filme;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
 
 public class FilmesActivity extends AppCompatActivity implements FilmesView {
 
@@ -31,6 +29,9 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
     @BindView(R.id.filmes_lista)
     private RecyclerView listaFilmes;
 
+    @BindView(R.id.toolbar)
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,19 +39,31 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
 
         ButterKnife.bind(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        configuraToolbar();
+        configuraAdapter();
+        configuraRefreshLayout();
+        configuraLista();
+        configuraPresenter();
+    }
+
+    private void configuraToolbar() {
         setSupportActionBar(toolbar);
+    }
 
+    private void configuraAdapter() {
         filmesAdapter = new FilmesAdapter(FilmesActivity.this);
-        filmesAdapter.setListaFilmes(criaListaFilmes()); //TODO remover mais tarde
+    }
 
+    private void configuraRefreshLayout() {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 presenter.onRefresh();
             }
         });
+    }
 
+    private void configuraLista() {
         listaFilmes.setLayoutManager(new GridLayoutManager(FilmesActivity.this, 2));
         listaFilmes.setItemAnimator(new DefaultItemAnimator());
         listaFilmes.setAdapter(filmesAdapter);
@@ -60,31 +73,16 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
                 presenter.onItemClick();
             }
         }));
-
-        presenter = new FilmesPresenter(FilmesActivity.this);
-        presenter.inicia();
     }
 
-    private List<Filme> criaListaFilmes() {
-        List<Filme> lista = new ArrayList<Filme>();
-        Filme filme = null;
+    private void configuraPresenter() {
+        presenter = new FilmesPresenter(FilmesActivity.this);
+    }
 
-        filme = new Filme();
-        filme.id = 11;
-        filme.titulo = "Filme 1";
-        lista.add(filme);
-
-        filme = new Filme();
-        filme.id = 12;
-        filme.titulo = "Filme 2";
-        lista.add(filme);
-
-        filme = new Filme();
-        filme.id = 13;
-        filme.titulo = "Filme 3";
-        lista.add(filme);
-
-        return lista;
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.inicia();
     }
 
     @Override
@@ -109,6 +107,12 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.finaliza();
+    }
+
+    @Override
     public void exibeFilmeDetalhe() {
     }
 
@@ -121,7 +125,12 @@ public class FilmesActivity extends AppCompatActivity implements FilmesView {
     }
 
     @Override
-    public void setShowRefresh(boolean showRefresh) {
-        refreshLayout.setRefreshing(showRefresh);
+    public void exibeIndicadorAtualizando(boolean exibeIndicador) {
+        refreshLayout.setRefreshing(exibeIndicador);
+    }
+
+    @Override
+    public void exibeFilmes(RealmResults<Filme> filmes) {
+        filmesAdapter.updateData(filmes);
     }
 }

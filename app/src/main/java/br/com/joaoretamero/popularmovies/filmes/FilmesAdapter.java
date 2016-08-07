@@ -1,6 +1,7 @@
 package br.com.joaoretamero.popularmovies.filmes;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -11,25 +12,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.modelo.Filme;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmRecyclerViewAdapter;
 
-public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder> {
+public class FilmesAdapter extends RealmRecyclerViewAdapter<Filme, FilmesAdapter.ViewHolder> {
 
     private Context context;
-    private List<Filme> listaFilmes;
 
-    public FilmesAdapter(Context context) {
+    public FilmesAdapter(@NonNull Context context) {
+        super(context, null, false);
         this.context = context;
-    }
-
-    public void setListaFilmes(List<Filme> listaFilmes) {
-        this.listaFilmes = listaFilmes;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -40,15 +35,10 @@ public class FilmesAdapter extends RecyclerView.Adapter<FilmesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Filme filme = listaFilmes.get(position);
+        Filme filme = getItem(position);
 
         holder.imagem.setImageResource(R.mipmap.ic_launcher);
         holder.titulo.setText(filme.titulo);
-    }
-
-    @Override
-    public int getItemCount() {
-        return (listaFilmes == null) ? 0 : listaFilmes.size();
     }
 
     public interface ClickListener {

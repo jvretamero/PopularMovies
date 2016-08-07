@@ -1,5 +1,8 @@
 package br.com.joaoretamero.popularmovies.filmes;
 
+import br.com.joaoretamero.popularmovies.modelo.Filme;
+import io.realm.RealmResults;
+
 public interface FilmesView {
     void exibeFilmeDetalhe();
 
@@ -7,5 +10,7 @@ public interface FilmesView {
 
     void exibeConfiguracoes();
 
-    void setShowRefresh(boolean showRefresh);
+    void exibeIndicadorAtualizando(boolean exibeIndicador);
+
+    void exibeFilmes(RealmResults<Filme> filmes);
 }
