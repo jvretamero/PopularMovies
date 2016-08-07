@@ -19,6 +19,11 @@
         android:layout_height="wrap_content"
         android:text="Title" />
 
+    <RatingBar
+        android:id="@+id/movie_vote_average"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/movie_genres"
         android:layout_width="match_parent"
