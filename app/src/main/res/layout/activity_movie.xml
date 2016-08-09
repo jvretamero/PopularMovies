@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:text="Title" />
 
-    <RatingBar
+    <android.support.v7.widget.AppCompatRatingBar
         android:id="@+id/movie_vote_average"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
