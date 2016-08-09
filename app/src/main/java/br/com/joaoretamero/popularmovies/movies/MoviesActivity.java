@@ -1,5 +1,6 @@
 package br.com.joaoretamero.popularmovies.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.View;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.movie.MovieActivity;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -43,6 +45,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         Realm realm = Realm.getDefaultInstance();
         try {
             realm.beginTransaction();
+
+            realm.delete(Movie.class);
 
             Movie movie = realm.createObject(Movie.class);
             movie.id = 123;
@@ -95,7 +99,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         moviesList.addOnItemTouchListener(new MoviesAdapter.TouchListener(MoviesActivity.this, new MoviesAdapter.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                presenter.onItemClick();
+                presenter.onItemClick(moviesAdapter.getItem(posicao).id);
             }
         }));
     }
@@ -138,7 +142,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     @Override
-    public void showMovieDetail() {
+    public void showMovieDetail(int movieId) {
+        Intent intent = new Intent(MoviesActivity.this, MovieActivity.class);
+        intent.putExtra(MovieActivity.EXTRA_MOVIE_ID, movieId);
+        startActivity(intent);
     }
 
     @Override

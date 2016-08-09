@@ -4,7 +4,7 @@ import br.com.joaoretamero.popularmovies.model.Movie;
 import io.realm.RealmResults;
 
 public interface MoviesView {
-    void showMovieDetail();
+    void showMovieDetail(int movieId);
 
     void showSortingOptions();
 

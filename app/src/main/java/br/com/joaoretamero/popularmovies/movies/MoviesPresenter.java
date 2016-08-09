@@ -21,8 +21,8 @@ public class MoviesPresenter {
         this.movieService.closeRealm();
     }
 
-    public void onItemClick() {
-        view.showMovieDetail();
+    public void onItemClick(int movieId) {
+        view.showMovieDetail(movieId);
     }
 
     public void onRefresh() {
