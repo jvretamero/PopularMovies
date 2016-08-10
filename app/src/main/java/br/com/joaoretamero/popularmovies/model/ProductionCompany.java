@@ -7,5 +7,5 @@ public class ProductionCompany extends RealmObject {
 
     @PrimaryKey
     public int id;
-    public int name;
+    public String name;
 }

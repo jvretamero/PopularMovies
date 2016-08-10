@@ -12,7 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
+import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.model.Video;
+import io.realm.RealmResults;
 
 public class MovieActivity extends AppCompatActivity implements MovieView {
 
@@ -57,7 +61,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     private void initRatingBar() {
         ratingBar = (AppCompatRatingBar) findViewById(R.id.movie_vote_average);
-        ratingBar.setNumStars(10);
+        ratingBar.setNumStars(5);
         ratingBar.setStepSize(1f);
         ratingBar.setRating(0f);
     }
@@ -105,11 +109,22 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void bindData(Movie movie) {
+        RealmResults<Genre> genresList = movie.genres.where().findAll();
+        RealmResults<ProductionCompany> productionCompaniesList = movie.productionCompanies.where().findAll();
+
         title.setText(movie.title);
-        ratingBar.setRating(movie.voteAverage);
-        genres.setText("None");
+        ratingBar.setRating(convert10StarsValueTo5StarsValue(movie.voteAverage));
+        genres.setText("None: " + genresList.size());
         duration.setText(movie.runtime + " min");
         overview.setText(movie.overview);
-        productionCompanies.setText("None");
+        productionCompanies.setText("None: " + productionCompaniesList.size());
+    }
+
+    @Override
+    public void setVideoList(RealmResults<Video> videos) {
+    }
+
+    private float convert10StarsValueTo5StarsValue(float tenStarsValue) {
+        return (tenStarsValue * 10) / (100 * 5);
     }
 }

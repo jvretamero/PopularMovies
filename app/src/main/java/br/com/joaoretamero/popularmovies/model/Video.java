@@ -9,4 +9,5 @@ public class Video extends RealmObject {
     public String id;
     public String name;
     public String youtubeId;
+    public Movie movie;
 }

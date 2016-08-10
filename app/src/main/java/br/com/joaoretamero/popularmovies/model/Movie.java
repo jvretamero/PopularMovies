@@ -16,5 +16,4 @@ public class Movie extends RealmObject {
     public float voteAverage;
     public RealmList<ProductionCompany> productionCompanies;
     public RealmList<Genre> genres;
-    public RealmList<Video> videos;
 }
