@@ -12,8 +12,7 @@ public class Movie extends RealmObject {
     public String backdrop;
     public String title;
     public String overview;
-    public String homepage;
-    public String idImdb;
+    public int runtime;
     public float voteAverage;
     public RealmList<ProductionCompany> productionCompanies;
     public RealmList<Genre> genres;

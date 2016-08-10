@@ -108,7 +108,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         title.setText(movie.title);
         ratingBar.setRating(movie.voteAverage);
         genres.setText("None");
-        duration.setText("0 min"); // TODO obter "runtime"
+        duration.setText(movie.runtime + " min");
         overview.setText(movie.overview);
         productionCompanies.setText("None");
     }
