@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.movies;
+package br.com.joaoretamero.popularmovies.movie;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.model.Video;
 import io.realm.RealmRecyclerViewAdapter;
 
-public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter.ViewHolder> {
-
+public class VideoAdapter extends RealmRecyclerViewAdapter<Video, VideoAdapter.ViewHolder> {
     private Context context;
 
-    public MoviesAdapter(@NonNull Context context) {
+    public VideoAdapter(@NonNull Context context) {
         super(context, null, false);
         this.context = context;
     }
@@ -30,10 +29,7 @@ public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Movie movie = getItem(position);
-
-        holder.posterImage.setImageResource(R.mipmap.ic_launcher);
-        holder.title.setText(movie.title);
+        Video video = getItem(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

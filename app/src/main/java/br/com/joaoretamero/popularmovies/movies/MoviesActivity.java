@@ -18,6 +18,7 @@ import br.com.joaoretamero.popularmovies.model.Movie;
 import br.com.joaoretamero.popularmovies.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.model.Video;
 import br.com.joaoretamero.popularmovies.movie.MovieActivity;
+import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
@@ -156,7 +157,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 2));
         moviesList.setItemAnimator(new DefaultItemAnimator());
         moviesList.setAdapter(moviesAdapter);
-        moviesList.addOnItemTouchListener(new MoviesAdapter.TouchListener(MoviesActivity.this, new MoviesAdapter.ClickListener() {
+        moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
                 presenter.onItemClick(moviesAdapter.getItem(posicao).id);
