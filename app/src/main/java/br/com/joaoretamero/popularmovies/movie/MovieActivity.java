@@ -26,6 +26,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     private TextView title;
     private AppCompatRatingBar ratingBar;
     private TextView genres;
+    private VideoAdapter videoAdapter;
     private TextView duration;
     private TextView overview;
     private TextView productionCompanies;
@@ -83,10 +84,12 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     }
 
     private void initVideosList() {
+        videoAdapter = new VideoAdapter(MovieActivity.this);
+
         videosList = (RecyclerView) findViewById(R.id.movie_videos_list);
         videosList.setLayoutManager(new LinearLayoutManager(MovieActivity.this, LinearLayoutManager.VERTICAL, false));
         videosList.setItemAnimator(new DefaultItemAnimator());
-        videosList.setAdapter(null);
+        videosList.setAdapter(videoAdapter);
     }
 
     private int getMovieIdFromIntent() {
@@ -122,6 +125,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void setVideoList(RealmResults<Video> videos) {
+        videoAdapter.updateData(videos);
     }
 
     private float convert10StarsValueTo5StarsValue(float tenStarsValue) {
