@@ -10,6 +10,10 @@ public class MovieRepository extends BaseRealmRepository<Movie> {
         super(Movie.class);
     }
 
+    public Movie findById(int id) {
+        return realm.where(Movie.class).equalTo("id", id).findFirst();
+    }
+
     public RealmResults<Movie> findAllSortByVote() {
         return this.findAll().sort("voteAverage", Sort.DESCENDING);
     }

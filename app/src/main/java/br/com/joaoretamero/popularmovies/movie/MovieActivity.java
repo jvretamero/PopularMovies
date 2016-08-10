@@ -13,9 +13,8 @@ import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Movie;
-import io.realm.Realm;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity implements MovieView {
 
     public static final String EXTRA_MOVIE_ID = "movie_id";
 
@@ -27,6 +26,8 @@ public class MovieActivity extends AppCompatActivity {
     private TextView overview;
     private TextView productionCompanies;
     private RecyclerView videosList;
+
+    private MoviePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MovieActivity extends AppCompatActivity {
         initProductionCompanies();
         initVideosList();
 
-        bindData();
+        presenter = new MoviePresenter(this);
     }
 
     private void initToolbar() {
@@ -84,7 +85,7 @@ public class MovieActivity extends AppCompatActivity {
         videosList.setAdapter(null);
     }
 
-    private void bindData() {
+    private int getMovieIdFromIntent() {
         int movieId = 0;
 
         Intent intent = getIntent();
@@ -92,18 +93,23 @@ public class MovieActivity extends AppCompatActivity {
             movieId = intent.getIntExtra(EXTRA_MOVIE_ID, 0);
         }
 
-        Realm realm = Realm.getDefaultInstance();
-        try {
-            Movie movie = realm.where(Movie.class).equalTo("id", movieId).findFirst();
+        return movieId;
+    }
 
-            title.setText(movie.title);
-            ratingBar.setRating(movie.voteAverage);
-            genres.setText("None");
-            duration.setText("0 min"); // TODO obter "runtime"
-            overview.setText(movie.overview);
-            productionCompanies.setText("None");
-        } finally {
-            realm.close();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        presenter.start(getMovieIdFromIntent());
+    }
+
+    @Override
+    public void bindData(Movie movie) {
+        title.setText(movie.title);
+        ratingBar.setRating(movie.voteAverage);
+        genres.setText("None");
+        duration.setText("0 min"); // TODO obter "runtime"
+        overview.setText(movie.overview);
+        productionCompanies.setText("None");
     }
 }
