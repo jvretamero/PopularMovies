@@ -95,7 +95,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
             movie.movieId = 123;
             movie.title = "Android forever";
             movie.overview = "overview";
-            movie.voteAverage = 8f;
+            movie.runtime = 150;
+            movie.voteAverage = 5f;
             movie.save();
 
             saveFakeMovieGenre(movie, genre1);
@@ -109,7 +110,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
             movie.movieId = 456;
             movie.title = "iOS forever";
             movie.overview = "overview";
-            movie.voteAverage = 7.5f;
+            movie.voteAverage = 4f;
+            movie.runtime = 120;
             movie.save();
 
             saveFakeMovieGenre(movie, genre2);
@@ -119,7 +121,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
             movie.movieId = 789;
             movie.title = "WinPhone forever";
             movie.overview = "overview";
-            movie.voteAverage = 4.5f;
+            movie.voteAverage = 3f;
+            movie.runtime = 130;
             movie.save();
 
             saveFakeMovieGenre(movie, genre1);

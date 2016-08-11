@@ -4,4 +4,5 @@
     <!--Generic strings-->
     <string name="sort">Sort order</string>
     <string name="configurations">Configurations</string>
+    <string name="movie_duration">%d min</string>
 </resources>

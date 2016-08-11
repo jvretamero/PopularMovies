@@ -75,6 +75,8 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     }
 
     private void initRatingBar() {
+        ratingBar.setIsIndicator(true);
+        ratingBar.setFocusable(false);
         ratingBar.setNumStars(5);
         ratingBar.setStepSize(1f);
         ratingBar.setRating(0f);
@@ -113,9 +115,12 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         List<ProductionCompany> productionCompaniesList = movie.getProductionCompanies();
 
         title.setText(movie.title);
-        ratingBar.setRating(convert10StarsValueTo5StarsValue(movie.voteAverage));
+        ratingBar.setRating(movie.voteAverage);
         genres.setText(buildGenreLine(genresList));
-        duration.setText(movie.runtime + " min");
+
+        String durationStr = getResources().getString(R.string.movie_duration);
+        duration.setText(String.format(durationStr, movie.runtime));
+
         overview.setText(movie.overview);
         productionCompanies.setText(buildProductionCompaniesLine(productionCompaniesList));
     }
@@ -149,9 +154,5 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     @Override
     public void setVideoList(List<Video> videos) {
         videoAdapter.updateData(videos);
-    }
-
-    private float convert10StarsValueTo5StarsValue(float tenStarsValue) {
-        return (tenStarsValue * 10) / (100 * 5);
     }
 }
