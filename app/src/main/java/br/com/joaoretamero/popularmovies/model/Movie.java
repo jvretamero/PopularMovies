@@ -1,19 +1,30 @@
 package br.com.joaoretamero.popularmovies.model;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
-public class Movie extends RealmObject {
+@Table(name = "movie", id = "id")
+public class Movie extends Model {
 
-    @PrimaryKey
+    @Column(name = "id")
     public int id;
+
+    @Column(name = "poster")
     public String poster;
+
+    @Column(name = "backdrop")
     public String backdrop;
+
+    @Column(name = "title")
     public String title;
+
+    @Column(name = "overview")
     public String overview;
+
+    @Column(name = "runtime")
     public int runtime;
+
+    @Column(name = "vote_average")
     public float voteAverage;
-    public RealmList<ProductionCompany> productionCompanies;
-    public RealmList<Genre> genres;
 }

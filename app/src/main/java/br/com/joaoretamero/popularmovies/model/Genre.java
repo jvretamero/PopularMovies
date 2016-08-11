@@ -1,11 +1,19 @@
 package br.com.joaoretamero.popularmovies.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
-public class Genre extends RealmObject {
+@Table(name = "genre", id = "id")
+public class Genre extends Model {
 
-    @PrimaryKey
+    @Column(name = "id")
     public int id;
+
+    @Column(name = "name")
     public String name;
+
+    public Genre() {
+        super();
+    }
 }

@@ -1,13 +1,25 @@
 package br.com.joaoretamero.popularmovies.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
-public class Video extends RealmObject {
+@Table(name = "video", id = "id")
+public class Video extends Model {
 
-    @PrimaryKey
+    @Column(name = "id")
     public String id;
+
+    @Column(name = "name")
     public String name;
+
+    @Column(name = "youtube_id")
     public String youtubeId;
+
+    @Column(name = "movie")
     public Movie movie;
+
+    public Video() {
+        super();
+    }
 }
