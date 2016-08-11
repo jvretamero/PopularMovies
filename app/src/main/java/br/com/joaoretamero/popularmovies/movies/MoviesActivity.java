@@ -12,10 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.activeandroid.ActiveAndroid;
+
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
+import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.model.MovieGenre;
+import br.com.joaoretamero.popularmovies.model.MovieProductionCompany;
+import br.com.joaoretamero.popularmovies.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.model.Video;
 import br.com.joaoretamero.popularmovies.movie.MovieActivity;
 import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
 import butterknife.BindView;
@@ -53,92 +60,91 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     // TODO remover
     private void generateFakeData() {
-        // TODO revisar
-//        Realm realm = Realm.getDefaultInstance();
-//        try {
-//            realm.beginTransaction();
-//
-//            realm.delete(Movie.class);
-//            realm.delete(ProductionCompany.class);
-//            realm.delete(Genre.class);
-//            realm.delete(Video.class);
-//
-//            Genre genre1 = realm.createObject(Genre.class);
-//            genre1.id = 100;
-//            genre1.name = "Genre 1";
-//            realm.copyToRealmOrUpdate(genre1);
-//
-//            Genre genre2 = realm.createObject(Genre.class);
-//            genre2.id = 200;
-//            genre2.name = "Genre 2";
-//            realm.copyToRealmOrUpdate(genre2);
-//
-//            ProductionCompany productionCompany1 = realm.createObject(ProductionCompany.class);
-//            productionCompany1.id = 100;
-//            productionCompany1.name = "Production Company 1";
-//            realm.copyToRealmOrUpdate(productionCompany1);
-//
-//            ProductionCompany productionCompany2 = realm.createObject(ProductionCompany.class);
-//            productionCompany2.id = 200;
-//            productionCompany2.name = "Production Company 2";
-//            realm.copyToRealmOrUpdate(productionCompany2);
-//
-//            Movie movie;
-//            Video video;
-//
-//            movie = realm.createObject(Movie.class);
-//            movie.id = 123;
-//            movie.title = "Android forever";
-//            movie.overview = "overview";
-//            movie.voteAverage = 8f;
-//            movie.genres.add(genre1);
-//            movie.genres.add(genre2);
-//            movie.productionCompanies.add(productionCompany1);
-//            movie.productionCompanies.add(productionCompany2);
-//            realm.copyToRealmOrUpdate(movie);
-//
-//            video = realm.createObject(Video.class);
-//            video.id = "100";
-//            video.name = "Video 1";
-//            video.youtubeId = "abcdefg";
-//            video.movie = movie;
-//            realm.copyToRealmOrUpdate(video);
-//
-//            video = realm.createObject(Video.class);
-//            video.id = "200";
-//            video.name = "Video 2";
-//            video.youtubeId = "abcdefg";
-//            video.movie = movie;
-//            realm.copyToRealmOrUpdate(video);
-//
-//            movie = realm.createObject(Movie.class);
-//            movie.id = 456;
-//            movie.title = "iOS forever";
-//            movie.overview = "overview";
-//            movie.voteAverage = 7.5f;
-//            movie.genres.add(genre2);
-//            movie.productionCompanies.add(productionCompany2);
-//            realm.copyToRealmOrUpdate(movie);
-//
-//            movie = realm.createObject(Movie.class);
-//            movie.id = 789;
-//            movie.title = "WinPhone forever";
-//            movie.overview = "overview";
-//            movie.voteAverage = 4.5f;
-//            movie.productionCompanies.add(productionCompany1);
-//            realm.copyToRealmOrUpdate(movie);
-//
-//            video = realm.createObject(Video.class);
-//            video.id = "300";
-//            video.name = "Video 1";
-//            video.youtubeId = "abcdefg";
-//            video.movie = movie;
-//            realm.copyToRealmOrUpdate(video);
-//
-//            realm.commitTransaction();
-//        } finally {
-//            realm.close();
-//        }
+        ActiveAndroid.beginTransaction();
+        try {
+            Genre genre1 = new Genre();
+            genre1.id = 100;
+            genre1.name = "Genre 1";
+            genre1.save();
+
+            Genre genre2 = new Genre();
+            genre2.id = 200;
+            genre2.name = "Genre 2";
+            genre2.save();
+
+            ProductionCompany productionCompany1 = new ProductionCompany();
+            productionCompany1.id = 100;
+            productionCompany1.name = "Production Company 1";
+            productionCompany1.save();
+
+            ProductionCompany productionCompany2 = new ProductionCompany();
+            productionCompany2.id = 200;
+            productionCompany2.name = "Production Company 2";
+            productionCompany2.save();
+
+            Movie movie;
+
+            movie = new Movie();
+            movie.id = 123;
+            movie.title = "Android forever";
+            movie.overview = "overview";
+            movie.voteAverage = 8f;
+            movie.save();
+
+            saveFakeMovieGenre(movie, genre1);
+            saveFakeMovieGenre(movie, genre2);
+            saveFakeMovieProductionCompany(movie, productionCompany1);
+            saveFakeMovieProductionCompany(movie, productionCompany2);
+            saveFakeVideo(movie);
+            saveFakeVideo(movie);
+
+            movie = new Movie();
+            movie.id = 456;
+            movie.title = "iOS forever";
+            movie.overview = "overview";
+            movie.voteAverage = 7.5f;
+            movie.save();
+
+            saveFakeMovieGenre(movie, genre2);
+            saveFakeMovieProductionCompany(movie, productionCompany1);
+
+            movie = new Movie();
+            movie.id = 789;
+            movie.title = "WinPhone forever";
+            movie.overview = "overview";
+            movie.voteAverage = 4.5f;
+            movie.save();
+
+            saveFakeMovieGenre(movie, genre1);
+            saveFakeMovieProductionCompany(movie, productionCompany2);
+            saveFakeVideo(movie);
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+    }
+
+    private void saveFakeMovieGenre(Movie movie, Genre genre) {
+        MovieGenre movieGenre = new MovieGenre();
+        movieGenre.movie = movie;
+        movieGenre.genre = genre;
+        movieGenre.save();
+    }
+
+    private void saveFakeMovieProductionCompany(Movie movie, ProductionCompany productionCompany) {
+        MovieProductionCompany movieProductionCompany = new MovieProductionCompany();
+        movieProductionCompany.movie = movie;
+        movieProductionCompany.productionCompany = productionCompany;
+        movieProductionCompany.save();
+    }
+
+    private void saveFakeVideo(Movie movie) {
+        Video video = new Video();
+        video.movie = movie;
+        video.name = "Video name";
+        video.youtubeId = "abc";
+        video.save();
     }
 
     private void initToolbar() {
