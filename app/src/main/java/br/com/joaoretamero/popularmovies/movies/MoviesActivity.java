@@ -63,29 +63,25 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         ActiveAndroid.beginTransaction();
         try {
             Genre genre1 = new Genre();
-            genre1.id = 100;
             genre1.name = "Genre 1";
             genre1.save();
 
             Genre genre2 = new Genre();
-            genre2.id = 200;
             genre2.name = "Genre 2";
             genre2.save();
 
             ProductionCompany productionCompany1 = new ProductionCompany();
-            productionCompany1.id = 100;
             productionCompany1.name = "Production Company 1";
             productionCompany1.save();
 
             ProductionCompany productionCompany2 = new ProductionCompany();
-            productionCompany2.id = 200;
             productionCompany2.name = "Production Company 2";
             productionCompany2.save();
 
             Movie movie;
 
             movie = new Movie();
-            movie.id = 123;
+            movie.movieId = 123;
             movie.title = "Android forever";
             movie.overview = "overview";
             movie.voteAverage = 8f;
@@ -99,7 +95,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
             saveFakeVideo(movie);
 
             movie = new Movie();
-            movie.id = 456;
+            movie.movieId = 456;
             movie.title = "iOS forever";
             movie.overview = "overview";
             movie.voteAverage = 7.5f;
@@ -109,7 +105,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
             saveFakeMovieProductionCompany(movie, productionCompany1);
 
             movie = new Movie();
-            movie.id = 789;
+            movie.movieId = 789;
             movie.title = "WinPhone forever";
             movie.overview = "overview";
             movie.voteAverage = 4.5f;

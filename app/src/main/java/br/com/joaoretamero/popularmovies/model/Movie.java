@@ -4,11 +4,11 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "movie", id = "id")
+@Table(name = "movie", id = "_id")
 public class Movie extends Model {
 
-    @Column(name = "id")
-    public int id;
+    @Column(name = "movie_id")
+    public int movieId;
 
     @Column(name = "poster")
     public String poster;
