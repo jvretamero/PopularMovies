@@ -10,15 +10,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Video;
-import io.realm.RealmRecyclerViewAdapter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class VideoAdapter extends RealmRecyclerViewAdapter<Video, VideoAdapter.ViewHolder> {
+public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
+
+    private List<Video> videoList;
     private Context context;
 
     public VideoAdapter(@NonNull Context context) {
-        super(context, null, false);
+        super();
         this.context = context;
     }
 
@@ -30,7 +35,7 @@ public class VideoAdapter extends RealmRecyclerViewAdapter<Video, VideoAdapter.V
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Video video = getItem(position);
+        Video video = videoList.get(position);
 
         // TODO implementar carregamento da imagem
         holder.title.setText(video.name);
@@ -42,20 +47,24 @@ public class VideoAdapter extends RealmRecyclerViewAdapter<Video, VideoAdapter.V
         });
     }
 
+    @Override
+    public int getItemCount() {
+        return videoList.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.video_item_image)
         public ImageView image;
+
+        @BindView(R.id.video_item_title)
         public TextView title;
+
+        @BindView(R.id.video_item_play_button)
         public ImageButton playButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            bindViews();
-        }
-
-        private void bindViews() {
-            image = (ImageView) itemView.findViewById(R.id.video_item_image);
-            title = (TextView) itemView.findViewById(R.id.video_item_title);
-            playButton = (ImageButton) itemView.findViewById(R.id.video_item_play_button);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

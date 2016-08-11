@@ -12,21 +12,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
-import br.com.joaoretamero.popularmovies.model.ProductionCompany;
-import br.com.joaoretamero.popularmovies.model.Video;
 import br.com.joaoretamero.popularmovies.movie.MovieActivity;
 import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
-import io.realm.Realm;
-import io.realm.RealmResults;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
+    @BindView(R.id.movies_refresh_layout)
     private SwipeRefreshLayout refreshLayout;
+
+    @BindView(R.id.movies_list)
     private RecyclerView moviesList;
+
+    @BindView(R.id.toolbar)
     private Toolbar toolbar;
+
     private MoviesPresenter presenter;
     private MoviesAdapter moviesAdapter;
 
@@ -34,6 +39,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
+
+        ButterKnife.bind(this);
 
         generateFakeData();
 
@@ -46,95 +53,95 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     // TODO remover
     private void generateFakeData() {
-        Realm realm = Realm.getDefaultInstance();
-        try {
-            realm.beginTransaction();
-
-            realm.delete(Movie.class);
-            realm.delete(ProductionCompany.class);
-            realm.delete(Genre.class);
-            realm.delete(Video.class);
-
-            Genre genre1 = realm.createObject(Genre.class);
-            genre1.id = 100;
-            genre1.name = "Genre 1";
-            realm.copyToRealmOrUpdate(genre1);
-
-            Genre genre2 = realm.createObject(Genre.class);
-            genre2.id = 200;
-            genre2.name = "Genre 2";
-            realm.copyToRealmOrUpdate(genre2);
-
-            ProductionCompany productionCompany1 = realm.createObject(ProductionCompany.class);
-            productionCompany1.id = 100;
-            productionCompany1.name = "Production Company 1";
-            realm.copyToRealmOrUpdate(productionCompany1);
-
-            ProductionCompany productionCompany2 = realm.createObject(ProductionCompany.class);
-            productionCompany2.id = 200;
-            productionCompany2.name = "Production Company 2";
-            realm.copyToRealmOrUpdate(productionCompany2);
-
-            Movie movie;
-            Video video;
-
-            movie = realm.createObject(Movie.class);
-            movie.id = 123;
-            movie.title = "Android forever";
-            movie.overview = "overview";
-            movie.voteAverage = 8f;
-            movie.genres.add(genre1);
-            movie.genres.add(genre2);
-            movie.productionCompanies.add(productionCompany1);
-            movie.productionCompanies.add(productionCompany2);
-            realm.copyToRealmOrUpdate(movie);
-
-            video = realm.createObject(Video.class);
-            video.id = "100";
-            video.name = "Video 1";
-            video.youtubeId = "abcdefg";
-            video.movie = movie;
-            realm.copyToRealmOrUpdate(video);
-
-            video = realm.createObject(Video.class);
-            video.id = "200";
-            video.name = "Video 2";
-            video.youtubeId = "abcdefg";
-            video.movie = movie;
-            realm.copyToRealmOrUpdate(video);
-
-            movie = realm.createObject(Movie.class);
-            movie.id = 456;
-            movie.title = "iOS forever";
-            movie.overview = "overview";
-            movie.voteAverage = 7.5f;
-            movie.genres.add(genre2);
-            movie.productionCompanies.add(productionCompany2);
-            realm.copyToRealmOrUpdate(movie);
-
-            movie = realm.createObject(Movie.class);
-            movie.id = 789;
-            movie.title = "WinPhone forever";
-            movie.overview = "overview";
-            movie.voteAverage = 4.5f;
-            movie.productionCompanies.add(productionCompany1);
-            realm.copyToRealmOrUpdate(movie);
-
-            video = realm.createObject(Video.class);
-            video.id = "300";
-            video.name = "Video 1";
-            video.youtubeId = "abcdefg";
-            video.movie = movie;
-            realm.copyToRealmOrUpdate(video);
-
-            realm.commitTransaction();
-        } finally {
-            realm.close();
-        }
+        // TODO revisar
+//        Realm realm = Realm.getDefaultInstance();
+//        try {
+//            realm.beginTransaction();
+//
+//            realm.delete(Movie.class);
+//            realm.delete(ProductionCompany.class);
+//            realm.delete(Genre.class);
+//            realm.delete(Video.class);
+//
+//            Genre genre1 = realm.createObject(Genre.class);
+//            genre1.id = 100;
+//            genre1.name = "Genre 1";
+//            realm.copyToRealmOrUpdate(genre1);
+//
+//            Genre genre2 = realm.createObject(Genre.class);
+//            genre2.id = 200;
+//            genre2.name = "Genre 2";
+//            realm.copyToRealmOrUpdate(genre2);
+//
+//            ProductionCompany productionCompany1 = realm.createObject(ProductionCompany.class);
+//            productionCompany1.id = 100;
+//            productionCompany1.name = "Production Company 1";
+//            realm.copyToRealmOrUpdate(productionCompany1);
+//
+//            ProductionCompany productionCompany2 = realm.createObject(ProductionCompany.class);
+//            productionCompany2.id = 200;
+//            productionCompany2.name = "Production Company 2";
+//            realm.copyToRealmOrUpdate(productionCompany2);
+//
+//            Movie movie;
+//            Video video;
+//
+//            movie = realm.createObject(Movie.class);
+//            movie.id = 123;
+//            movie.title = "Android forever";
+//            movie.overview = "overview";
+//            movie.voteAverage = 8f;
+//            movie.genres.add(genre1);
+//            movie.genres.add(genre2);
+//            movie.productionCompanies.add(productionCompany1);
+//            movie.productionCompanies.add(productionCompany2);
+//            realm.copyToRealmOrUpdate(movie);
+//
+//            video = realm.createObject(Video.class);
+//            video.id = "100";
+//            video.name = "Video 1";
+//            video.youtubeId = "abcdefg";
+//            video.movie = movie;
+//            realm.copyToRealmOrUpdate(video);
+//
+//            video = realm.createObject(Video.class);
+//            video.id = "200";
+//            video.name = "Video 2";
+//            video.youtubeId = "abcdefg";
+//            video.movie = movie;
+//            realm.copyToRealmOrUpdate(video);
+//
+//            movie = realm.createObject(Movie.class);
+//            movie.id = 456;
+//            movie.title = "iOS forever";
+//            movie.overview = "overview";
+//            movie.voteAverage = 7.5f;
+//            movie.genres.add(genre2);
+//            movie.productionCompanies.add(productionCompany2);
+//            realm.copyToRealmOrUpdate(movie);
+//
+//            movie = realm.createObject(Movie.class);
+//            movie.id = 789;
+//            movie.title = "WinPhone forever";
+//            movie.overview = "overview";
+//            movie.voteAverage = 4.5f;
+//            movie.productionCompanies.add(productionCompany1);
+//            realm.copyToRealmOrUpdate(movie);
+//
+//            video = realm.createObject(Video.class);
+//            video.id = "300";
+//            video.name = "Video 1";
+//            video.youtubeId = "abcdefg";
+//            video.movie = movie;
+//            realm.copyToRealmOrUpdate(video);
+//
+//            realm.commitTransaction();
+//        } finally {
+//            realm.close();
+//        }
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -143,7 +150,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     private void initRefreshLayout() {
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.movies_refresh_layout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -153,14 +159,14 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     private void initList() {
-        moviesList = (RecyclerView) findViewById(R.id.movies_list);
         moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 2));
         moviesList.setItemAnimator(new DefaultItemAnimator());
         moviesList.setAdapter(moviesAdapter);
         moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                presenter.onItemClick(moviesAdapter.getItem(posicao).id);
+                // TODO revisar
+//                presenter.onItemClick(moviesAdapter.getItem(posicao).id);
             }
         }));
     }
@@ -197,12 +203,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.destroy();
-    }
-
-    @Override
     public void showMovieDetail(int movieId) {
         Intent intent = new Intent(MoviesActivity.this, MovieActivity.class);
         intent.putExtra(MovieActivity.EXTRA_MOVIE_ID, movieId);
@@ -223,7 +223,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     @Override
-    public void showMovies(RealmResults<Movie> movies) {
-        moviesAdapter.updateData(movies);
+    public void showMovies(List<Movie> movies) {
+        // TODO revisar
+//        moviesAdapter.updateData(movies);
     }
 }

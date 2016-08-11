@@ -17,10 +17,6 @@ public class MoviesPresenter {
         listMovies();
     }
 
-    public void destroy() {
-        this.movieService.closeRealm();
-    }
-
     public void onItemClick(int movieId) {
         view.showMovieDetail(movieId);
     }

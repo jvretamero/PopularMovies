@@ -1,7 +1,8 @@
 package br.com.joaoretamero.popularmovies.movies;
 
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.model.Movie;
-import io.realm.RealmResults;
 
 public interface MoviesView {
     void showMovieDetail(int movieId);
@@ -12,5 +13,5 @@ public interface MoviesView {
 
     void showRefreshIndicator(boolean showRefreshIndicator);
 
-    void showMovies(RealmResults<Movie> movies);
+    void showMovies(List<Movie> movies);
 }

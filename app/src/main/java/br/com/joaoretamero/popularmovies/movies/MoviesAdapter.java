@@ -9,16 +9,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Movie;
-import io.realm.RealmRecyclerViewAdapter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter.ViewHolder> {
+public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
 
+    private List<Movie> movieList;
     private Context context;
 
     public MoviesAdapter(@NonNull Context context) {
-        super(context, null, false);
+        super();
         this.context = context;
     }
 
@@ -30,24 +34,27 @@ public class MoviesAdapter extends RealmRecyclerViewAdapter<Movie, MoviesAdapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Movie movie = getItem(position);
+        Movie movie = movieList.get(position);
 
         holder.posterImage.setImageResource(R.mipmap.ic_launcher);
         holder.title.setText(movie.title);
     }
 
+    @Override
+    public int getItemCount() {
+        return movieList.size();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.movie_item_poster)
         public ImageView posterImage;
+
+        @BindView(R.id.movie_item_title)
         public TextView title;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            bindViews();
-        }
-
-        private void bindViews() {
-            posterImage = (ImageView) itemView.findViewById(R.id.movie_item_poster);
-            title = (TextView) itemView.findViewById(R.id.movie_item_title);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

@@ -11,12 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
-import br.com.joaoretamero.popularmovies.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.model.Video;
-import io.realm.RealmResults;
 
 public class MovieActivity extends AppCompatActivity implements MovieView {
 
@@ -112,20 +111,22 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void bindData(Movie movie) {
-        RealmResults<Genre> genresList = movie.genres.where().findAll();
-        RealmResults<ProductionCompany> productionCompaniesList = movie.productionCompanies.where().findAll();
-
-        title.setText(movie.title);
-        ratingBar.setRating(convert10StarsValueTo5StarsValue(movie.voteAverage));
-        genres.setText("None: " + genresList.size());
-        duration.setText(movie.runtime + " min");
-        overview.setText(movie.overview);
-        productionCompanies.setText("None: " + productionCompaniesList.size());
+        // TODO revisar
+//        RealmResults<Genre> genresList = movie.genres.where().findAll();
+//        RealmResults<ProductionCompany> productionCompaniesList = movie.productionCompanies.where().findAll();
+//
+//        title.setText(movie.title);
+//        ratingBar.setRating(convert10StarsValueTo5StarsValue(movie.voteAverage));
+//        genres.setText("None: " + genresList.size());
+//        duration.setText(movie.runtime + " min");
+//        overview.setText(movie.overview);
+//        productionCompanies.setText("None: " + productionCompaniesList.size());
     }
 
     @Override
-    public void setVideoList(RealmResults<Video> videos) {
-        videoAdapter.updateData(videos);
+    public void setVideoList(List<Video> videos) {
+        // TODO revisar
+//        videoAdapter.updateData(videos);
     }
 
     private float convert10StarsValueTo5StarsValue(float tenStarsValue) {
