@@ -14,7 +14,7 @@ public class MoviePresenter {
     }
 
     public void start(int movieId) {
-        Movie movie = movieRepository.findById(movieId);
+        Movie movie = Movie.findByMovieId(movieId);
         view.bindData(movie);
     }
 }

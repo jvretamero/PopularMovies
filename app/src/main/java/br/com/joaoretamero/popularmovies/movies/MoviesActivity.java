@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 
 import java.util.List;
 
@@ -62,6 +63,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     private void generateFakeData() {
         ActiveAndroid.beginTransaction();
         try {
+            new Delete().from(MovieGenre.class).execute();
+            new Delete().from(MovieProductionCompany.class).execute();
+            new Delete().from(Video.class).execute();
+            new Delete().from(Movie.class).execute();
+            new Delete().from(Genre.class).execute();
+            new Delete().from(ProductionCompany.class).execute();
+
             Genre genre1 = new Genre();
             genre1.name = "Genre 1";
             genre1.save();

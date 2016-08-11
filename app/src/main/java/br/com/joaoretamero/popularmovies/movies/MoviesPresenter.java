@@ -1,15 +1,13 @@
 package br.com.joaoretamero.popularmovies.movies;
 
-import br.com.joaoretamero.popularmovies.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.model.Movie;
 
 public class MoviesPresenter {
 
     private MoviesView view;
-    private MovieRepository movieService;
 
     public MoviesPresenter(MoviesView view) {
         this.view = view;
-        this.movieService = new MovieRepository();
     }
 
     public void start() {
@@ -34,7 +32,7 @@ public class MoviesPresenter {
     }
 
     private void listMovies() {
-        view.showMovies(movieService.findAllSortByVote());
+        view.showMovies(Movie.findAllSortByVote());
         view.showRefreshIndicator(false);
     }
 }
