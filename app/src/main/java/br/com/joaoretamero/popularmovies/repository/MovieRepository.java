@@ -1,21 +1,22 @@
 package br.com.joaoretamero.popularmovies.repository;
 
+import com.activeandroid.Model;
+import com.activeandroid.query.Select;
+
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.model.Movie;
 
 public class MovieRepository {
 
-    public MovieRepository() {
-    }
-
-    // TODO revisar
     public Movie findById(int id) {
-        return null;
+        return Model.load(Movie.class, id);
     }
 
-    // TODO revisar
     public List<Movie> findAllSortByVote() {
-        return null;
+        return new Select()
+                .from(Movie.class)
+                .orderBy("vote_average")
+                .execute();
     }
 }
