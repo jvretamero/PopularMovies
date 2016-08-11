@@ -70,4 +70,11 @@ public class Movie extends Model {
                 .where("join_model.movie = ?", this.getId())
                 .execute();
     }
+
+    public List<Video> getVideos() {
+        return new Select()
+                .from(Video.class)
+                .where("movie = ?", this.getId())
+                .execute();
+    }
 }

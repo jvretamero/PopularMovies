@@ -1,8 +1,9 @@
 package br.com.joaoretamero.popularmovies.movie;
 
-import android.util.Log;
+import java.util.List;
 
 import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.model.Video;
 
 public class MoviePresenter {
 
@@ -14,14 +15,12 @@ public class MoviePresenter {
     }
 
     public void start(int movieId) {
-        Log.d(TAG, "start > movieId: " + movieId);
-        
         Movie movie = Movie.byMovieId(movieId);
-
-        Log.d(TAG, "is null: " + (movie == null));
-
         if (movie != null) {
             view.bindData(movie);
+
+            List<Video> videos = movie.getVideos();
+            view.setVideoList(videos);
         }
     }
 }
