@@ -10,16 +10,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Video;
+import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> {
+public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
 
-    private List<Video> videoList;
     private Context context;
 
     public VideoAdapter(@NonNull Context context) {
@@ -35,7 +33,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Video video = videoList.get(position);
+        Video video = getItem(position);
 
         // TODO implementar carregamento da imagem
         holder.title.setText(video.name);
@@ -45,11 +43,6 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
                 // TODO implementar clique no play
             }
         });
-    }
-
-    @Override
-    public int getItemCount() {
-        return videoList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

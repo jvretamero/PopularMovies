@@ -116,8 +116,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void setVideoList(List<Video> videos) {
-        // TODO revisar
-//        videoAdapter.updateData(videos);
+        videoAdapter.updateData(videos);
     }
 
     private float convert10StarsValueTo5StarsValue(float tenStarsValue) {

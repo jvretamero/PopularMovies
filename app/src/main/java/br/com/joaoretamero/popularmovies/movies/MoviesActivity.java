@@ -167,8 +167,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                // TODO revisar
-//                presenter.onItemClick(moviesAdapter.getItem(posicao).id);
+                presenter.onItemClick(moviesAdapter.getItem(posicao).movieId);
             }
         }));
     }
@@ -226,7 +225,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     @Override
     public void showMovies(List<Movie> movies) {
-        // TODO revisar
-//        moviesAdapter.updateData(movies);
+        moviesAdapter.updateData(movies);
     }
 }

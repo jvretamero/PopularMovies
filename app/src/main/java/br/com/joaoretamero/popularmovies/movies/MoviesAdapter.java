@@ -9,16 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
-
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder> {
+public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> {
 
-    private List<Movie> movieList;
     private Context context;
 
     public MoviesAdapter(@NonNull Context context) {
@@ -34,15 +32,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Movie movie = movieList.get(position);
+        Movie movie = getItem(position);
 
         holder.posterImage.setImageResource(R.mipmap.ic_launcher);
         holder.title.setText(movie.title);
-    }
-
-    @Override
-    public int getItemCount() {
-        return (movieList == null) ? 0 : movieList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
