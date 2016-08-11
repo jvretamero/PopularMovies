@@ -25,8 +25,8 @@ public class Movie extends Model {
     @Column(name = "overview")
     public String overview;
 
-    @Column(name = "runtime")
-    public int runtime;
+    @Column(name = "durationInMinutes")
+    public int durationInMinutes;
 
     @Column(name = "vote_average")
     public float voteAverage;

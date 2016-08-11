@@ -119,7 +119,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         genres.setText(buildGenreLine(genresList));
 
         String durationStr = getResources().getString(R.string.movie_duration);
-        duration.setText(String.format(durationStr, movie.runtime));
+        duration.setText(String.format(durationStr, movie.durationInMinutes));
 
         overview.setText(movie.overview);
         productionCompanies.setText(buildProductionCompaniesLine(productionCompaniesList));
