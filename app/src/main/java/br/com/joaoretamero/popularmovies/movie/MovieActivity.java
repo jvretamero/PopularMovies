@@ -17,6 +17,7 @@ import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Movie;
 import br.com.joaoretamero.popularmovies.model.Video;
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MovieActivity extends AppCompatActivity implements MovieView {
 
@@ -56,6 +57,8 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie);
+
+        ButterKnife.bind(this);
 
         initToolbar();
         initRatingBar();
