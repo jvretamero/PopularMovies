@@ -59,4 +59,15 @@ public class Movie extends Model {
                 .where("join_model.movie = ?", this.getId())
                 .execute();
     }
+
+    public List<ProductionCompany> getProductionCompanies() {
+        return new Select()
+                .from(ProductionCompany.class)
+                .as("target_model")
+                .innerJoin(MovieProductionCompany.class)
+                .as("join_model")
+                .on("join_model.production_company = target_model._id")
+                .where("join_model.movie = ?", this.getId())
+                .execute();
+    }
 }

@@ -226,10 +226,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     @Override
     public void showSortingOptions() {
+        // TODO implementar
     }
 
     @Override
     public void showConfigurationScreen() {
+        // TODO implementar
     }
 
     @Override

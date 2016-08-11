@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +16,7 @@ import java.util.List;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.model.Video;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,16 +110,40 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     public void bindData(Movie movie) {
         // TODO revisar
         List<Genre> genresList = movie.getGenres();
+        List<ProductionCompany> productionCompaniesList = movie.getProductionCompanies();
 
-        Log.d(TAG, "genre: " + genresList.size());
-//        RealmResults<ProductionCompany> productionCompaniesList = movie.productionCompanies.where().findAll();
-//
-//        title.setText(movie.title);
-//        ratingBar.setRating(convert10StarsValueTo5StarsValue(movie.voteAverage));
-//        genres.setText("None: " + genresList.size());
-//        duration.setText(movie.runtime + " min");
-//        overview.setText(movie.overview);
-//        productionCompanies.setText("None: " + productionCompaniesList.size());
+        title.setText(movie.title);
+        ratingBar.setRating(convert10StarsValueTo5StarsValue(movie.voteAverage));
+        genres.setText(buildGenreLine(genresList));
+        duration.setText(movie.runtime + " min");
+        overview.setText(movie.overview);
+        productionCompanies.setText(buildProductionCompaniesLine(productionCompaniesList));
+    }
+
+    private String buildGenreLine(List<Genre> genres) {
+        StringBuilder sb = new StringBuilder();
+
+        for (Genre genre : genres) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(genre.name);
+        }
+
+        return sb.toString();
+    }
+
+    private String buildProductionCompaniesLine(List<ProductionCompany> productionCompanies) {
+        StringBuilder sb = new StringBuilder();
+
+        for (ProductionCompany productionCompany : productionCompanies) {
+            if (sb.length() > 0) {
+                sb.append(", ");
+            }
+            sb.append(productionCompany.name);
+        }
+
+        return sb.toString();
     }
 
     @Override
