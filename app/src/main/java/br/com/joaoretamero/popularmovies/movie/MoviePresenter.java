@@ -1,20 +1,27 @@
 package br.com.joaoretamero.popularmovies.movie;
 
+import android.util.Log;
+
 import br.com.joaoretamero.popularmovies.model.Movie;
-import br.com.joaoretamero.popularmovies.repository.MovieRepository;
 
 public class MoviePresenter {
 
+    private static final String TAG = MoviePresenter.class.getSimpleName();
     private MovieView view;
-    private MovieRepository movieRepository;
 
     public MoviePresenter(MovieView view) {
         this.view = view;
-        this.movieRepository = new MovieRepository();
     }
 
     public void start(int movieId) {
-        Movie movie = Movie.findByMovieId(movieId);
-        view.bindData(movie);
+        Log.d(TAG, "start > movieId: " + movieId);
+        
+        Movie movie = Movie.byMovieId(movieId);
+
+        Log.d(TAG, "is null: " + (movie == null));
+
+        if (movie != null) {
+            view.bindData(movie);
+        }
     }
 }

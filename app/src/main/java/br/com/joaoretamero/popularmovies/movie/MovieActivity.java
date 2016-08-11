@@ -8,12 +8,14 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
+import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
 import br.com.joaoretamero.popularmovies.model.Video;
 import butterknife.BindView;
@@ -21,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class MovieActivity extends AppCompatActivity implements MovieView {
 
+    public static final String TAG = MovieActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_ID = "movie_id";
 
     @BindView(R.id.toolbar)
@@ -106,7 +109,9 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     @Override
     public void bindData(Movie movie) {
         // TODO revisar
-//        RealmResults<Genre> genresList = movie.genres.where().findAll();
+        List<Genre> genresList = movie.getGenres();
+
+        Log.d(TAG, "genre: " + genresList.size());
 //        RealmResults<ProductionCompany> productionCompaniesList = movie.productionCompanies.where().findAll();
 //
 //        title.setText(movie.title);

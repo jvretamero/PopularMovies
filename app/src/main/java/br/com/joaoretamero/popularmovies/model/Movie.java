@@ -31,14 +31,32 @@ public class Movie extends Model {
     @Column(name = "vote_average")
     public float voteAverage;
 
-    public static Movie findByMovieId(int movieId) {
-        return null;
+    public Movie() {
+        super();
     }
 
-    public static List<Movie> findAllSortByVote() {
+    public static Movie byMovieId(int movieId) {
+        return new Select()
+                .from(Movie.class)
+                .where("movie_id = ?", movieId)
+                .executeSingle();
+    }
+
+    public static List<Movie> allSortedByVote() {
         return new Select()
                 .from(Movie.class)
                 .orderBy("vote_average")
+                .execute();
+    }
+
+    public List<Genre> getGenres() {
+        return new Select()
+                .from(Genre.class)
+                .as("target_model")
+                .innerJoin(MovieGenre.class)
+                .as("join_model")
+                .on("join_model.genre = target_model._id")
+                .where("join_model.movie = ?", this.getId())
                 .execute();
     }
 }

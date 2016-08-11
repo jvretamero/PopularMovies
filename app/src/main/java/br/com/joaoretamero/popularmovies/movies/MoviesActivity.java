@@ -8,6 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MoviesActivity extends AppCompatActivity implements MoviesView {
+
+    private static final String TAG = MoviesActivity.class.getSimpleName();
 
     @BindView(R.id.movies_refresh_layout)
     SwipeRefreshLayout refreshLayout;
@@ -175,7 +178,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                presenter.onItemClick(moviesAdapter.getItem(posicao).movieId);
+                Log.d(TAG, "onCLick");
+                Movie movie = moviesAdapter.getItem(posicao);
+                Log.d(TAG, "movieId: " + movie.movieId);
+                presenter.onItemClick(movie.movieId);
             }
         }));
     }
