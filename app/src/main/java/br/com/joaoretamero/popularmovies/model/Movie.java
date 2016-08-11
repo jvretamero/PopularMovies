@@ -57,6 +57,7 @@ public class Movie extends Model {
                 .as("join_model")
                 .on("join_model.genre = target_model._id")
                 .where("join_model.movie = ?", this.getId())
+                .orderBy("target_model.name")
                 .execute();
     }
 
@@ -68,6 +69,7 @@ public class Movie extends Model {
                 .as("join_model")
                 .on("join_model.production_company = target_model._id")
                 .where("join_model.movie = ?", this.getId())
+                .orderBy("target_model.name")
                 .execute();
     }
 
@@ -75,6 +77,7 @@ public class Movie extends Model {
         return new Select()
                 .from(Video.class)
                 .where("movie = ?", this.getId())
+                .orderBy("name")
                 .execute();
     }
 }
