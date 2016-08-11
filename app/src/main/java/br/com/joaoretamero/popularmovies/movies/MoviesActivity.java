@@ -24,13 +24,13 @@ import butterknife.ButterKnife;
 public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     @BindView(R.id.movies_refresh_layout)
-    private SwipeRefreshLayout refreshLayout;
+    SwipeRefreshLayout refreshLayout;
 
     @BindView(R.id.movies_list)
-    private RecyclerView moviesList;
+    RecyclerView moviesList;
 
     @BindView(R.id.toolbar)
-    private Toolbar toolbar;
+    Toolbar toolbar;
 
     private MoviesPresenter presenter;
     private MoviesAdapter moviesAdapter;
