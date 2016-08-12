@@ -15,7 +15,7 @@ public class MoviePresenter {
     }
 
     public void start(int movieId) {
-        Movie movie = Movie.byMovieId(movieId);
+        Movie movie = Movie.findByMovieId(movieId);
         if (movie != null) {
             view.bindData(movie);
 

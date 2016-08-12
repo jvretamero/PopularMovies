@@ -31,21 +31,31 @@ public class Movie extends Model {
     @Column(name = "vote_average")
     public float voteAverage;
 
+    @Column(name = "popularity")
+    public float popularity;
+
     public Movie() {
         super();
     }
 
-    public static Movie byMovieId(int movieId) {
+    public static Movie findByMovieId(int movieId) {
         return new Select()
                 .from(Movie.class)
                 .where("movie_id = ?", movieId)
                 .executeSingle();
     }
 
-    public static List<Movie> allSortedByVote() {
+    public static List<Movie> findAllSortedByVote() {
         return new Select()
                 .from(Movie.class)
                 .orderBy("vote_average")
+                .execute();
+    }
+
+    public static List<Movie> findAllSortedByPopularity() {
+        return new Select()
+                .from(Movie.class)
+                .orderBy("popularity")
                 .execute();
     }
 
