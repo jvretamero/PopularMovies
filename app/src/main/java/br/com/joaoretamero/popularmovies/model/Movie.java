@@ -10,6 +10,10 @@ import java.util.List;
 @Table(name = "movie", id = "_id")
 public class Movie extends Model {
 
+    public static final String VOTE_AVERAGE_FIELD = "vote_average";
+    public static final String POPULARITY_FIELD = "popularity";
+    public static final String DEFAULT_ORDER = VOTE_AVERAGE_FIELD;
+
     @Column(name = "movie_id")
     public int movieId;
 
@@ -28,10 +32,10 @@ public class Movie extends Model {
     @Column(name = "durationInMinutes")
     public int durationInMinutes;
 
-    @Column(name = "vote_average")
+    @Column(name = VOTE_AVERAGE_FIELD)
     public float voteAverage;
 
-    @Column(name = "popularity")
+    @Column(name = POPULARITY_FIELD)
     public float popularity;
 
     public Movie() {
@@ -45,17 +49,10 @@ public class Movie extends Model {
                 .executeSingle();
     }
 
-    public static List<Movie> findAllSortedByVote() {
+    public static List<Movie> findAllSortedBy(String sortBy) {
         return new Select()
                 .from(Movie.class)
-                .orderBy("vote_average")
-                .execute();
-    }
-
-    public static List<Movie> findAllSortedByPopularity() {
-        return new Select()
-                .from(Movie.class)
-                .orderBy("popularity")
+                .orderBy(sortBy)
                 .execute();
     }
 

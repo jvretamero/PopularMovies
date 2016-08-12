@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.activeandroid.query.Delete;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
+import br.com.joaoretamero.popularmovies.model.AppSettings;
 import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
 import br.com.joaoretamero.popularmovies.model.MovieGenre;
@@ -169,7 +169,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.onRefresh();
+                presenter.onRefresh(AppSettings.get().sortOrder);
             }
         });
     }
@@ -181,9 +181,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
         moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                Log.d(TAG, "onCLick");
                 Movie movie = moviesAdapter.getItem(posicao);
-                Log.d(TAG, "movieId: " + movie.movieId);
                 presenter.onItemClick(movie.movieId);
             }
         }));
@@ -196,7 +194,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.start();
+
+        presenter.start(AppSettings.get().sortOrder);
     }
 
     @Override

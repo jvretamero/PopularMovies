@@ -5,6 +5,7 @@ import android.app.Application;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 
+import br.com.joaoretamero.popularmovies.model.AppSettings;
 import br.com.joaoretamero.popularmovies.model.Genre;
 import br.com.joaoretamero.popularmovies.model.Movie;
 import br.com.joaoretamero.popularmovies.model.MovieGenre;
@@ -27,6 +28,7 @@ public class PopularMoviesApplication extends Application {
     }
 
     public void configureModels(Configuration.Builder configuration) {
+        configuration.addModelClass(AppSettings.class);
         configuration.addModelClass(Genre.class);
         configuration.addModelClass(Movie.class);
         configuration.addModelClass(MovieGenre.class);

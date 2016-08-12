@@ -11,17 +11,17 @@ public class MoviesPresenter {
         this.view = view;
     }
 
-    public void start() {
+    public void start(String sortOrder) {
         view.showRefreshIndicator(true);
-        listMovies();
+        listMovies(sortOrder);
     }
 
     public void onItemClick(int movieId) {
         view.showMovieDetail(movieId);
     }
 
-    public void onRefresh() {
-        listMovies();
+    public void onRefresh(String sortOrder) {
+        listMovies(sortOrder);
     }
 
     public void onSortMenuClick() {
@@ -32,8 +32,8 @@ public class MoviesPresenter {
         view.showConfigurationScreen();
     }
 
-    private void listMovies() {
-        view.showMovies(Movie.findAllSortedByVote());
+    private void listMovies(String sortOrder) {
+        view.showMovies(Movie.findAllSortedBy(sortOrder));
         view.showRefreshIndicator(false);
     }
 }

@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">PopularMovies</string>
-
-    <!--Generic strings-->
     <string name="sort">Sort order</string>
     <string name="configurations">Configurations</string>
     <string name="movie_duration">%d min</string>
+    <string name="sort_order_key">sort_order_key</string>
 </resources>

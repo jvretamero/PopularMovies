@@ -27,7 +27,7 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.movie_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.video_item, parent, false);
         return new ViewHolder(view);
     }
 
