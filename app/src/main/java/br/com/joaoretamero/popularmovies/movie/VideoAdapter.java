@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.model.Video;
+import br.com.joaoretamero.popularmovies.model.local.Video;
 import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;

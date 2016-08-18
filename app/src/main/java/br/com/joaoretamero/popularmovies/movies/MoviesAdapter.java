@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.model.Movie;
+import br.com.joaoretamero.popularmovies.model.local.Movie;
 import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
