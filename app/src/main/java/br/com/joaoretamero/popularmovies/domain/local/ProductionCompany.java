@@ -1,16 +1,16 @@
-package br.com.joaoretamero.popularmovies.model.local;
+package br.com.joaoretamero.popularmovies.domain.local;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
-@Table(name = "genre", id = "_id")
-public class Genre extends Model {
+@Table(name = "production_company", id = "_id")
+public class ProductionCompany extends Model {
 
     @Column(name = "name")
     public String name;
 
-    public Genre() {
+    public ProductionCompany() {
         super();
     }
 }

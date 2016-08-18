@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.model.local;
+package br.com.joaoretamero.popularmovies.domain.local;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

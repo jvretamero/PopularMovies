@@ -1,6 +1,6 @@
 package br.com.joaoretamero.popularmovies.movies;
 
-import br.com.joaoretamero.popularmovies.model.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.local.Movie;
 
 public class MoviesPresenter {
 

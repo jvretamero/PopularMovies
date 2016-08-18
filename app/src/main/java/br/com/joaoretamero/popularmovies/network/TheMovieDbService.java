@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.network;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.model.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.local.Movie;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

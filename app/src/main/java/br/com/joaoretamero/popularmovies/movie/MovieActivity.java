@@ -14,10 +14,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.model.local.Genre;
-import br.com.joaoretamero.popularmovies.model.local.Movie;
-import br.com.joaoretamero.popularmovies.model.local.ProductionCompany;
-import br.com.joaoretamero.popularmovies.model.local.Video;
+import br.com.joaoretamero.popularmovies.domain.local.Genre;
+import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
+import br.com.joaoretamero.popularmovies.domain.local.Video;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

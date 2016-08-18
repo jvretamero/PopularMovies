@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.movies;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.model.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.local.Movie;
 
 public interface MoviesView {
     void showMovieDetail(int movieId);
