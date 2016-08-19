@@ -55,36 +55,4 @@ public class Movie extends Model {
                 .orderBy(sortBy)
                 .execute();
     }
-
-    public List<Genre> getGenres() {
-        return new Select()
-                .from(Genre.class)
-                .as("target_model")
-                .innerJoin(MovieGenre.class)
-                .as("join_model")
-                .on("join_model.genre = target_model._id")
-                .where("join_model.movie = ?", this.getId())
-                .orderBy("target_model.name")
-                .execute();
-    }
-
-    public List<ProductionCompany> getProductionCompanies() {
-        return new Select()
-                .from(ProductionCompany.class)
-                .as("target_model")
-                .innerJoin(MovieProductionCompany.class)
-                .as("join_model")
-                .on("join_model.production_company = target_model._id")
-                .where("join_model.movie = ?", this.getId())
-                .orderBy("target_model.name")
-                .execute();
-    }
-
-    public List<Video> getVideos() {
-        return new Select()
-                .from(Video.class)
-                .where("movie = ?", this.getId())
-                .orderBy("name")
-                .execute();
-    }
 }

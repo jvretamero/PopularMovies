@@ -109,18 +109,22 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     }
 
     @Override
-    public void bindData(Movie movie) {
-        List<Genre> genresList = movie.getGenres();
-        List<ProductionCompany> productionCompaniesList = movie.getProductionCompanies();
-
+    public void setMovie(Movie movie) {
         title.setText(movie.title);
         ratingBar.setRating(movie.voteAverage);
-        genres.setText(buildGenreLine(genresList));
+        overview.setText(movie.overview);
 
         String durationStr = getResources().getString(R.string.movie_duration);
         duration.setText(String.format(durationStr, movie.durationInMinutes));
+    }
 
-        overview.setText(movie.overview);
+    @Override
+    public void setGenreList(List<Genre> genresList) {
+        genres.setText(buildGenreLine(genresList));
+    }
+
+    @Override
+    public void setProductionCompaniesList(List<ProductionCompany> productionCompaniesList) {
         productionCompanies.setText(buildProductionCompaniesLine(productionCompaniesList));
     }
 

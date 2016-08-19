@@ -1,8 +1,8 @@
 package br.com.joaoretamero.popularmovies.movie;
 
-import java.util.List;
-
+import br.com.joaoretamero.popularmovies.domain.local.Genre;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
 
 public class MoviePresenter {
@@ -17,10 +17,10 @@ public class MoviePresenter {
     public void start(int movieId) {
         Movie movie = Movie.findByMovieId(movieId);
         if (movie != null) {
-            view.bindData(movie);
-
-            List<Video> videos = movie.getVideos();
-            view.setVideoList(videos);
+            view.setMovie(movie);
+            view.setGenreList(Genre.findAllFromMovie(movie.getId()));
+            view.setProductionCompaniesList(ProductionCompany.findAllFromMovie(movie.getId()));
+            view.setVideoList(Video.findAllFromMovie(movie.getId()));
         }
     }
 }
