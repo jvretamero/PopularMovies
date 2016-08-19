@@ -1,6 +1,7 @@
 package br.com.joaoretamero.popularmovies.movies;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -188,7 +189,8 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     }
 
     private void initPresenter() {
-        presenter = new MoviesPresenter(MoviesActivity.this);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        presenter = new MoviesPresenter(MoviesActivity.this, connectivityManager);
     }
 
     @Override
@@ -233,6 +235,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     @Override
     public void showConfigurationScreen() {
+        // TODO implementar
+    }
+
+    @Override
+    public void showErrorLoadingMovies() {
         // TODO implementar
     }
 

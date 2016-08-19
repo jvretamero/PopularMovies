@@ -11,6 +11,8 @@ public interface MoviesView {
 
     void showConfigurationScreen();
 
+    void showErrorLoadingMovies();
+
     void showRefreshIndicator(boolean showRefreshIndicator);
 
     void showMovies(List<Movie> movies);

@@ -1,14 +1,21 @@
 package br.com.joaoretamero.popularmovies.movies;
 
+import android.net.ConnectivityManager;
+
+import java.util.List;
+
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
 
 public class MoviesPresenter {
 
     private final static String TAG = MoviesPresenter.class.getSimpleName();
     private MoviesView view;
+    private MovieRepository movieRepository;
 
-    public MoviesPresenter(MoviesView view) {
+    public MoviesPresenter(MoviesView view, ConnectivityManager connectivityManager) {
         this.view = view;
+        this.movieRepository = new MovieRepository(connectivityManager);
     }
 
     public void start(String sortOrder) {
@@ -33,7 +40,19 @@ public class MoviesPresenter {
     }
 
     private void listMovies(String sortOrder) {
-        view.showMovies(Movie.findAllSortedBy(sortOrder));
-        view.showRefreshIndicator(false);
+        movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
+            @Override
+            public void onSuccess(List<Movie> movies) {
+                view.showMovies(movies);
+                view.showRefreshIndicator(false);
+            }
+
+            @Override
+            public void onFail() {
+                view.showErrorLoadingMovies();
+                view.showRefreshIndicator(false);
+            }
+        });
+
     }
 }
