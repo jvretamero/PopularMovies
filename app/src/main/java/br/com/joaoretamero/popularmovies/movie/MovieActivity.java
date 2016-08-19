@@ -110,7 +110,6 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void bindData(Movie movie) {
-        // TODO revisar
         List<Genre> genresList = movie.getGenres();
         List<ProductionCompany> productionCompaniesList = movie.getProductionCompanies();
 
