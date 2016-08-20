@@ -39,5 +39,5 @@ public class MovieJson {
     public List<GenreJson> genres;
 
     @JsonField(name = "videos")
-    public List<VideoJson> videos;
+    public VideosJsonResponse videos;
 }

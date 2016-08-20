@@ -13,7 +13,7 @@ import br.com.joaoretamero.popularmovies.domain.json.GenreJson;
 import br.com.joaoretamero.popularmovies.domain.json.MovieJson;
 import br.com.joaoretamero.popularmovies.domain.json.MovieJsonResponse;
 import br.com.joaoretamero.popularmovies.domain.json.ProductionCompanyJson;
-import br.com.joaoretamero.popularmovies.domain.json.VideoJson;
+import br.com.joaoretamero.popularmovies.domain.json.VideosJsonResponse;
 import br.com.joaoretamero.popularmovies.domain.local.Genre;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
 import br.com.joaoretamero.popularmovies.domain.local.MovieGenre;
@@ -102,16 +102,18 @@ public class MovieRepository {
         return movieLocal;
     }
 
-    public void saveVideosFromMovie(Movie movie, List<VideoJson> videoJsonList) {
+    public void saveVideosFromMovie(Movie movie, VideosJsonResponse videosJsonResponse) {
         Log.d(TAG, "saveVideosFromMovie");
-        if (videoJsonList == null || videoJsonList.size() == 0) {
+
+        if (videosJsonResponse == null || videosJsonResponse.results == null ||
+                videosJsonResponse.results.size() == 0) {
             return;
         }
 
-        Log.d(TAG, "videoJsonCount: " + videoJsonList.size());
+        Log.d(TAG, "videoJsonCount: " + videosJsonResponse.results.size());
 
         VideoMapper videoMapper = new VideoMapper();
-        List<Video> videos = videoMapper.mapJsonListToLocalList(videoJsonList);
+        List<Video> videos = videoMapper.mapJsonListToLocalList(videosJsonResponse.results);
         Log.d(TAG, "videos mapped: " + videos.size());
         Video.clearAllFromMovie(movie.getId());
         Video.bulkInsert(movie, videos);
