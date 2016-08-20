@@ -33,6 +33,12 @@ public class Video extends Model {
                 .execute();
     }
 
+    public static void clearAll() {
+        new Delete()
+                .from(Video.class)
+                .execute();
+    }
+
     public static void clearAllFromMovie(Long movieId) {
         new Delete()
                 .from(Video.class)

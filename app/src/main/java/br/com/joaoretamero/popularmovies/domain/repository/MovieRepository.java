@@ -213,6 +213,9 @@ public class MovieRepository {
 
     private void mapCleanAndInsert(MovieJsonResponse movieJsonResponse) {
         List<Movie> movieList = mapMovieJsonListToMovieLocalList(movieJsonResponse);
+        Video.clearAll();
+        MovieGenre.clearAll();
+        MovieProductionCompany.clearAll();
         Movie.clearAll();
         Movie.bulkInsert(movieList);
     }

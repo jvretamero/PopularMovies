@@ -21,6 +21,12 @@ public class MovieGenre extends Model {
         super();
     }
 
+    public static void clearAll() {
+        new Delete()
+                .from(MovieGenre.class)
+                .execute();
+    }
+
     public static void clearAllFromMovie(Long movieId) {
         new Delete()
                 .from(MovieGenre.class)

@@ -21,6 +21,12 @@ public class MovieProductionCompany extends Model {
         super();
     }
 
+    public static void clearAll() {
+        new Delete()
+                .from(MovieProductionCompany.class)
+                .execute();
+    }
+
     public static void clearAllFromMovie(Long movieId) {
         new Delete()
                 .from(MovieProductionCompany.class)
