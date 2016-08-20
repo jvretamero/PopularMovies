@@ -1,8 +1,10 @@
 package br.com.joaoretamero.popularmovies.domain.local;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.List;
@@ -29,5 +31,25 @@ public class Video extends Model {
                 .where("movie = ?", movieId)
                 .orderBy("name")
                 .execute();
+    }
+
+    public static void clearAllFromMovie(Long movieId) {
+        new Delete()
+                .from(Video.class)
+                .where("movie = ?", movieId)
+                .execute();
+    }
+
+    public static void bulkInsert(List<Video> videoList) {
+        ActiveAndroid.beginTransaction();
+        try {
+            for (Video video : videoList) {
+                video.save();
+            }
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 }

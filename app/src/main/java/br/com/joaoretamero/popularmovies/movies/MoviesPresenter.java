@@ -46,7 +46,7 @@ public class MoviesPresenter {
             public void onSuccess(List<Movie> movies) {
                 Log.d(TAG, "onsuccess");
                 Log.d(TAG, "movies count: " + movies.size());
-                
+
                 view.showMovies(movies);
                 view.showRefreshIndicator(false);
             }
