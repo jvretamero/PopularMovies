@@ -4,17 +4,22 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.activeandroid.ActiveAndroid;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.domain.json.GenreJson;
 import br.com.joaoretamero.popularmovies.domain.json.MovieJson;
 import br.com.joaoretamero.popularmovies.domain.json.MovieJsonResponse;
+import br.com.joaoretamero.popularmovies.domain.json.ProductionCompanyJson;
 import br.com.joaoretamero.popularmovies.domain.json.VideoJson;
 import br.com.joaoretamero.popularmovies.domain.local.Genre;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.local.MovieGenre;
+import br.com.joaoretamero.popularmovies.domain.local.MovieProductionCompany;
+import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
-import br.com.joaoretamero.popularmovies.domain.mapper.GenreMapper;
 import br.com.joaoretamero.popularmovies.domain.mapper.MovieMapper;
 import br.com.joaoretamero.popularmovies.domain.mapper.VideoMapper;
 import br.com.joaoretamero.popularmovies.network.Network;
@@ -71,22 +76,21 @@ public class MovieRepository {
     }
 
     private void mapOneAndUpdate(MovieJson movieJson) {
-        MovieMapper movieMapper = new MovieMapper();
-        Movie movieFromNetwork = movieMapper.mapJsonToLocal(movieJson);
-        Movie movie = updateMovie(movieFromNetwork);
+        Movie movie = updateMovie(movieJson);
         saveVideosFromMovie(movie, movieJson.videos);
         saveGenresFromMovie(movie, movieJson.genres);
+        saveProductionCompaniesFromMovie(movie, movieJson.productionCompanies);
     }
 
-    public Movie updateMovie(Movie movieFromNetwork) {
-        Movie movieLocal = Movie.findByMovieId(movieFromNetwork.movieId);
-        movieLocal.voteAverage = movieFromNetwork.voteAverage;
-        movieLocal.title = movieFromNetwork.title;
-        movieLocal.poster = movieFromNetwork.poster;
-        movieLocal.popularity = movieFromNetwork.popularity;
-        movieLocal.backdrop = movieFromNetwork.backdrop;
-        movieLocal.durationInMinutes = movieFromNetwork.durationInMinutes;
-        movieLocal.overview = movieFromNetwork.overview;
+    public Movie updateMovie(MovieJson movieJson) {
+        Movie movieLocal = Movie.findByMovieId(movieJson.id);
+        movieLocal.voteAverage = movieJson.voteAverage;
+        movieLocal.title = movieJson.title;
+        movieLocal.poster = movieJson.poster;
+        movieLocal.popularity = movieJson.popularity;
+        movieLocal.backdrop = movieJson.backdrop;
+        movieLocal.durationInMinutes = movieJson.runtime;
+        movieLocal.overview = movieJson.overview;
         movieLocal.save();
 
         return movieLocal;
@@ -100,7 +104,7 @@ public class MovieRepository {
         VideoMapper videoMapper = new VideoMapper();
         List<Video> videos = videoMapper.mapJsonListToLocalList(videoJsonList);
         Video.clearAllFromMovie(movie.getId());
-        Video.bulkInsert(videos);
+        Video.bulkInsert(movie, videos);
     }
 
     public void saveGenresFromMovie(Movie movie, List<GenreJson> genreJsonList) {
@@ -108,10 +112,69 @@ public class MovieRepository {
             return;
         }
 
-        GenreMapper genreMapper = new GenreMapper();
-        List<Genre> genres = genreMapper.mapJsonListToLocalList(genreJsonList);
-        Genre.clearAllFromMovie(movie.getId());
-        Genre.bulkInsert(genres);
+        List<Genre> genreList = saveGenres(genreJsonList);
+        MovieGenre.clearAllFromMovie(movie.getId());
+        MovieGenre.bulkInsert(movie, genreList);
+    }
+
+    private List<Genre> saveGenres(List<GenreJson> genreJsonList) {
+        List<Genre> genreList = new ArrayList<Genre>(genreJsonList.size());
+        Genre genre;
+
+        ActiveAndroid.beginTransaction();
+        try {
+            for (GenreJson genreJson : genreJsonList) {
+                genre = Genre.findOneByGenreId(genreJson.id);
+                if (genre == null) {
+                    genre = new Genre();
+                    genre.genreId = genreJson.id;
+                }
+                genre.name = genreJson.name;
+                genre.save();
+
+                genreList.add(genre);
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        return genreList;
+    }
+
+    private void saveProductionCompaniesFromMovie(Movie movie, List<ProductionCompanyJson> productionCompanyJsonList) {
+        if (productionCompanyJsonList == null || productionCompanyJsonList.size() == 0) {
+            return;
+        }
+
+        List<ProductionCompany> productionCompanies = saveProductionCompanies(productionCompanyJsonList);
+        MovieProductionCompany.clearAllFromMovie(movie.getId());
+        MovieProductionCompany.bulkInsert(movie, productionCompanies);
+    }
+
+    private List<ProductionCompany> saveProductionCompanies(List<ProductionCompanyJson> productionCompanyJsonList) {
+        List<ProductionCompany> productionCompanies = new ArrayList<ProductionCompany>(productionCompanyJsonList.size());
+        ProductionCompany productionCompany;
+
+        ActiveAndroid.beginTransaction();
+        try {
+            for (ProductionCompanyJson productionCompanyJson : productionCompanyJsonList) {
+                productionCompany = ProductionCompany.findOneFromProductionCompanyId(productionCompanyJson.id);
+                if (productionCompany == null) {
+                    productionCompany = new ProductionCompany();
+                    productionCompany.productionCompanyId = productionCompanyJson.id;
+                }
+                productionCompany.name = productionCompanyJson.name;
+                productionCompany.save();
+
+                productionCompanies.add(productionCompany);
+            }
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
+
+        return productionCompanies;
     }
 
     public void findAll(final String sortOrder, final FindAllCallback findAllCallback) {

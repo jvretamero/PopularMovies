@@ -40,13 +40,13 @@ public class Video extends Model {
                 .execute();
     }
 
-    public static void bulkInsert(List<Video> videoList) {
+    public static void bulkInsert(Movie movie, List<Video> videoList) {
         ActiveAndroid.beginTransaction();
         try {
             for (Video video : videoList) {
+                video.movie = movie;
                 video.save();
             }
-
             ActiveAndroid.setTransactionSuccessful();
         } finally {
             ActiveAndroid.endTransaction();
