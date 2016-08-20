@@ -151,7 +151,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     public void setVideoList(List<Video> videos) {
         Log.d(TAG, "setVideoList");
         Log.d(TAG, "video count: " + videos.size());
-        
+
         videoAdapter.updateData(videos);
     }
 
