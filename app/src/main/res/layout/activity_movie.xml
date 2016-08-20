@@ -19,16 +19,23 @@
         android:layout_height="wrap_content"
         android:text="Title" />
 
-    <android.support.v7.widget.AppCompatRatingBar
-        android:id="@+id/movie_vote_average"
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Rating"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/movie_genres"
+        android:id="@+id/movie_vote_average"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="genre1 | genre 2" />
+        android:text="10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/movie_duration"
@@ -37,32 +44,46 @@
         android:text="130 min" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overview"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/movie_overview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Overview" />
+        android:text="Overview abc" />
 
-    <LinearLayout
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genres"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/movie_genres"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="genre1 | genre 2" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Production companies" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Production companies"
+        android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/movie_production_companies"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Lorem ipsum" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/movie_production_companies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lorem ipsum" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Videos" />
+        android:text="Videos"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/movie_videos_list"

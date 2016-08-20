@@ -108,8 +108,11 @@ public class MovieRepository {
             return;
         }
 
+        Log.d(TAG, "videoJsonCount: " + videoJsonList.size());
+
         VideoMapper videoMapper = new VideoMapper();
         List<Video> videos = videoMapper.mapJsonListToLocalList(videoJsonList);
+        Log.d(TAG, "videos mapped: " + videos.size());
         Video.clearAllFromMovie(movie.getId());
         Video.bulkInsert(movie, videos);
     }

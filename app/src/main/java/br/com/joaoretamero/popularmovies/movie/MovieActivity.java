@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +37,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     TextView title;
 
     @BindView(R.id.movie_vote_average)
-    AppCompatRatingBar ratingBar;
+    TextView voteAverage;
 
     @BindView(R.id.movie_genres)
     TextView genres;
@@ -65,7 +65,6 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         ButterKnife.bind(this);
 
         initToolbar();
-        initRatingBar();
         initVideosList();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
@@ -74,14 +73,6 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     private void initToolbar() {
         setSupportActionBar(toolbar);
-    }
-
-    private void initRatingBar() {
-        ratingBar.setIsIndicator(true);
-        ratingBar.setFocusable(false);
-        ratingBar.setNumStars(5);
-        ratingBar.setStepSize(1f);
-        ratingBar.setRating(0f);
     }
 
     private void initVideosList() {
@@ -113,7 +104,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     @Override
     public void setMovie(Movie movie) {
         title.setText(movie.title);
-        ratingBar.setRating(movie.voteAverage);
+        voteAverage.setText(String.valueOf(movie.voteAverage));
         overview.setText(movie.overview);
 
         String durationStr = getResources().getString(R.string.movie_duration);
@@ -158,6 +149,9 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void setVideoList(List<Video> videos) {
+        Log.d(TAG, "setVideoList");
+        Log.d(TAG, "video count: " + videos.size());
+        
         videoAdapter.updateData(videos);
     }
 
