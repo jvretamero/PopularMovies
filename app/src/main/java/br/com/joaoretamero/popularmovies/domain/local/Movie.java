@@ -1,5 +1,6 @@
 package br.com.joaoretamero.popularmovies.domain.local;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -54,5 +55,18 @@ public class Movie extends Model {
                 .from(Movie.class)
                 .orderBy(sortBy)
                 .execute();
+    }
+
+    public static void bulkInsert(List<Movie> movieList) {
+        ActiveAndroid.beginTransaction();
+        try {
+            for (Movie movie : movieList) {
+                movie.save();
+            }
+
+            ActiveAndroid.setTransactionSuccessful();
+        } finally {
+            ActiveAndroid.endTransaction();
+        }
     }
 }

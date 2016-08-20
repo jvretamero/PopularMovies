@@ -7,6 +7,7 @@ import java.util.List;
 
 import br.com.joaoretamero.popularmovies.domain.json.MovieJson;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.mapper.MovieJsonToLocalMapper;
 import br.com.joaoretamero.popularmovies.network.Network;
 import br.com.joaoretamero.popularmovies.network.TheMovieDbService;
 import retrofit2.Call;
@@ -29,6 +30,7 @@ public class MovieRepository {
                 @Override
                 public void onResponse(Call<List<MovieJson>> call, Response<List<MovieJson>> response) {
                     //TODO map from JSON to local database
+                    mapMovieJsonListToMovieLocalList(response.body());
                     findAllFromLocal(sortOrder, findAllCallback);
                 }
 
@@ -44,10 +46,24 @@ public class MovieRepository {
         }
     }
 
+    private void mapMovieJsonListToMovieLocalList(List<MovieJson> movieJsonList) {
+        if (movieJsonList == null) {
+            return;
+        }
+
+        MovieJsonToLocalMapper mapper = new MovieJsonToLocalMapper();
+        List<Movie> movieList = mapper.mapJsonListToLocalList(movieJsonList);
+        bulkInsert(movieList);
+    }
+
     private void findAllFromLocal(String sortOrder, FindAllCallback findAllCallback) {
         if (findAllCallback != null) {
             findAllCallback.onSuccess(Movie.findAllSortedBy(sortOrder));
         }
+    }
+
+    public void bulkInsert(List<Movie> movieList) {
+        Movie.bulkInsert(movieList);
     }
 
     private boolean isNetworkAvailable() {
