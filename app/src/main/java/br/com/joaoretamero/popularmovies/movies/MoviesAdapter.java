@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
+import br.com.joaoretamero.popularmovies.network.Network;
 import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +35,11 @@ public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movie movie = getItem(position);
+
+        // TODO criar drawable de erro
+        Network.createPicasso(context)
+                .load(ImageUrlBuilder.getPosterImageUri(movie.poster))
+                .into(holder.posterImage);
 
         holder.posterImage.setImageResource(R.mipmap.ic_launcher);
         holder.title.setText(movie.title);

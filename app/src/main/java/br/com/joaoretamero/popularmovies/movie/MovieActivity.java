@@ -19,6 +19,8 @@ import br.com.joaoretamero.popularmovies.domain.local.Genre;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
 import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
+import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
+import br.com.joaoretamero.popularmovies.network.Network;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -103,6 +105,11 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
 
     @Override
     public void setMovie(Movie movie) {
+        // TODO criar drawable de erro
+        Network.createPicasso(MovieActivity.this)
+                .load(ImageUrlBuilder.getBackdropImageUri(movie.backdrop))
+                .into(backdrop);
+
         title.setText(movie.title);
         voteAverage.setText(String.valueOf(movie.voteAverage));
         overview.setText(movie.overview);

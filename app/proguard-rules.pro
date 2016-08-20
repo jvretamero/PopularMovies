@@ -9,3 +9,6 @@
 -dontwarn retrofit2.Platform$Java8
 -keepattributes Signature
 -keepattributes Exceptions
+
+# Picasso
+-dontwarn com.squareup.okhttp.**

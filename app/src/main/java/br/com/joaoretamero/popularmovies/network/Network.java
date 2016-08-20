@@ -1,6 +1,10 @@
 package br.com.joaoretamero.popularmovies.network;
 
+import android.content.Context;
+
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -27,6 +31,12 @@ public class Network {
 
     public static TheMovieDbService createTheMovieDbService() {
         return createService(TheMovieDbService.class);
+    }
+
+    public static Picasso createPicasso(Context context) {
+        return new Picasso.Builder(context)
+                .downloader(new OkHttp3Downloader(context, Long.MAX_VALUE))
+                .build();
     }
 
     private static <T> T createService(Class<T> serviceClass) {

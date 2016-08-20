@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
+import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
+import br.com.joaoretamero.popularmovies.network.Network;
 import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +37,11 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         Video video = getItem(position);
 
-        // TODO implementar carregamento da imagem
+        // TODO criar drawable de erro
+        Network.createPicasso(context)
+                .load(ImageUrlBuilder.getYoutubeImageUri(video.youtubeId))
+                .into(holder.image);
+
         holder.title.setText(video.name);
         holder.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
