@@ -16,4 +16,6 @@ public interface MovieView {
     void setProductionCompaniesList(List<ProductionCompany> productionCompanies);
 
     void setVideoList(List<Video> videos);
+
+    void showErrorMessage();
 }

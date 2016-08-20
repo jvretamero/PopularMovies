@@ -76,6 +76,7 @@ public class MovieRepository {
     }
 
     private void mapOneAndUpdate(MovieJson movieJson) {
+        Log.d(TAG, "mapOneAndUpdate");
         Movie movie = updateMovie(movieJson);
         saveVideosFromMovie(movie, movieJson.videos);
         saveGenresFromMovie(movie, movieJson.genres);
@@ -83,7 +84,12 @@ public class MovieRepository {
     }
 
     public Movie updateMovie(MovieJson movieJson) {
+        Log.d(TAG, "updateMovie");
         Movie movieLocal = Movie.findByMovieId(movieJson.id);
+        if (movieLocal == null) {
+            movieLocal = new Movie();
+            movieLocal.movieId = movieJson.id;
+        }
         movieLocal.voteAverage = movieJson.voteAverage;
         movieLocal.title = movieJson.title;
         movieLocal.poster = movieJson.poster;
@@ -97,6 +103,7 @@ public class MovieRepository {
     }
 
     public void saveVideosFromMovie(Movie movie, List<VideoJson> videoJsonList) {
+        Log.d(TAG, "saveVideosFromMovie");
         if (videoJsonList == null || videoJsonList.size() == 0) {
             return;
         }
@@ -108,6 +115,7 @@ public class MovieRepository {
     }
 
     public void saveGenresFromMovie(Movie movie, List<GenreJson> genreJsonList) {
+        Log.d(TAG, "saveGenresFromMovie");
         if (genreJsonList == null || genreJsonList.size() == 0) {
             return;
         }
@@ -118,6 +126,7 @@ public class MovieRepository {
     }
 
     private List<Genre> saveGenres(List<GenreJson> genreJsonList) {
+        Log.d(TAG, "saveGenres");
         List<Genre> genreList = new ArrayList<Genre>(genreJsonList.size());
         Genre genre;
 
@@ -143,6 +152,7 @@ public class MovieRepository {
     }
 
     private void saveProductionCompaniesFromMovie(Movie movie, List<ProductionCompanyJson> productionCompanyJsonList) {
+        Log.d(TAG, "saveProductionCompaniesFromMovie");
         if (productionCompanyJsonList == null || productionCompanyJsonList.size() == 0) {
             return;
         }
@@ -153,6 +163,7 @@ public class MovieRepository {
     }
 
     private List<ProductionCompany> saveProductionCompanies(List<ProductionCompanyJson> productionCompanyJsonList) {
+        Log.d(TAG, "saveProductionCompanies");
         List<ProductionCompany> productionCompanies = new ArrayList<ProductionCompany>(productionCompanyJsonList.size());
         ProductionCompany productionCompany;
 

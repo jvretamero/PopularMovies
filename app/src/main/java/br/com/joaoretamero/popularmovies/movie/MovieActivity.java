@@ -1,6 +1,7 @@
 package br.com.joaoretamero.popularmovies.movie;
 
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
@@ -67,7 +68,8 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         initRatingBar();
         initVideosList();
 
-        presenter = new MoviePresenter(this);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        presenter = new MoviePresenter(this, connectivityManager);
     }
 
     private void initToolbar() {
@@ -157,5 +159,10 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     @Override
     public void setVideoList(List<Video> videos) {
         videoAdapter.updateData(videos);
+    }
+
+    @Override
+    public void showErrorMessage() {
+        //TODO implementar
     }
 }
