@@ -4,6 +4,7 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import java.util.List;
@@ -55,6 +56,10 @@ public class Movie extends Model {
                 .from(Movie.class)
                 .orderBy(sortBy)
                 .execute();
+    }
+
+    public static void clearAll() {
+        new Delete().from(Movie.class).execute();
     }
 
     public static void bulkInsert(List<Movie> movieList) {

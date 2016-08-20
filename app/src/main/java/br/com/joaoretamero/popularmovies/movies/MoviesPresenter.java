@@ -1,6 +1,7 @@
 package br.com.joaoretamero.popularmovies.movies;
 
 import android.net.ConnectivityManager;
+import android.util.Log;
 
 import java.util.List;
 
@@ -43,6 +44,9 @@ public class MoviesPresenter {
         movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
             @Override
             public void onSuccess(List<Movie> movies) {
+                Log.d(TAG, "onsuccess");
+                Log.d(TAG, "movies count: " + movies.size());
+                
                 view.showMovies(movies);
                 view.showRefreshIndicator(false);
             }

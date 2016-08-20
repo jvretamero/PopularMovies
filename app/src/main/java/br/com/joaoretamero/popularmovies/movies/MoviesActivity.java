@@ -13,19 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Delete;
-
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.local.AppSettings;
-import br.com.joaoretamero.popularmovies.domain.local.Genre;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.domain.local.MovieGenre;
-import br.com.joaoretamero.popularmovies.domain.local.MovieProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.Video;
 import br.com.joaoretamero.popularmovies.movie.MovieActivity;
 import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
 import butterknife.BindView;
@@ -54,108 +46,11 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
         ButterKnife.bind(this);
 
-        generateFakeData();
-
         initToolbar();
         initAdapter();
         initRefreshLayout();
         initList();
         initPresenter();
-    }
-
-    // TODO remover
-    private void generateFakeData() {
-        ActiveAndroid.beginTransaction();
-        try {
-            new Delete().from(MovieGenre.class).execute();
-            new Delete().from(MovieProductionCompany.class).execute();
-            new Delete().from(Video.class).execute();
-            new Delete().from(Movie.class).execute();
-            new Delete().from(Genre.class).execute();
-            new Delete().from(ProductionCompany.class).execute();
-
-            Genre genre1 = new Genre();
-            genre1.name = "Genre 1";
-            genre1.save();
-
-            Genre genre2 = new Genre();
-            genre2.name = "Genre 2";
-            genre2.save();
-
-            ProductionCompany productionCompany1 = new ProductionCompany();
-            productionCompany1.name = "Production Company 1";
-            productionCompany1.save();
-
-            ProductionCompany productionCompany2 = new ProductionCompany();
-            productionCompany2.name = "Production Company 2";
-            productionCompany2.save();
-
-            Movie movie;
-
-            movie = new Movie();
-            movie.movieId = 123;
-            movie.title = "Android forever";
-            movie.overview = "overview";
-            movie.durationInMinutes = 150;
-            movie.voteAverage = 5f;
-            movie.save();
-
-            saveFakeMovieGenre(movie, genre1);
-            saveFakeMovieGenre(movie, genre2);
-            saveFakeMovieProductionCompany(movie, productionCompany1);
-            saveFakeMovieProductionCompany(movie, productionCompany2);
-            saveFakeVideo(movie);
-            saveFakeVideo(movie);
-
-            movie = new Movie();
-            movie.movieId = 456;
-            movie.title = "iOS forever";
-            movie.overview = "overview";
-            movie.voteAverage = 4f;
-            movie.durationInMinutes = 120;
-            movie.save();
-
-            saveFakeMovieGenre(movie, genre2);
-            saveFakeMovieProductionCompany(movie, productionCompany1);
-
-            movie = new Movie();
-            movie.movieId = 789;
-            movie.title = "WinPhone forever";
-            movie.overview = "overview";
-            movie.voteAverage = 3f;
-            movie.durationInMinutes = 130;
-            movie.save();
-
-            saveFakeMovieGenre(movie, genre1);
-            saveFakeMovieProductionCompany(movie, productionCompany2);
-            saveFakeVideo(movie);
-
-            ActiveAndroid.setTransactionSuccessful();
-        } finally {
-            ActiveAndroid.endTransaction();
-        }
-    }
-
-    private void saveFakeMovieGenre(Movie movie, Genre genre) {
-        MovieGenre movieGenre = new MovieGenre();
-        movieGenre.movie = movie;
-        movieGenre.genre = genre;
-        movieGenre.save();
-    }
-
-    private void saveFakeMovieProductionCompany(Movie movie, ProductionCompany productionCompany) {
-        MovieProductionCompany movieProductionCompany = new MovieProductionCompany();
-        movieProductionCompany.movie = movie;
-        movieProductionCompany.productionCompany = productionCompany;
-        movieProductionCompany.save();
-    }
-
-    private void saveFakeVideo(Movie movie) {
-        Video video = new Video();
-        video.movie = movie;
-        video.name = "Video name";
-        video.youtubeId = "abc";
-        video.save();
     }
 
     private void initToolbar() {
