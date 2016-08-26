@@ -40,6 +40,8 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
         // TODO criar drawable de erro
         Network.createPicasso(context)
                 .load(ImageUrlBuilder.getYoutubeImageUri(video.youtubeId))
+                .fit()
+                .centerCrop()
                 .into(holder.image);
 
         holder.title.setText(video.name);

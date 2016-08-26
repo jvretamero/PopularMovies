@@ -108,6 +108,8 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         // TODO criar drawable de erro
         Network.createPicasso(MovieActivity.this)
                 .load(ImageUrlBuilder.getBackdropImageUri(movie.backdrop))
+                .fit()
+                .centerCrop()
                 .into(backdrop);
 
         title.setText(movie.title);
