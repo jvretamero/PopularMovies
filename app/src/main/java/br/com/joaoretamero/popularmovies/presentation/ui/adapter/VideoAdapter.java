@@ -14,7 +14,6 @@ import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
-import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

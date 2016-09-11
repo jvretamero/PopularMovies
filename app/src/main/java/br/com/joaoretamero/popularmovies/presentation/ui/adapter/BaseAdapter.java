@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.util;
+package br.com.joaoretamero.popularmovies.presentation.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 
