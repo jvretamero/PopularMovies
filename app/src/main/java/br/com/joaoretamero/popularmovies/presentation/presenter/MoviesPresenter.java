@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.domain.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 
@@ -17,7 +18,7 @@ public class MoviesPresenter implements MoviesContract {
 
     public MoviesPresenter(MoviesContract.View view, ConnectivityManager connectivityManager) {
         this.view = view;
-        this.movieRepository = new MovieRepository(connectivityManager);
+        this.movieRepository = new MovieRepositoryImpl(connectivityManager);
         this.firstLoad = true;
     }
 
@@ -52,7 +53,7 @@ public class MoviesPresenter implements MoviesContract {
             }
 
             @Override
-            public void onFail() {
+            public void onError() {
                 view.showErrorLoadingMovies();
                 view.showRefreshIndicator(false);
             }

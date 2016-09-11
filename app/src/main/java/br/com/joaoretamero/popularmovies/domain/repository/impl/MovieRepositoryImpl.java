@@ -29,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieRepositoryImpl {
+public class MovieRepositoryImpl implements MovieRepository {
 
     private static final String TAG = MovieRepository.class.getSimpleName();
 

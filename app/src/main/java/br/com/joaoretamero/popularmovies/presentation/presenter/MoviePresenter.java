@@ -2,11 +2,12 @@ package br.com.joaoretamero.popularmovies.presentation.presenter;
 
 import android.net.ConnectivityManager;
 
+import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.domain.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Genre;
 import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
 import br.com.joaoretamero.popularmovies.infraestructure.storage.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
-import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 
 public class MoviePresenter {
@@ -17,7 +18,7 @@ public class MoviePresenter {
 
     public MoviePresenter(MovieContract.View view, ConnectivityManager connectivityManager) {
         this.view = view;
-        this.movieRepository = new MovieRepository(connectivityManager);
+        this.movieRepository = new MovieRepositoryImpl(connectivityManager);
     }
 
     public void start(int movieId) {
@@ -31,7 +32,7 @@ public class MoviePresenter {
             }
 
             @Override
-            public void onFail() {
+            public void onError() {
                 view.showErrorMessage();
             }
         });
