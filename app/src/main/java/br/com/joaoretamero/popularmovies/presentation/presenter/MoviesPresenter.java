@@ -13,34 +13,32 @@ public class MoviesPresenter implements MoviesContract {
     private final static String TAG = MoviesPresenter.class.getSimpleName();
     private MoviesContract.View view;
     private MovieRepository movieRepository;
+    private boolean firstLoad;
 
     public MoviesPresenter(MoviesContract.View view, ConnectivityManager connectivityManager) {
         this.view = view;
         this.movieRepository = new MovieRepository(connectivityManager);
+        this.firstLoad = true;
     }
 
-    @Override
-    public void start(String sortOrder) {
+    public void loadMovies(String sortOrder) {
         view.showRefreshIndicator(true);
         listMovies(sortOrder);
+        firstLoad = false;
     }
 
-    @Override
     public void onItemClick(int movieId) {
         view.showMovieDetail(movieId);
     }
 
-    @Override
     public void onRefresh(String sortOrder) {
         listMovies(sortOrder);
     }
 
-    @Override
     public void onSortMenuClick() {
         view.showSortingOptions();
     }
 
-    @Override
     public void onConfigurationMenuClick() {
         view.showConfigurationScreen();
     }

@@ -6,16 +6,6 @@ import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
 
 public interface MoviesContract {
 
-    void start(String sortOrder);
-
-    void onItemClick(int movieId);
-
-    void onRefresh(String sortOrder);
-
-    void onSortMenuClick();
-
-    void onConfigurationMenuClick();
-
     interface View {
         void showMovieDetail(int movieId);
 
