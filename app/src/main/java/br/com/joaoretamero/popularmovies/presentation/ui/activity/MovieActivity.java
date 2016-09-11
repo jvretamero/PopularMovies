@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.movie;
+package br.com.joaoretamero.popularmovies.presentation.ui.activity;
 
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -21,10 +21,13 @@ import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
 import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
 import br.com.joaoretamero.popularmovies.network.Network;
+import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
+import br.com.joaoretamero.popularmovies.presentation.presenter.impl.MoviePresenterImpl;
+import br.com.joaoretamero.popularmovies.presentation.ui.adapter.VideoAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieActivity extends AppCompatActivity implements MovieView {
+public class MovieActivity extends AppCompatActivity implements MoviePresenter.View {
 
     public static final String TAG = MovieActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_ID = "movie_id";
@@ -57,7 +60,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
     RecyclerView videosList;
 
     private VideoAdapter videoAdapter;
-    private MoviePresenter presenter;
+    private MoviePresenterImpl presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,7 @@ public class MovieActivity extends AppCompatActivity implements MovieView {
         initVideosList();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        presenter = new MoviePresenter(this, connectivityManager);
+        presenter = new MoviePresenterImpl(this, connectivityManager);
     }
 
     private void initToolbar() {

@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.movie;
+package br.com.joaoretamero.popularmovies.presentation.presenter.impl;
 
 import android.net.ConnectivityManager;
 
@@ -7,14 +7,15 @@ import br.com.joaoretamero.popularmovies.domain.local.Movie;
 import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
 import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
 
-public class MoviePresenter {
+public class MoviePresenterImpl {
 
-    private static final String TAG = MoviePresenter.class.getSimpleName();
-    private MovieView view;
+    private static final String TAG = MoviePresenterImpl.class.getSimpleName();
+    private MoviePresenter.View view;
     private MovieRepository movieRepository;
 
-    public MoviePresenter(MovieView view, ConnectivityManager connectivityManager) {
+    public MoviePresenterImpl(MoviePresenter.View view, ConnectivityManager connectivityManager) {
         this.view = view;
         this.movieRepository = new MovieRepository(connectivityManager);
     }

@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.movies;
+package br.com.joaoretamero.popularmovies.presentation.ui.activity;
 
 import android.content.Intent;
 import android.net.ConnectivityManager;
@@ -18,12 +18,14 @@ import java.util.List;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.local.AppSettings;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.movie.MovieActivity;
+import br.com.joaoretamero.popularmovies.presentation.presenter.MoviesPresenter;
+import br.com.joaoretamero.popularmovies.presentation.presenter.impl.MoviesPresenterImpl;
+import br.com.joaoretamero.popularmovies.presentation.ui.adapter.MoviesAdapter;
 import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesView {
+public class MoviesActivity extends AppCompatActivity implements MoviesPresenter.View {
 
     private static final String TAG = MoviesActivity.class.getSimpleName();
 
@@ -36,7 +38,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private MoviesPresenter presenter;
+    private MoviesPresenterImpl presenter;
     private MoviesAdapter moviesAdapter;
 
     @Override
@@ -85,7 +87,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesView {
 
     private void initPresenter() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        presenter = new MoviesPresenter(MoviesActivity.this, connectivityManager);
+        presenter = new MoviesPresenterImpl(MoviesActivity.this, connectivityManager);
     }
 
     @Override

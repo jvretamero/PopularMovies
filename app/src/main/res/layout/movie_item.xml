@@ -3,20 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <br.com.joaoretamero.popularmovies.presentation.ui.customview.PosterImageView
         android:id="@+id/movie_item_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/movie_item_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/movie_item_poster"
         android:text="Titulo" />
 
 </RelativeLayout>

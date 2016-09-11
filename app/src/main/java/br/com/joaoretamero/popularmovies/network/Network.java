@@ -3,7 +3,7 @@ package br.com.joaoretamero.popularmovies.network;
 import android.content.Context;
 
 import com.github.aurae.retrofit2.LoganSquareConverterFactory;
-import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -35,7 +35,8 @@ public class Network {
 
     public static Picasso createPicasso(Context context) {
         return new Picasso.Builder(context)
-                .downloader(new OkHttp3Downloader(context, Long.MAX_VALUE))
+                .memoryCache(new LruCache(Integer.MAX_VALUE))
+                //.downloader(new OkHttp3Downloader(context, Long.MAX_VALUE))
                 .build();
     }
 
