@@ -1,24 +1,24 @@
-package br.com.joaoretamero.popularmovies.domain.mapper;
+package br.com.joaoretamero.popularmovies.infraestructure.network.converter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.json.MovieJson;
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
 
-public class MovieMapper {
+public class MovieConverter {
 
-    public List<Movie> mapJsonListToLocalList(List<MovieJson> movieJsonList) {
+    public List<Movie> convertListToStorageModel(List<MovieJson> movieJsonList) {
         List<Movie> movieList = new ArrayList<Movie>(movieJsonList.size());
 
         for (MovieJson movieJson : movieJsonList) {
-            movieList.add(mapJsonToLocal(movieJson));
+            movieList.add(convertToStorageModel(movieJson));
         }
 
         return movieList;
     }
 
-    public Movie mapJsonToLocal(MovieJson movieJson) {
+    public Movie convertToStorageModel(MovieJson movieJson) {
         Movie movie = new Movie();
         movie.movieId = movieJson.id;
         movie.backdrop = movieJson.backdrop;

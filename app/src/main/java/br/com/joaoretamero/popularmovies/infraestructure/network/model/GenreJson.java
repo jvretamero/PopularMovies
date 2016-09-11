@@ -1,16 +1,13 @@
-package br.com.joaoretamero.popularmovies.domain.json;
+package br.com.joaoretamero.popularmovies.infraestructure.network.model;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
 
 @JsonObject
-public class VideoJson {
+public class GenreJson {
 
     @JsonField(name = "id")
-    public String id;
-
-    @JsonField(name = "key")
-    public String key;
+    public int id;
 
     @JsonField(name = "name")
     public String name;

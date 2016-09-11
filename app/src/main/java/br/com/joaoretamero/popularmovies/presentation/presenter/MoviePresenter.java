@@ -2,10 +2,10 @@ package br.com.joaoretamero.popularmovies.presentation.presenter;
 
 import android.net.ConnectivityManager;
 
-import br.com.joaoretamero.popularmovies.domain.local.Genre;
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.Video;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Genre;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
 import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 

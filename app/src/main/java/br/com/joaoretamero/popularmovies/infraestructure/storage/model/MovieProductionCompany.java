@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.domain.local;
+package br.com.joaoretamero.popularmovies.infraestructure.storage.model;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;

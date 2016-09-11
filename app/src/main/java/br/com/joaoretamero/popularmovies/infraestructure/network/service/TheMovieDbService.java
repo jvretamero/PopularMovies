@@ -1,7 +1,7 @@
-package br.com.joaoretamero.popularmovies.network;
+package br.com.joaoretamero.popularmovies.infraestructure.network.service;
 
-import br.com.joaoretamero.popularmovies.domain.json.MovieJson;
-import br.com.joaoretamero.popularmovies.domain.json.MovieJsonResponse;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJsonResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

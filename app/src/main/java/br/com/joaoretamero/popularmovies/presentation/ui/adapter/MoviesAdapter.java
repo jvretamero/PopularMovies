@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
-import br.com.joaoretamero.popularmovies.network.Network;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
 import br.com.joaoretamero.popularmovies.util.BaseAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +37,8 @@ public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> 
         Movie movie = getItem(position);
 
         // TODO criar drawable de erro
-        Network.createPicasso(context)
-                .load(ImageUrlBuilder.getPosterImageUri(movie.poster))
+        PicassoProvider.provide(context)
+                .load(ImageUrlProvider.providePosterUrl(movie.poster))
                 .into(holder.posterImage);
 
         holder.posterImage.setImageResource(R.mipmap.ic_launcher);

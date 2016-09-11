@@ -2,28 +2,27 @@ package br.com.joaoretamero.popularmovies.domain.repository;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.json.GenreJson;
-import br.com.joaoretamero.popularmovies.domain.json.MovieJson;
-import br.com.joaoretamero.popularmovies.domain.json.MovieJsonResponse;
-import br.com.joaoretamero.popularmovies.domain.json.ProductionCompanyJson;
-import br.com.joaoretamero.popularmovies.domain.json.VideosJsonResponse;
-import br.com.joaoretamero.popularmovies.domain.local.Genre;
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.domain.local.MovieGenre;
-import br.com.joaoretamero.popularmovies.domain.local.MovieProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.Video;
-import br.com.joaoretamero.popularmovies.domain.mapper.MovieMapper;
-import br.com.joaoretamero.popularmovies.domain.mapper.VideoMapper;
-import br.com.joaoretamero.popularmovies.network.Network;
-import br.com.joaoretamero.popularmovies.network.TheMovieDbService;
+import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieConverter;
+import br.com.joaoretamero.popularmovies.infraestructure.network.converter.VideoConverter;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.GenreJson;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJsonResponse;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.ProductionCompanyJson;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideosJsonResponse;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.NetworkServiceProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Genre;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.MovieGenre;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.MovieProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -37,23 +36,18 @@ public class MovieRepository {
 
     public MovieRepository(ConnectivityManager connectivityManager) {
         this.connectivityManager = connectivityManager;
-        this.theMovieDbService = Network.createTheMovieDbService();
+        this.theMovieDbService = NetworkServiceProvider.provideTheMovieDbService();
     }
 
     public void findOne(final int movieId, final FindOneCallback findOneCallback) {
-        Log.d(TAG, "findAll");
         if (isNetworkAvailable()) {
-            Log.d(TAG, "newtork available");
             theMovieDbService.getMovie(movieId).enqueue(new Callback<MovieJson>() {
                 @Override
                 public void onResponse(Call<MovieJson> call, Response<MovieJson> response) {
-                    Log.d(TAG, "request has response");
                     if (response.isSuccessful()) {
-                        Log.d(TAG, "response was successfull");
                         mapOneAndUpdate(response.body());
                         findOneFromLocal(movieId, findOneCallback);
                     } else {
-                        Log.d(TAG, "response wasnt successfull");
                         callFail(findOneCallback);
                     }
                 }
@@ -64,7 +58,6 @@ public class MovieRepository {
                 }
             });
         } else {
-            Log.d(TAG, "newtork unavailable");
             findOneFromLocal(movieId, findOneCallback);
         }
     }
@@ -76,7 +69,6 @@ public class MovieRepository {
     }
 
     private void mapOneAndUpdate(MovieJson movieJson) {
-        Log.d(TAG, "mapOneAndUpdate");
         Movie movie = updateMovie(movieJson);
         saveVideosFromMovie(movie, movieJson.videos);
         saveGenresFromMovie(movie, movieJson.genres);
@@ -84,7 +76,6 @@ public class MovieRepository {
     }
 
     public Movie updateMovie(MovieJson movieJson) {
-        Log.d(TAG, "updateMovie");
         Movie movieLocal = Movie.findByMovieId(movieJson.id);
         if (movieLocal == null) {
             movieLocal = new Movie();
@@ -103,24 +94,18 @@ public class MovieRepository {
     }
 
     public void saveVideosFromMovie(Movie movie, VideosJsonResponse videosJsonResponse) {
-        Log.d(TAG, "saveVideosFromMovie");
-
         if (videosJsonResponse == null || videosJsonResponse.results == null ||
                 videosJsonResponse.results.size() == 0) {
             return;
         }
 
-        Log.d(TAG, "videoJsonCount: " + videosJsonResponse.results.size());
-
-        VideoMapper videoMapper = new VideoMapper();
-        List<Video> videos = videoMapper.mapJsonListToLocalList(videosJsonResponse.results);
-        Log.d(TAG, "videos mapped: " + videos.size());
+        VideoConverter videoMapper = new VideoConverter();
+        List<Video> videos = videoMapper.convertListToStorageModel(videosJsonResponse.results);
         Video.clearAllFromMovie(movie.getId());
         Video.bulkInsert(movie, videos);
     }
 
     public void saveGenresFromMovie(Movie movie, List<GenreJson> genreJsonList) {
-        Log.d(TAG, "saveGenresFromMovie");
         if (genreJsonList == null || genreJsonList.size() == 0) {
             return;
         }
@@ -131,7 +116,6 @@ public class MovieRepository {
     }
 
     private List<Genre> saveGenres(List<GenreJson> genreJsonList) {
-        Log.d(TAG, "saveGenres");
         List<Genre> genreList = new ArrayList<Genre>(genreJsonList.size());
         Genre genre;
 
@@ -157,7 +141,6 @@ public class MovieRepository {
     }
 
     private void saveProductionCompaniesFromMovie(Movie movie, List<ProductionCompanyJson> productionCompanyJsonList) {
-        Log.d(TAG, "saveProductionCompaniesFromMovie");
         if (productionCompanyJsonList == null || productionCompanyJsonList.size() == 0) {
             return;
         }
@@ -168,7 +151,6 @@ public class MovieRepository {
     }
 
     private List<ProductionCompany> saveProductionCompanies(List<ProductionCompanyJson> productionCompanyJsonList) {
-        Log.d(TAG, "saveProductionCompanies");
         List<ProductionCompany> productionCompanies = new ArrayList<ProductionCompany>(productionCompanyJsonList.size());
         ProductionCompany productionCompany;
 
@@ -230,8 +212,8 @@ public class MovieRepository {
             return new ArrayList<Movie>();
         }
 
-        MovieMapper mapper = new MovieMapper();
-        return mapper.mapJsonListToLocalList(movieJsonResponse.results);
+        MovieConverter mapper = new MovieConverter();
+        return mapper.convertListToStorageModel(movieJsonResponse.results);
     }
 
     private void findAllFromLocal(String sortOrder, FindAllCallback findAllCallback) {

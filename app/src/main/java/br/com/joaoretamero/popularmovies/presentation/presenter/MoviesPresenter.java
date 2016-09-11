@@ -4,7 +4,7 @@ import android.net.ConnectivityManager;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 

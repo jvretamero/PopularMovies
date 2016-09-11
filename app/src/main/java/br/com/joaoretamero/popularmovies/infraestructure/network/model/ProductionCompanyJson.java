@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.domain.json;
+package br.com.joaoretamero.popularmovies.infraestructure.network.model;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;

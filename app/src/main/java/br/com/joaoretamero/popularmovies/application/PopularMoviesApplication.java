@@ -5,13 +5,13 @@ import android.app.Application;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 
-import br.com.joaoretamero.popularmovies.domain.local.AppSettings;
-import br.com.joaoretamero.popularmovies.domain.local.Genre;
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.domain.local.MovieGenre;
-import br.com.joaoretamero.popularmovies.domain.local.MovieProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.Video;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.AppSettings;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Genre;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.MovieGenre;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.MovieProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
 
 public class PopularMoviesApplication extends Application {
 

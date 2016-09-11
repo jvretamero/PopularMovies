@@ -15,12 +15,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.domain.local.Genre;
-import br.com.joaoretamero.popularmovies.domain.local.Movie;
-import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.local.Video;
-import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
-import br.com.joaoretamero.popularmovies.network.Network;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Genre;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.VideoAdapter;
@@ -109,8 +109,8 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     @Override
     public void setMovie(Movie movie) {
         // TODO criar drawable de erro
-        Network.createPicasso(MovieActivity.this)
-                .load(ImageUrlBuilder.getBackdropImageUri(movie.backdrop))
+        PicassoProvider.provide(MovieActivity.this)
+                .load(ImageUrlProvider.provideBackdropUrl(movie.backdrop))
                 .fit()
                 .centerCrop()
                 .into(backdrop);
