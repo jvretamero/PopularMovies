@@ -1,32 +1,63 @@
 package br.com.joaoretamero.popularmovies.presentation.presenter;
 
+import android.net.ConnectivityManager;
+
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 
-public interface MoviesPresenter {
+public class MoviesPresenter implements MoviesContract {
 
-    void start(String sortOrder);
+    private final static String TAG = MoviesPresenter.class.getSimpleName();
+    private MoviesContract.View view;
+    private MovieRepository movieRepository;
 
-    void onItemClick(int movieId);
+    public MoviesPresenter(MoviesContract.View view, ConnectivityManager connectivityManager) {
+        this.view = view;
+        this.movieRepository = new MovieRepository(connectivityManager);
+    }
 
-    void onRefresh(String sortOrder);
+    @Override
+    public void start(String sortOrder) {
+        view.showRefreshIndicator(true);
+        listMovies(sortOrder);
+    }
 
-    void onSortMenuClick();
+    @Override
+    public void onItemClick(int movieId) {
+        view.showMovieDetail(movieId);
+    }
 
-    void onConfigurationMenuClick();
+    @Override
+    public void onRefresh(String sortOrder) {
+        listMovies(sortOrder);
+    }
 
-    interface View {
-        void showMovieDetail(int movieId);
+    @Override
+    public void onSortMenuClick() {
+        view.showSortingOptions();
+    }
 
-        void showSortingOptions();
+    @Override
+    public void onConfigurationMenuClick() {
+        view.showConfigurationScreen();
+    }
 
-        void showConfigurationScreen();
+    private void listMovies(String sortOrder) {
+        movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
+            @Override
+            public void onSuccess(List<Movie> movies) {
+                view.showMovies(movies);
+                view.showRefreshIndicator(false);
+            }
 
-        void showErrorLoadingMovies();
-
-        void showRefreshIndicator(boolean showRefreshIndicator);
-
-        void showMovies(List<Movie> movies);
+            @Override
+            public void onFail() {
+                view.showErrorLoadingMovies();
+                view.showRefreshIndicator(false);
+            }
+        });
     }
 }

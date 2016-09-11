@@ -18,14 +18,14 @@ import java.util.List;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.local.AppSettings;
 import br.com.joaoretamero.popularmovies.domain.local.Movie;
+import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviesPresenter;
-import br.com.joaoretamero.popularmovies.presentation.presenter.impl.MoviesPresenterImpl;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.MoviesAdapter;
 import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoviesActivity extends AppCompatActivity implements MoviesPresenter.View {
+public class MoviesActivity extends AppCompatActivity implements MoviesContract.View {
 
     private static final String TAG = MoviesActivity.class.getSimpleName();
 
@@ -38,7 +38,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesPresenter
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private MoviesPresenterImpl presenter;
+    private MoviesPresenter presenter;
     private MoviesAdapter moviesAdapter;
 
     @Override
@@ -87,7 +87,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesPresenter
 
     private void initPresenter() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        presenter = new MoviesPresenterImpl(MoviesActivity.this, connectivityManager);
+        presenter = new MoviesPresenter(MoviesActivity.this, connectivityManager);
     }
 
     @Override

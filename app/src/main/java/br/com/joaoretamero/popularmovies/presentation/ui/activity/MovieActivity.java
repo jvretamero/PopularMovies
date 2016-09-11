@@ -21,13 +21,13 @@ import br.com.joaoretamero.popularmovies.domain.local.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.local.Video;
 import br.com.joaoretamero.popularmovies.network.ImageUrlBuilder;
 import br.com.joaoretamero.popularmovies.network.Network;
+import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
-import br.com.joaoretamero.popularmovies.presentation.presenter.impl.MoviePresenterImpl;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.VideoAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieActivity extends AppCompatActivity implements MoviePresenter.View {
+public class MovieActivity extends AppCompatActivity implements MovieContract.View {
 
     public static final String TAG = MovieActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_ID = "movie_id";
@@ -60,7 +60,7 @@ public class MovieActivity extends AppCompatActivity implements MoviePresenter.V
     RecyclerView videosList;
 
     private VideoAdapter videoAdapter;
-    private MoviePresenterImpl presenter;
+    private MoviePresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class MovieActivity extends AppCompatActivity implements MoviePresenter.V
         initVideosList();
 
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        presenter = new MoviePresenterImpl(this, connectivityManager);
+        presenter = new MoviePresenter(this, connectivityManager);
     }
 
     private void initToolbar() {
