@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure.storage.model;
+package br.com.joaoretamero.popularmovies.infraestructure.local.model;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;

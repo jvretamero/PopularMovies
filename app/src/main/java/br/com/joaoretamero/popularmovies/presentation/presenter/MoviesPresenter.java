@@ -4,9 +4,9 @@ import android.net.ConnectivityManager;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
-import br.com.joaoretamero.popularmovies.domain.repository.impl.MovieRepositoryImpl;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 
 public class MoviesPresenter implements MoviesContract {

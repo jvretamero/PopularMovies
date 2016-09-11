@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.presentation.contract;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
 
 public interface MoviesContract {
 

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

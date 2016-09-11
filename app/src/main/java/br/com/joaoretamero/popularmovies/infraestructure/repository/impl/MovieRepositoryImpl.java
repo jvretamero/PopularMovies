@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.domain.repository.impl;
+package br.com.joaoretamero.popularmovies.infraestructure.repository.impl;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,8 +8,8 @@ import com.activeandroid.ActiveAndroid;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.repository.BaseRepositoryCallback;
-import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.infraestructure.BaseCallback;
+import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieConverter;
 import br.com.joaoretamero.popularmovies.infraestructure.network.converter.VideoConverter;
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.GenreJson;
@@ -19,12 +19,12 @@ import br.com.joaoretamero.popularmovies.infraestructure.network.model.Productio
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideosJsonResponse;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.NetworkServiceProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.MovieGenre;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.MovieProductionCompany;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.ProductionCompany;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Video;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.MovieGenre;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.MovieProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -224,7 +224,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         }
     }
 
-    private void callFail(BaseRepositoryCallback callback) {
+    private void callFail(BaseCallback callback) {
         if (callback != null) {
             callback.onError();
         }

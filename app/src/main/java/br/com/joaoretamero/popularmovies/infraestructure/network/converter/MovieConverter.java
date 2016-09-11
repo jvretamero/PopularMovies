@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
 
 public class MovieConverter {
 

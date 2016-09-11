@@ -16,8 +16,8 @@ import android.view.View;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.AppSettings;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.AppSettings;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviesPresenter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.MoviesAdapter;

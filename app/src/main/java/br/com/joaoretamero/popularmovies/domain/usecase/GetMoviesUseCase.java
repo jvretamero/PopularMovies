@@ -2,8 +2,8 @@ package br.com.joaoretamero.popularmovies.domain.usecase;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.repository.MovieRepository;
-import br.com.joaoretamero.popularmovies.infraestructure.storage.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
 
 public class GetMoviesUseCase extends UseCase<Object, List<Movie>> {
 
