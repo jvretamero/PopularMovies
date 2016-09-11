@@ -88,12 +88,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     private void initPresenter() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         presenter = new MoviesPresenter(MoviesActivity.this, connectivityManager);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
         presenter.start(AppSettings.get().sortOrder);
     }
 
