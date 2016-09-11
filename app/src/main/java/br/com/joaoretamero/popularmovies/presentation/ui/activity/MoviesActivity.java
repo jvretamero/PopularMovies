@@ -17,7 +17,7 @@ import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.AppSettings;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviesPresenter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.MoviesAdapter;
@@ -79,7 +79,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                Movie movie = moviesAdapter.getItem(posicao);
+                LocalMovie movie = moviesAdapter.getItem(posicao);
                 presenter.onItemClick(movie.movieId);
             }
         }));
@@ -140,7 +140,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     }
 
     @Override
-    public void showMovies(List<Movie> movies) {
+    public void showMovies(List<LocalMovie> movies) {
         moviesAdapter.updateData(movies);
     }
 }

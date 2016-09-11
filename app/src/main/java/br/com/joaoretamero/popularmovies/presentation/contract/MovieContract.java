@@ -3,7 +3,7 @@ package br.com.joaoretamero.popularmovies.presentation.contract;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
 
@@ -13,7 +13,7 @@ public interface MovieContract {
 
     interface View {
 
-        void setMovie(Movie movie);
+        void setMovie(LocalMovie movie);
 
         void setGenreList(List<Genre> genres);
 

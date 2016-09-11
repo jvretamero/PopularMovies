@@ -12,7 +12,7 @@ import java.util.List;
 public class MovieProductionCompany extends Model {
 
     @Column(name = "movie")
-    public Movie movie;
+    public LocalMovie movie;
 
     @Column(name = "production_company")
     public ProductionCompany productionCompany;
@@ -34,7 +34,7 @@ public class MovieProductionCompany extends Model {
                 .execute();
     }
 
-    public static void bulkInsert(Movie movie, List<ProductionCompany> productionCompanyList) {
+    public static void bulkInsert(LocalMovie movie, List<ProductionCompany> productionCompanyList) {
         ActiveAndroid.beginTransaction();
         try {
             MovieProductionCompany movieProductionCompany;

@@ -18,7 +18,7 @@ import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
@@ -107,7 +107,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     }
 
     @Override
-    public void setMovie(Movie movie) {
+    public void setMovie(LocalMovie movie) {
         // TODO criar drawable de erro
         PicassoProvider.provide(MovieActivity.this)
                 .load(ImageUrlProvider.provideBackdropUrl(movie.backdrop))

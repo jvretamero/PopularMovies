@@ -20,7 +20,7 @@ import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideosJso
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.NetworkServiceProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.MovieGenre;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.MovieProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
@@ -66,21 +66,21 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     private void findOneFromLocal(int movieId, MovieRepository.FindOneCallback findOneCallback) {
         if (findOneCallback != null) {
-            findOneCallback.onSuccess(Movie.findByMovieId(movieId));
+            findOneCallback.onSuccess(LocalMovie.findByMovieId(movieId));
         }
     }
 
     private void mapOneAndUpdate(MovieJson movieJson) {
-        Movie movie = updateMovie(movieJson);
+        LocalMovie movie = updateMovie(movieJson);
         saveVideosFromMovie(movie, movieJson.videos);
         saveGenresFromMovie(movie, movieJson.genres);
         saveProductionCompaniesFromMovie(movie, movieJson.productionCompanies);
     }
 
-    public Movie updateMovie(MovieJson movieJson) {
-        Movie movieLocal = Movie.findByMovieId(movieJson.id);
+    public LocalMovie updateMovie(MovieJson movieJson) {
+        LocalMovie movieLocal = LocalMovie.findByMovieId(movieJson.id);
         if (movieLocal == null) {
-            movieLocal = new Movie();
+            movieLocal = new LocalMovie();
             movieLocal.movieId = movieJson.id;
         }
         movieLocal.voteAverage = movieJson.voteAverage;
@@ -95,7 +95,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         return movieLocal;
     }
 
-    public void saveVideosFromMovie(Movie movie, VideosJsonResponse videosJsonResponse) {
+    public void saveVideosFromMovie(LocalMovie movie, VideosJsonResponse videosJsonResponse) {
         if (videosJsonResponse == null || videosJsonResponse.results == null ||
                 videosJsonResponse.results.size() == 0) {
             return;
@@ -107,7 +107,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         Video.bulkInsert(movie, videos);
     }
 
-    public void saveGenresFromMovie(Movie movie, List<GenreJson> genreJsonList) {
+    public void saveGenresFromMovie(LocalMovie movie, List<GenreJson> genreJsonList) {
         if (genreJsonList == null || genreJsonList.size() == 0) {
             return;
         }
@@ -142,7 +142,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         return genreList;
     }
 
-    private void saveProductionCompaniesFromMovie(Movie movie, List<ProductionCompanyJson> productionCompanyJsonList) {
+    private void saveProductionCompaniesFromMovie(LocalMovie movie, List<ProductionCompanyJson> productionCompanyJsonList) {
         if (productionCompanyJsonList == null || productionCompanyJsonList.size() == 0) {
             return;
         }
@@ -201,17 +201,17 @@ public class MovieRepositoryImpl implements MovieRepository {
     }
 
     private void mapCleanAndInsert(MovieJsonResponse movieJsonResponse) {
-        List<Movie> movieList = mapMovieJsonListToMovieLocalList(movieJsonResponse);
+        List<LocalMovie> movieList = mapMovieJsonListToMovieLocalList(movieJsonResponse);
         Video.clearAll();
         MovieGenre.clearAll();
         MovieProductionCompany.clearAll();
-        Movie.clearAll();
-        Movie.bulkInsert(movieList);
+        LocalMovie.clearAll();
+        LocalMovie.bulkInsert(movieList);
     }
 
-    private List<Movie> mapMovieJsonListToMovieLocalList(MovieJsonResponse movieJsonResponse) {
+    private List<LocalMovie> mapMovieJsonListToMovieLocalList(MovieJsonResponse movieJsonResponse) {
         if (movieJsonResponse == null || movieJsonResponse.results == null) {
-            return new ArrayList<Movie>();
+            return new ArrayList<LocalMovie>();
         }
 
         MovieConverter mapper = new MovieConverter();
@@ -220,7 +220,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     private void findAllFromLocal(String sortOrder, MovieRepository.FindAllCallback findAllCallback) {
         if (findAllCallback != null) {
-            findAllCallback.onSuccess(Movie.findAllSortedBy(sortOrder));
+            findAllCallback.onSuccess(LocalMovie.findAllSortedBy(sortOrder));
         }
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 
 public class MoviesPresenter implements MoviesContract {
@@ -47,7 +47,7 @@ public class MoviesPresenter implements MoviesContract {
     private void listMovies(String sortOrder) {
         movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
             @Override
-            public void onSuccess(List<Movie> movies) {
+            public void onSuccess(List<LocalMovie> movies) {
                 view.showMovies(movies);
                 view.showRefreshIndicator(false);
             }

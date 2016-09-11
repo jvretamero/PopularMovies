@@ -10,7 +10,7 @@ import com.activeandroid.query.Select;
 import java.util.List;
 
 @Table(name = "movie", id = "_id")
-public class Movie extends Model {
+public class LocalMovie extends Model {
 
     public static final String VOTE_AVERAGE_FIELD = "vote_average";
     public static final String POPULARITY_FIELD = "popularity";
@@ -40,32 +40,32 @@ public class Movie extends Model {
     @Column(name = POPULARITY_FIELD)
     public float popularity;
 
-    public Movie() {
+    public LocalMovie() {
         super();
     }
 
-    public static Movie findByMovieId(int movieId) {
+    public static LocalMovie findByMovieId(int movieId) {
         return new Select()
-                .from(Movie.class)
+                .from(LocalMovie.class)
                 .where("movie_id = ?", movieId)
                 .executeSingle();
     }
 
-    public static List<Movie> findAllSortedBy(String sortBy) {
+    public static List<LocalMovie> findAllSortedBy(String sortBy) {
         return new Select()
-                .from(Movie.class)
+                .from(LocalMovie.class)
                 .orderBy(sortBy)
                 .execute();
     }
 
     public static void clearAll() {
-        new Delete().from(Movie.class).execute();
+        new Delete().from(LocalMovie.class).execute();
     }
 
-    public static void bulkInsert(List<Movie> movieList) {
+    public static void bulkInsert(List<LocalMovie> movieList) {
         ActiveAndroid.beginTransaction();
         try {
-            for (Movie movie : movieList) {
+            for (LocalMovie movie : movieList) {
                 movie.save();
             }
 

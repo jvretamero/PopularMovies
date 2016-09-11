@@ -13,7 +13,7 @@ import java.util.List;
 public class Video extends Model {
 
     @Column(name = "movie")
-    public Movie movie;
+    public LocalMovie movie;
 
     @Column(name = "name")
     public String name;
@@ -46,7 +46,7 @@ public class Video extends Model {
                 .execute();
     }
 
-    public static void bulkInsert(Movie movie, List<Video> videoList) {
+    public static void bulkInsert(LocalMovie movie, List<Video> videoList) {
         ActiveAndroid.beginTransaction();
         try {
             for (Video video : videoList) {

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 
 public class MovieConverter {
 
-    public List<Movie> convertListToStorageModel(List<MovieJson> movieJsonList) {
-        List<Movie> movieList = new ArrayList<Movie>(movieJsonList.size());
+    public List<LocalMovie> convertListToStorageModel(List<MovieJson> movieJsonList) {
+        List<LocalMovie> movieList = new ArrayList<LocalMovie>(movieJsonList.size());
 
         for (MovieJson movieJson : movieJsonList) {
             movieList.add(convertToStorageModel(movieJson));
@@ -18,8 +18,8 @@ public class MovieConverter {
         return movieList;
     }
 
-    public Movie convertToStorageModel(MovieJson movieJson) {
-        Movie movie = new Movie();
+    public LocalMovie convertToStorageModel(MovieJson movieJson) {
+        LocalMovie movie = new LocalMovie();
         movie.movieId = movieJson.id;
         movie.backdrop = movieJson.backdrop;
         movie.durationInMinutes = movieJson.runtime;

@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.presentation.contract;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 
 public interface MoviesContract {
 
@@ -17,6 +17,6 @@ public interface MoviesContract {
 
         void showRefreshIndicator(boolean showRefreshIndicator);
 
-        void showMovies(List<Movie> movies);
+        void showMovies(List<LocalMovie> movies);
     }
 }

@@ -20,7 +20,7 @@ public class AppSettings extends Model {
 
         if (settings == null) {
             settings = new AppSettings();
-            settings.sortOrder = Movie.DEFAULT_ORDER;
+            settings.sortOrder = LocalMovie.DEFAULT_ORDER;
             settings.save();
         }
 

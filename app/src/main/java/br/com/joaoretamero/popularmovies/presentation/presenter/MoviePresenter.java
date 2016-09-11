@@ -5,7 +5,7 @@ import android.net.ConnectivityManager;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
@@ -24,7 +24,7 @@ public class MoviePresenter {
     public void start(int movieId) {
         movieRepository.findOne(movieId, new MovieRepository.FindOneCallback() {
             @Override
-            public void onSuccess(Movie movie) {
+            public void onSuccess(LocalMovie movie) {
                 view.setMovie(movie);
                 view.setGenreList(Genre.findAllFromMovie(movie.getId()));
                 view.setProductionCompaniesList(ProductionCompany.findAllFromMovie(movie.getId()));

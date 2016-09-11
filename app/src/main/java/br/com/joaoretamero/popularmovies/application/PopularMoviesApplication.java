@@ -7,7 +7,7 @@ import com.activeandroid.Configuration;
 
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.AppSettings;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.MovieGenre;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.MovieProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
@@ -30,7 +30,7 @@ public class PopularMoviesApplication extends Application {
     public void configureModels(Configuration.Builder configuration) {
         configuration.addModelClass(AppSettings.class);
         configuration.addModelClass(Genre.class);
-        configuration.addModelClass(Movie.class);
+        configuration.addModelClass(LocalMovie.class);
         configuration.addModelClass(MovieGenre.class);
         configuration.addModelClass(MovieProductionCompany.class);
         configuration.addModelClass(ProductionCompany.class);

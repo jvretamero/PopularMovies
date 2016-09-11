@@ -12,11 +12,11 @@ import android.widget.TextView;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Movie;
+import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> {
+public class MoviesAdapter extends BaseAdapter<LocalMovie, MoviesAdapter.ViewHolder> {
 
     private Context context;
 
@@ -33,7 +33,7 @@ public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Movie movie = getItem(position);
+        LocalMovie movie = getItem(position);
 
         // TODO criar drawable de erro
         PicassoProvider.provide(context)
