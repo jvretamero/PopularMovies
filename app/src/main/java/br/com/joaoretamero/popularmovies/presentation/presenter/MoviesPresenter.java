@@ -1,24 +1,25 @@
 package br.com.joaoretamero.popularmovies.presentation.presenter;
 
-import android.net.ConnectivityManager;
-
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
-import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
+import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
+import br.com.joaoretamero.popularmovies.domain.usecase.GetMoviesUseCase;
+import br.com.joaoretamero.popularmovies.domain.usecase.UseCase;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 
 public class MoviesPresenter implements MoviesContract {
 
     private final static String TAG = MoviesPresenter.class.getSimpleName();
     private MoviesContract.View view;
-    private MovieRepository movieRepository;
+    private GetMoviesUseCase getMoviesUseCase;
+    private UseCaseHandler useCaseHandler;
     private boolean firstLoad;
 
-    public MoviesPresenter(MoviesContract.View view, ConnectivityManager connectivityManager) {
+    public MoviesPresenter(MoviesContract.View view, UseCaseHandler useCaseHandler, GetMoviesUseCase getMoviesUseCase) {
         this.view = view;
-        this.movieRepository = new MovieRepositoryImpl(connectivityManager);
+        this.useCaseHandler = useCaseHandler;
+        this.getMoviesUseCase = getMoviesUseCase;
         this.firstLoad = true;
     }
 
@@ -45,15 +46,15 @@ public class MoviesPresenter implements MoviesContract {
     }
 
     private void listMovies(String sortOrder) {
-        movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
+        useCaseHandler.execute(getMoviesUseCase, sortOrder, new UseCase.Callback<List<DomainMovie>>() {
             @Override
-            public void onSuccess(List<LocalMovie> movies) {
-                view.showMovies(movies);
+            public void onSuccess(List<DomainMovie> response) {
+                view.showMovies(response);
                 view.showRefreshIndicator(false);
             }
 
             @Override
-            public void onError() {
+            public void onError(Throwable error) {
                 view.showErrorLoadingMovies();
                 view.showRefreshIndicator(false);
             }

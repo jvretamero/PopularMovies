@@ -1,38 +1,33 @@
 package br.com.joaoretamero.popularmovies.presentation.presenter;
 
-import android.net.ConnectivityManager;
-
-import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
-import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
+import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
+import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
+import br.com.joaoretamero.popularmovies.domain.usecase.UseCase;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 
 public class MoviePresenter {
 
     private static final String TAG = MoviePresenter.class.getSimpleName();
     private MovieContract.View view;
-    private MovieRepository movieRepository;
+    private UseCaseHandler useCaseHandler;
+    private GetMovieUseCase getMovieUseCase;
 
-    public MoviePresenter(MovieContract.View view, ConnectivityManager connectivityManager) {
+    public MoviePresenter(MovieContract.View view, UseCaseHandler useCaseHandler, GetMovieUseCase getMovieUseCase) {
         this.view = view;
-        this.movieRepository = new MovieRepositoryImpl(connectivityManager);
+        this.useCaseHandler = useCaseHandler;
+        this.getMovieUseCase = getMovieUseCase;
     }
 
     public void start(int movieId) {
-        movieRepository.findOne(movieId, new MovieRepository.FindOneCallback() {
+        useCaseHandler.execute(getMovieUseCase, movieId, new UseCase.Callback<DomainMovie>() {
             @Override
-            public void onSuccess(LocalMovie movie) {
-                view.setMovie(movie);
-                view.setGenreList(Genre.findAllFromMovie(movie.getId()));
-                view.setProductionCompaniesList(ProductionCompany.findAllFromMovie(movie.getId()));
-                view.setVideoList(Video.findAllFromMovie(movie.getId()));
+            public void onSuccess(DomainMovie response) {
+                view.setMovie(response);
             }
 
             @Override
-            public void onError() {
+            public void onError(Throwable error) {
                 view.showErrorMessage();
             }
         });

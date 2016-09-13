@@ -1,7 +1,6 @@
 package br.com.joaoretamero.popularmovies.presentation.ui.activity;
 
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -15,12 +14,26 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.threading.MainThread;
+import br.com.joaoretamero.popularmovies.domain.threading.UseCaseExecutor;
+import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
+import br.com.joaoretamero.popularmovies.domain.threading.impl.MainThreadImpl;
+import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseExecutorImpl;
+import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseHandlerImpl;
+import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
+import br.com.joaoretamero.popularmovies.infraestructure.MovieDataSource;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.LocalMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
+import br.com.joaoretamero.popularmovies.infraestructure.network.MovieNetworkSource;
+import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieJsonConverter;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.NetworkServiceProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
+import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.VideoAdapter;
@@ -72,8 +85,15 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         initToolbar();
         initVideosList();
 
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        presenter = new MoviePresenter(this, connectivityManager);
+        MainThread mainThread = MainThreadImpl.getInstance();
+        UseCaseExecutor useCaseExecutor = UseCaseExecutorImpl.getInstance();
+        UseCaseHandler useCaseHandler = new UseCaseHandlerImpl(mainThread, useCaseExecutor);
+        TheMovieDbService movieDbService = NetworkServiceProvider.provideTheMovieDbService();
+        MovieJsonConverter movieJsonConverter = new MovieJsonConverter();
+        MovieDataSource networkSource = new MovieNetworkSource(movieDbService, movieJsonConverter);
+        MovieRepository movieRepository = new MovieRepositoryImpl(networkSource);
+        GetMovieUseCase getMovieUseCase = new GetMovieUseCase(movieRepository);
+        presenter = new MoviePresenter(this, useCaseHandler, getMovieUseCase);
     }
 
     private void initToolbar() {
@@ -107,20 +127,20 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     }
 
     @Override
-    public void setMovie(LocalMovie movie) {
+    public void setMovie(DomainMovie movie) {
         // TODO criar drawable de erro
         PicassoProvider.provide(MovieActivity.this)
-                .load(ImageUrlProvider.provideBackdropUrl(movie.backdrop))
+                .load(ImageUrlProvider.provideBackdropUrl(movie.getBackdrop()))
                 .fit()
                 .centerCrop()
                 .into(backdrop);
 
-        title.setText(movie.title);
-        voteAverage.setText(String.valueOf(movie.voteAverage));
-        overview.setText(movie.overview);
+        title.setText(movie.getTitle());
+        voteAverage.setText(String.valueOf(movie.getVoteAverage()));
+        overview.setText(movie.getOverview());
 
         String durationStr = getResources().getString(R.string.movie_duration);
-        duration.setText(String.format(durationStr, movie.durationInMinutes));
+        duration.setText(String.format(durationStr, movie.getDurationInMinutes()));
     }
 
     @Override

@@ -1,23 +1,21 @@
 package br.com.joaoretamero.popularmovies.domain.usecase;
 
-import java.util.List;
-
 import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 
-public class GetMoviesUseCase extends UseCase<String, List<DomainMovie>> {
+public class GetMovieUseCase extends UseCase<Integer, DomainMovie> {
 
     private MovieRepository movieRepository;
 
-    public GetMoviesUseCase(MovieRepository movieRepository) {
+    public GetMovieUseCase(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
     @Override
-    public void execute(String sortOrder) {
-        movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
+    public void execute(Integer movieId) {
+        movieRepository.findOne(movieId, new MovieRepository.FindOneCallback() {
             @Override
-            public void onSuccess(List<DomainMovie> response) {
+            public void onSuccess(DomainMovie response) {
                 notifySuccess(response);
             }
 
