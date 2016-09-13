@@ -10,8 +10,8 @@ import java.util.List;
 
 import br.com.joaoretamero.popularmovies.infraestructure.BaseCallback;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
-import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieConverter;
-import br.com.joaoretamero.popularmovies.infraestructure.network.converter.VideoConverter;
+import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieJsonConverter;
+import br.com.joaoretamero.popularmovies.infraestructure.network.converter.VideoJsonConverter;
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.GenreJson;
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
 import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJsonResponse;
@@ -101,7 +101,7 @@ public class MovieRepositoryImpl implements MovieRepository {
             return;
         }
 
-        VideoConverter videoMapper = new VideoConverter();
+        VideoJsonConverter videoMapper = new VideoJsonConverter();
         List<Video> videos = videoMapper.convertListToStorageModel(videosJsonResponse.results);
         Video.clearAllFromMovie(movie.getId());
         Video.bulkInsert(movie, videos);
@@ -214,7 +214,7 @@ public class MovieRepositoryImpl implements MovieRepository {
             return new ArrayList<LocalMovie>();
         }
 
-        MovieConverter mapper = new MovieConverter();
+        MovieJsonConverter mapper = new MovieJsonConverter();
         return mapper.convertListToStorageModel(movieJsonResponse.results);
     }
 

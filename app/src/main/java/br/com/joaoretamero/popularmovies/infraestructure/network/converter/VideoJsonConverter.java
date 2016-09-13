@@ -3,10 +3,10 @@ package br.com.joaoretamero.popularmovies.infraestructure.network.converter;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideoJson;
 import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
+import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideoJson;
 
-public class VideoConverter {
+public class VideoJsonConverter {
 
     public List<Video> convertListToStorageModel(List<VideoJson> videoJsonList) {
         List<Video> videoList = new ArrayList<Video>(videoJsonList.size());
