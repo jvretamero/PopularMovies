@@ -15,7 +15,7 @@ import android.view.View;
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.threading.MainThread;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseExecutor;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
@@ -24,7 +24,6 @@ import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseExecutorIm
 import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseHandlerImpl;
 import br.com.joaoretamero.popularmovies.domain.usecase.GetMoviesUseCase;
 import br.com.joaoretamero.popularmovies.infraestructure.MovieDataSource;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.AppSettings;
 import br.com.joaoretamero.popularmovies.infraestructure.network.MovieNetworkSource;
 import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieJsonConverter;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.NetworkServiceProvider;
@@ -53,6 +52,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
 
     private MoviesPresenter presenter;
     private MoviesAdapter moviesAdapter;
+    private String sortOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +80,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.onRefresh(AppSettings.get().sortOrder);
+                presenter.onRefresh(sortOrder);
             }
         });
     }
@@ -92,7 +92,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int posicao) {
-                DomainMovie movie = moviesAdapter.getItem(posicao);
+                Movie movie = moviesAdapter.getItem(posicao);
                 presenter.onItemClick(movie.getId());
             }
         }));
@@ -108,7 +108,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         MovieRepository movieRepository = new MovieRepositoryImpl(networkSource);
         GetMoviesUseCase getMoviesUseCase = new GetMoviesUseCase(movieRepository);
         presenter = new MoviesPresenter(MoviesActivity.this, useCaseHandler, getMoviesUseCase);
-        presenter.loadMovies(AppSettings.get().sortOrder);
+        presenter.loadMovies(sortOrder);
     }
 
     @Override
@@ -160,7 +160,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     }
 
     @Override
-    public void showMovies(List<DomainMovie> movies) {
+    public void showMovies(List<Movie> movies) {
         moviesAdapter.updateData(movies);
     }
 }

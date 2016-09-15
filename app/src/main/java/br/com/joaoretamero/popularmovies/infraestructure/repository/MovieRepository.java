@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.infraestructure.repository;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.infraestructure.BaseCallback;
 
 public interface MovieRepository {
@@ -11,9 +11,9 @@ public interface MovieRepository {
 
     void findAll(String sortOrder, MovieRepository.FindAllCallback findAllCallback);
 
-    interface FindAllCallback extends BaseCallback<List<DomainMovie>> {
+    interface FindAllCallback extends BaseCallback<List<Movie>> {
     }
 
-    interface FindOneCallback extends BaseCallback<DomainMovie> {
+    interface FindOneCallback extends BaseCallback<Movie> {
     }
 }

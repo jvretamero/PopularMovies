@@ -1,6 +1,6 @@
 package br.com.joaoretamero.popularmovies.presentation.presenter;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
 import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
 import br.com.joaoretamero.popularmovies.domain.usecase.UseCase;
@@ -20,9 +20,9 @@ public class MoviePresenter {
     }
 
     public void start(int movieId) {
-        useCaseHandler.execute(getMovieUseCase, movieId, new UseCase.Callback<DomainMovie>() {
+        useCaseHandler.execute(getMovieUseCase, movieId, new UseCase.Callback<Movie>() {
             @Override
-            public void onSuccess(DomainMovie response) {
+            public void onSuccess(Movie response) {
                 view.setMovie(response);
             }
 

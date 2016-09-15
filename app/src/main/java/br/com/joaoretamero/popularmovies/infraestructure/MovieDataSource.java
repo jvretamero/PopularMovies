@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.infraestructure;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 
 public interface MovieDataSource {
 
@@ -10,13 +10,13 @@ public interface MovieDataSource {
 
     void findAll(String sortOrder, MovieDataSource.FindAllCallback findAllCallback);
 
-    void saveOne(DomainMovie movie);
+    void saveOne(Movie movie);
 
-    void saveMany(List<DomainMovie> movies);
+    void saveMany(List<Movie> movies);
 
-    interface FindAllCallback extends BaseCallback<List<DomainMovie>> {
+    interface FindAllCallback extends BaseCallback<List<Movie>> {
     }
 
-    interface FindOneCallback extends BaseCallback<DomainMovie> {
+    interface FindOneCallback extends BaseCallback<Movie> {
     }
 }

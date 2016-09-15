@@ -1,9 +1,9 @@
 package br.com.joaoretamero.popularmovies.domain.usecase;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 
-public class GetMovieUseCase extends UseCase<Integer, DomainMovie> {
+public class GetMovieUseCase extends UseCase<Integer, Movie> {
 
     private MovieRepository movieRepository;
 
@@ -15,7 +15,7 @@ public class GetMovieUseCase extends UseCase<Integer, DomainMovie> {
     public void execute(Integer movieId) {
         movieRepository.findOne(movieId, new MovieRepository.FindOneCallback() {
             @Override
-            public void onSuccess(DomainMovie response) {
+            public void onSuccess(Movie response) {
                 notifySuccess(response);
             }
 

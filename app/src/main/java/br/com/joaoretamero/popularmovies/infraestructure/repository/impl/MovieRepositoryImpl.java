@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.infraestructure.repository.impl;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.infraestructure.MovieDataSource;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 
@@ -22,7 +22,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
         networkDataSource.findOne(movieId, new MovieDataSource.FindOneCallback() {
             @Override
-            public void onSuccess(DomainMovie response) {
+            public void onSuccess(Movie response) {
                 findOneCallback.onSuccess(response);
             }
 
@@ -39,7 +39,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
         networkDataSource.findAll(sortOrder, new MovieDataSource.FindAllCallback() {
             @Override
-            public void onSuccess(List<DomainMovie> response) {
+            public void onSuccess(List<Movie> response) {
                 findAllCallback.onSuccess(response);
             }
 

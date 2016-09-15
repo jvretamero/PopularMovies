@@ -7,14 +7,16 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.R;
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Genre;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
+import br.com.joaoretamero.popularmovies.domain.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.domain.model.Video;
 import br.com.joaoretamero.popularmovies.domain.threading.MainThread;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseExecutor;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
@@ -23,9 +25,6 @@ import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseExecutorIm
 import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseHandlerImpl;
 import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
 import br.com.joaoretamero.popularmovies.infraestructure.MovieDataSource;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
 import br.com.joaoretamero.popularmovies.infraestructure.network.MovieNetworkSource;
 import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieJsonConverter;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
@@ -127,7 +126,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     }
 
     @Override
-    public void setMovie(DomainMovie movie) {
+    public void setMovie(Movie movie) {
         // TODO criar drawable de erro
         PicassoProvider.provide(MovieActivity.this)
                 .load(ImageUrlProvider.provideBackdropUrl(movie.getBackdrop()))
@@ -160,7 +159,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
             if (sb.length() > 0) {
                 sb.append(", ");
             }
-            sb.append(genre.name);
+            sb.append(genre.getName());
         }
 
         return sb.toString();
@@ -173,7 +172,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
             if (sb.length() > 0) {
                 sb.append(", ");
             }
-            sb.append(productionCompany.name);
+            sb.append(productionCompany.getName());
         }
 
         return sb.toString();
@@ -181,9 +180,6 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
 
     @Override
     public void setVideoList(List<Video> videos) {
-        Log.d(TAG, "setVideoList");
-        Log.d(TAG, "video count: " + videos.size());
-
         videoAdapter.updateData(videos);
     }
 

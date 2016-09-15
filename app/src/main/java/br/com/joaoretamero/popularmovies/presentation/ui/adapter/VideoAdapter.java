@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
+import br.com.joaoretamero.popularmovies.domain.model.Video;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -38,12 +38,12 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
 
         // TODO criar drawable de erro
         PicassoProvider.provide(context)
-                .load(ImageUrlProvider.provideYoutubeUrl(video.youtubeId))
+                .load(ImageUrlProvider.provideYoutubeUrl(video.getYoutubeId()))
                 .fit()
                 .centerCrop()
                 .into(holder.image);
 
-        holder.title.setText(video.name);
+        holder.title.setText(video.getName());
         holder.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,10 +2,10 @@ package br.com.joaoretamero.popularmovies.domain.usecase;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 
-public class GetMoviesUseCase extends UseCase<String, List<DomainMovie>> {
+public class GetMoviesUseCase extends UseCase<String, List<Movie>> {
 
     private MovieRepository movieRepository;
 
@@ -17,7 +17,7 @@ public class GetMoviesUseCase extends UseCase<String, List<DomainMovie>> {
     public void execute(String sortOrder) {
         movieRepository.findAll(sortOrder, new MovieRepository.FindAllCallback() {
             @Override
-            public void onSuccess(List<DomainMovie> response) {
+            public void onSuccess(List<Movie> response) {
                 notifySuccess(response);
             }
 

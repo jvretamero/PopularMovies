@@ -1,6 +1,6 @@
 package br.com.joaoretamero.popularmovies.domain.model;
 
-public class DomainMovie {
+public class Movie {
 
     private int id;
 
@@ -18,7 +18,7 @@ public class DomainMovie {
 
     private float popularity;
 
-    public DomainMovie(int id) {
+    public Movie(int id) {
         this.id = id;
     }
 
@@ -80,5 +80,19 @@ public class DomainMovie {
 
     public void setPopularity(float popularity) {
         this.popularity = popularity;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", poster='" + poster + '\'' +
+                ", backdrop='" + backdrop + '\'' +
+                ", title='" + title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", durationInMinutes=" + durationInMinutes +
+                ", voteAverage=" + voteAverage +
+                ", popularity=" + popularity +
+                '}';
     }
 }

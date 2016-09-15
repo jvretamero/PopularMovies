@@ -2,10 +2,10 @@ package br.com.joaoretamero.popularmovies.presentation.contract;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Genre;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.ProductionCompany;
-import br.com.joaoretamero.popularmovies.infraestructure.local.model.Video;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
+import br.com.joaoretamero.popularmovies.domain.model.Genre;
+import br.com.joaoretamero.popularmovies.domain.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.domain.model.Video;
 
 public interface MovieContract {
 
@@ -13,7 +13,7 @@ public interface MovieContract {
 
     interface View {
 
-        void setMovie(DomainMovie movie);
+        void setMovie(Movie movie);
 
         void setGenreList(List<Genre> genres);
 

@@ -2,7 +2,7 @@ package br.com.joaoretamero.popularmovies.presentation.presenter;
 
 import java.util.List;
 
-import br.com.joaoretamero.popularmovies.domain.model.DomainMovie;
+import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
 import br.com.joaoretamero.popularmovies.domain.usecase.GetMoviesUseCase;
 import br.com.joaoretamero.popularmovies.domain.usecase.UseCase;
@@ -46,9 +46,9 @@ public class MoviesPresenter implements MoviesContract {
     }
 
     private void listMovies(String sortOrder) {
-        useCaseHandler.execute(getMoviesUseCase, sortOrder, new UseCase.Callback<List<DomainMovie>>() {
+        useCaseHandler.execute(getMoviesUseCase, sortOrder, new UseCase.Callback<List<Movie>>() {
             @Override
-            public void onSuccess(List<DomainMovie> response) {
+            public void onSuccess(List<Movie> response) {
                 view.showMovies(response);
                 view.showRefreshIndicator(false);
             }
