@@ -96,6 +96,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
 
     private void initToolbar() {
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initVideosList() {
