@@ -31,7 +31,7 @@ public class MovieNetworkSource implements MovieDataSource {
             public void onResponse(Call<MovieJson> call, Response<MovieJson> response) {
                 MovieJson movieJson = response.body();
                 if (movieJson != null) {
-                    Movie movie = movieJsonConverter.convertToDomainMovie(response.body());
+                    Movie movie = movieJsonConverter.convertMovieToDomain(response.body());
                     findOneCallback.onSuccess(movie);
                 } else {
                     findOneCallback.onError();
@@ -54,7 +54,7 @@ public class MovieNetworkSource implements MovieDataSource {
             public void onResponse(Call<MovieJsonResponse> call, Response<MovieJsonResponse> response) {
                 MovieJsonResponse movieJsonResponse = response.body();
                 if (movieJsonResponse != null) {
-                    List<Movie> movies = movieJsonConverter.convertToDomainMovies(movieJsonResponse.results);
+                    List<Movie> movies = movieJsonConverter.convertMoviesToDomain(movieJsonResponse.results);
                     findAllCallback.onSuccess(movies);
                 }
             }

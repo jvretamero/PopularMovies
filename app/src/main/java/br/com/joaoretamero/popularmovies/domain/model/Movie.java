@@ -1,5 +1,7 @@
 package br.com.joaoretamero.popularmovies.domain.model;
 
+import java.util.List;
+
 public class Movie {
 
     private int id;
@@ -17,6 +19,12 @@ public class Movie {
     private float voteAverage;
 
     private float popularity;
+
+    private List<Genre> genres;
+
+    private List<Video> videos;
+
+    private List<ProductionCompany> productionCompanies;
 
     public Movie(int id) {
         this.id = id;
@@ -80,6 +88,30 @@ public class Movie {
 
     public void setPopularity(float popularity) {
         this.popularity = popularity;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
+    public List<ProductionCompany> getProductionCompanies() {
+        return productionCompanies;
+    }
+
+    public void setProductionCompanies(List<ProductionCompany> productionCompanies) {
+        this.productionCompanies = productionCompanies;
     }
 
     @Override
