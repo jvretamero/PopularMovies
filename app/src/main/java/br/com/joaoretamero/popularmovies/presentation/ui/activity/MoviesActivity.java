@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -34,6 +35,7 @@ import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviesPresenter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.MoviesAdapter;
 import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -50,9 +52,17 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindString(R.string.default_order)
+    String sortOrder;
+
+    @BindString(R.string.popularity_order)
+    String popularityOrder;
+
+    @BindString(R.string.vote_average_order)
+    String voteAverageOrder;
+
     private MoviesPresenter presenter;
     private MoviesAdapter moviesAdapter;
-    private String sortOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,14 +132,34 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.menu_sort:
-                presenter.onSortMenuClick();
-                return true;
-            case R.id.menu_configurations:
-                presenter.onConfigurationMenuClick();
+                showSortOrderPopup();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showSortOrderPopup() {
+        View menuItemView = findViewById(R.id.menu_sort);
+
+        PopupMenu popupMenu = new PopupMenu(MoviesActivity.this, menuItemView);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_sort_order, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_sort_popularity:
+                        sortOrder = popularityOrder;
+                        break;
+                    case R.id.menu_sort_vote_average:
+                        sortOrder = voteAverageOrder;
+                        break;
+                }
+                presenter.loadMovies(sortOrder);
+                return true;
+            }
+        });
+        popupMenu.show();
     }
 
     @Override
@@ -137,16 +167,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         Intent intent = new Intent(MoviesActivity.this, MovieActivity.class);
         intent.putExtra(MovieActivity.EXTRA_MOVIE_ID, movieId);
         startActivity(intent);
-    }
-
-    @Override
-    public void showSortingOptions() {
-        // TODO implementar
-    }
-
-    @Override
-    public void showConfigurationScreen() {
-        // TODO implementar
     }
 
     @Override

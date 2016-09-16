@@ -37,26 +37,18 @@ public class MoviesPresenter implements MoviesContract {
         listMovies(sortOrder);
     }
 
-    public void onSortMenuClick() {
-        view.showSortingOptions();
-    }
-
-    public void onConfigurationMenuClick() {
-        view.showConfigurationScreen();
-    }
-
     private void listMovies(String sortOrder) {
         useCaseHandler.execute(getMoviesUseCase, sortOrder, new UseCase.Callback<List<Movie>>() {
             @Override
             public void onSuccess(List<Movie> response) {
-                view.showMovies(response);
                 view.showRefreshIndicator(false);
+                view.showMovies(response);
             }
 
             @Override
             public void onError(Throwable error) {
-                view.showErrorLoadingMovies();
                 view.showRefreshIndicator(false);
+                view.showErrorLoadingMovies();
             }
         });
     }

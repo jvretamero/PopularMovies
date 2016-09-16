@@ -44,6 +44,10 @@ public class MovieJsonConverter {
     }
 
     private List<Video> convertVideosToDomain(VideosJsonResponse videosJson) {
+        if (videosJson == null) {
+            return new ArrayList<>();
+        }
+
         List<VideoJson> videoJsonList = videosJson.results;
         List<Video> videoList = new ArrayList<>(videoJsonList.size());
 
@@ -59,6 +63,10 @@ public class MovieJsonConverter {
     }
 
     private List<Genre> convertGenresToDomain(List<GenreJson> genresJson) {
+        if (genresJson == null) {
+            return new ArrayList<>();
+        }
+
         List<Genre> genres = new ArrayList<>(genresJson.size());
 
         for (GenreJson genreJson : genresJson) {
@@ -73,6 +81,10 @@ public class MovieJsonConverter {
     }
 
     private List<ProductionCompany> convertProductionCompaniesToDomain(List<ProductionCompanyJson> productionCompaniesJson) {
+        if (productionCompaniesJson == null) {
+            return new ArrayList<>();
+        }
+
         List<ProductionCompany> productionCompanies = new ArrayList<>(productionCompaniesJson.size());
 
         for (ProductionCompanyJson productionCompanyJson : productionCompaniesJson) {

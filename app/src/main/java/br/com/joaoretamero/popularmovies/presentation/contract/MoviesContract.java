@@ -9,10 +9,6 @@ public interface MoviesContract {
     interface View {
         void showMovieDetail(int movieId);
 
-        void showSortingOptions();
-
-        void showConfigurationScreen();
-
         void showErrorLoadingMovies();
 
         void showRefreshIndicator(boolean showRefreshIndicator);

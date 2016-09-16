@@ -5,8 +5,4 @@
         android:id="@+id/menu_sort"
         android:title="@string/sort"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_configurations"
-        android:title="@string/configurations"
-        app:showAsAction="ifRoom" />
 </menu>

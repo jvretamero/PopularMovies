@@ -28,7 +28,7 @@ public class RetrofitProvider {
                     .addConverterFactory(LoganSquareConverterFactory.create());
 
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
             httpClient.addInterceptor(loggingInterceptor);
             httpClient.addInterceptor(new Interceptor() {
