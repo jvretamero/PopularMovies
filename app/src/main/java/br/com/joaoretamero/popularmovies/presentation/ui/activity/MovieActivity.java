@@ -16,7 +16,6 @@ import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Genre;
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.model.ProductionCompany;
-import br.com.joaoretamero.popularmovies.domain.model.Video;
 import br.com.joaoretamero.popularmovies.domain.threading.MainThread;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseExecutor;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
@@ -122,7 +121,8 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     protected void onStart() {
         super.onStart();
 
-        presenter.start(getMovieIdFromIntent());
+        int movieId = getMovieIdFromIntent();
+        presenter.start(movieId);
     }
 
     @Override
@@ -140,16 +140,10 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
 
         String durationStr = getResources().getString(R.string.movie_duration);
         duration.setText(String.format(durationStr, movie.getDurationInMinutes()));
-    }
 
-    @Override
-    public void setGenreList(List<Genre> genresList) {
-        genres.setText(buildGenreLine(genresList));
-    }
-
-    @Override
-    public void setProductionCompaniesList(List<ProductionCompany> productionCompaniesList) {
-        productionCompanies.setText(buildProductionCompaniesLine(productionCompaniesList));
+        genres.setText(buildGenreLine(movie.getGenres()));
+        productionCompanies.setText(buildProductionCompaniesLine(movie.getProductionCompanies()));
+        videoAdapter.updateData(movie.getVideos());
     }
 
     private String buildGenreLine(List<Genre> genres) {
@@ -176,11 +170,6 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         }
 
         return sb.toString();
-    }
-
-    @Override
-    public void setVideoList(List<Video> videos) {
-        videoAdapter.updateData(videos);
     }
 
     @Override
