@@ -27,7 +27,7 @@ public class BackdropImageView extends ImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        float ratio = 0.5f;
+        float ratio = 1f;
         int height = (int) (widthMeasureSpec * ratio);
         super.onMeasure(widthMeasureSpec, height);
     }
