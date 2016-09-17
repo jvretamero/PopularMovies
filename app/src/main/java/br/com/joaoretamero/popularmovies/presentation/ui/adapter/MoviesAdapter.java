@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> {
 
+    public static final String TAG = MoviesAdapter.class.getSimpleName();
     private Context context;
 
     public MoviesAdapter(@NonNull Context context) {
@@ -32,16 +33,13 @@ public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Movie movie = getItem(position);
-
+    protected void onBindItemHolder(ViewHolder holder, final Movie item) {
         // TODO criar drawable de erro
         PicassoProvider.provide(context)
-                .load(ImageUrlProvider.providePosterUrl(movie.getPoster()))
+                .load(ImageUrlProvider.providePosterUrl(item.getPoster()))
                 .into(holder.posterImage);
-
-        holder.posterImage.setImageResource(R.mipmap.ic_launcher);
-        holder.title.setText(movie.getTitle());
+        
+        holder.title.setText(item.getTitle());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

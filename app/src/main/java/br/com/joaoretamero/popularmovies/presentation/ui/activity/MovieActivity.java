@@ -18,6 +18,7 @@ import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Genre;
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.model.ProductionCompany;
+import br.com.joaoretamero.popularmovies.domain.model.Video;
 import br.com.joaoretamero.popularmovies.domain.threading.MainThread;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseExecutor;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
@@ -36,6 +37,7 @@ import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieReposit
 import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
+import br.com.joaoretamero.popularmovies.presentation.ui.adapter.BaseAdapter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.VideoAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,6 +85,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         ButterKnife.bind(this);
 
         initToolbar();
+        initVideosAdapter();
         initVideosList();
 
         MainThread mainThread = MainThreadImpl.getInstance();
@@ -101,12 +104,20 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    private void initVideosList() {
+    private void initVideosAdapter() {
         videoAdapter = new VideoAdapter(MovieActivity.this);
+        videoAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener<Video>() {
+            @Override
+            public void onItemClick(Video item) {
+                // TODO implementar chamada para youtube
+            }
+        });
+    }
 
+    private void initVideosList() {
         videosList.setLayoutManager(new GridLayoutManager(MovieActivity.this, 2, LinearLayoutManager.VERTICAL, false));
-        //videosList.setLayoutManager(new LinearLayoutManager(MovieActivity.this, LinearLayoutManager.HORIZONTAL, false));
         videosList.setItemAnimator(new DefaultItemAnimator());
+        videosList.setHasFixedSize(true);
         videosList.setAdapter(videoAdapter);
     }
 

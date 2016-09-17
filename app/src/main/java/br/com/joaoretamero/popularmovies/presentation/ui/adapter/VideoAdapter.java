@@ -3,7 +3,6 @@ package br.com.joaoretamero.popularmovies.presentation.ui.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,20 +32,14 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Video video = getItem(position);
-
-        String youtubeUrl = ImageUrlProvider.provideYoutubeUrl(video.getYoutubeId());
-
-        Log.d(TAG, youtubeUrl);
-
-        // TODO criar drawable de erro
+    protected void onBindItemHolder(VideoAdapter.ViewHolder holder, Video item) {
         PicassoProvider.provide(context)
-                .load(youtubeUrl)
+                .load(ImageUrlProvider.provideYoutubeUrl(item.getYoutubeId()))
                 .into(holder.image);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.video_item_image)
         public ImageView image;
 

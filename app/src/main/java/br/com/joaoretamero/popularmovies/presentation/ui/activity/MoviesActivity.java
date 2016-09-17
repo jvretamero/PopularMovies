@@ -33,8 +33,8 @@ import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieReposit
 import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviesPresenter;
+import br.com.joaoretamero.popularmovies.presentation.ui.adapter.BaseAdapter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.MoviesAdapter;
-import br.com.joaoretamero.popularmovies.util.DefaultTouchListener;
 import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,6 +84,12 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
 
     private void initAdapter() {
         moviesAdapter = new MoviesAdapter(MoviesActivity.this);
+        moviesAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener<Movie>() {
+            @Override
+            public void onItemClick(Movie movie) {
+                presenter.onItemClick(movie.getId());
+            }
+        });
     }
 
     private void initRefreshLayout() {
@@ -99,13 +105,6 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 2));
         moviesList.setItemAnimator(new DefaultItemAnimator());
         moviesList.setAdapter(moviesAdapter);
-        moviesList.addOnItemTouchListener(new DefaultTouchListener(MoviesActivity.this, new DefaultTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int posicao) {
-                Movie movie = moviesAdapter.getItem(posicao);
-                presenter.onItemClick(movie.getId());
-            }
-        }));
     }
 
     private void initPresenter() {
