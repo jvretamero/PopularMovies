@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.UrlProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,9 +36,9 @@ public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> 
     protected void onBindItemHolder(ViewHolder holder, final Movie item) {
         // TODO criar drawable de erro
         PicassoProvider.provide(context)
-                .load(ImageUrlProvider.providePosterUrl(item.getPoster()))
+                .load(UrlProvider.providePosterUrl(item.getPoster()))
                 .into(holder.posterImage);
-        
+
         holder.title.setText(item.getTitle());
     }
 

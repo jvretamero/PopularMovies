@@ -10,8 +10,8 @@ import android.widget.ImageView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Video;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.UrlProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -34,7 +34,7 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
     @Override
     protected void onBindItemHolder(VideoAdapter.ViewHolder holder, Video item) {
         PicassoProvider.provide(context)
-                .load(ImageUrlProvider.provideYoutubeUrl(item.getYoutubeId()))
+                .load(UrlProvider.provideYoutubeUrl(item.getYoutubeId()))
                 .into(holder.image);
     }
 

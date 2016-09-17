@@ -1,6 +1,7 @@
 package br.com.joaoretamero.popularmovies.presentation.ui.activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -29,9 +30,9 @@ import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
 import br.com.joaoretamero.popularmovies.infraestructure.MovieDataSource;
 import br.com.joaoretamero.popularmovies.infraestructure.network.MovieNetworkSource;
 import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieJsonConverter;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.ImageUrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.NetworkServiceProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infraestructure.network.provider.UrlProvider;
 import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.infraestructure.repository.impl.MovieRepositoryImpl;
@@ -109,7 +110,15 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         videoAdapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener<Video>() {
             @Override
             public void onItemClick(Video item) {
-                // TODO implementar chamada para youtube
+                String youtubeVideoUrl = UrlProvider.provideYoutubeVideoUrl(item.getYoutubeId());
+
+                Intent youtubeIntent = new Intent();
+                youtubeIntent.setAction(Intent.ACTION_VIEW);
+                youtubeIntent.setData(Uri.parse(youtubeVideoUrl));
+
+                if (youtubeIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(youtubeIntent);
+                }
             }
         });
     }
@@ -144,7 +153,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     public void setMovie(Movie movie) {
         // TODO criar drawable de erro
         PicassoProvider.provide(MovieActivity.this)
-                .load(ImageUrlProvider.provideBackdropUrl(movie.getBackdrop()))
+                .load(UrlProvider.provideBackdropUrl(movie.getBackdrop()))
                 .fit()
                 .centerCrop()
                 .into(backdrop);
