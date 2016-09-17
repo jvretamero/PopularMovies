@@ -44,6 +44,8 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -52,76 +54,75 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/movie_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Title" />
-
-            <TextView
+                style="@style/Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rating"
-                android:textStyle="bold" />
+                android:text="Rating" />
 
             <TextView
                 android:id="@+id/movie_vote_average"
+                style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="10" />
 
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Duration"
-                android:textStyle="bold" />
+                android:text="Duration" />
 
             <TextView
                 android:id="@+id/movie_duration"
+                style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="130 min" />
 
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Overview"
-                android:textStyle="bold" />
+                android:text="Overview" />
 
             <TextView
                 android:id="@+id/movie_overview"
+                style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Overview abc" />
 
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Genres"
-                android:textStyle="bold" />
+                android:text="Genres" />
 
             <TextView
                 android:id="@+id/movie_genres"
+                style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="genre1 | genre 2" />
 
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Production companies"
-                android:textStyle="bold" />
+                android:text="Production companies" />
 
             <TextView
                 android:id="@+id/movie_production_companies"
+                style="@style/Text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lorem ipsum" />
 
             <TextView
+                style="@style/Text.Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Videos"
-                android:textStyle="bold" />
+                android:text="Videos" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/movie_videos_list"

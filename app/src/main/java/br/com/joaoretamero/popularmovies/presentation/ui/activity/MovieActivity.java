@@ -2,8 +2,10 @@ package br.com.joaoretamero.popularmovies.presentation.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -49,8 +51,8 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     @BindView(R.id.movie_backdrop)
     ImageView backdrop;
 
-    @BindView(R.id.movie_title)
-    TextView title;
+    @BindView(R.id.toolbar_layout)
+    CollapsingToolbarLayout toolbarLayout;
 
     @BindView(R.id.movie_vote_average)
     TextView voteAverage;
@@ -102,7 +104,8 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     private void initVideosList() {
         videoAdapter = new VideoAdapter(MovieActivity.this);
 
-        videosList.setLayoutManager(new LinearLayoutManager(MovieActivity.this, LinearLayoutManager.VERTICAL, false));
+        videosList.setLayoutManager(new GridLayoutManager(MovieActivity.this, 2, LinearLayoutManager.VERTICAL, false));
+        //videosList.setLayoutManager(new LinearLayoutManager(MovieActivity.this, LinearLayoutManager.HORIZONTAL, false));
         videosList.setItemAnimator(new DefaultItemAnimator());
         videosList.setAdapter(videoAdapter);
     }
@@ -135,7 +138,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
                 .centerCrop()
                 .into(backdrop);
 
-        title.setText(movie.getTitle());
+        toolbarLayout.setTitle(movie.getTitle());
         voteAverage.setText(String.valueOf(movie.getVoteAverage()));
         overview.setText(movie.getOverview());
 

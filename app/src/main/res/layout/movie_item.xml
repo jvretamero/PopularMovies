@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:orientation="vertical"
+    android:padding="@dimen/base_padding">
 
     <br.com.joaoretamero.popularmovies.presentation.ui.customview.PosterImageView
         android:id="@+id/movie_item_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/base_padding"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/movie_item_title"
+        style="@style/Text.ItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/movie_item_poster"
-        android:text="Titulo" />
+        android:text="Titulo"
+        android:textAlignment="center" />
 
-</RelativeLayout>
+</LinearLayout>
