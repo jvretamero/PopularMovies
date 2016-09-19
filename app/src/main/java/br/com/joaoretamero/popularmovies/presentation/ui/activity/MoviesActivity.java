@@ -143,6 +143,10 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
 
         PopupMenu popupMenu = new PopupMenu(MoviesActivity.this, menuItemView);
         popupMenu.getMenuInflater().inflate(R.menu.menu_sort_order, popupMenu.getMenu());
+
+        Menu menu = popupMenu.getMenu();
+        checkCurrentSortOrderOf(menu);
+
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -159,6 +163,23 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
             }
         });
         popupMenu.show();
+    }
+
+    private void checkCurrentSortOrderOf(Menu sortOrderMenu) {
+        MenuItem menuItem;
+        int menuSize = sortOrderMenu.size();
+
+        for (int i = 0; i < menuSize; i++) {
+            menuItem = sortOrderMenu.getItem(i);
+            switch (menuItem.getItemId()) {
+                case R.id.menu_sort_popularity:
+                    menuItem.setChecked(sortOrder.equals(popularityOrder));
+                    break;
+                case R.id.menu_sort_vote_average:
+                    menuItem.setChecked(sortOrder.equals(voteAverageOrder));
+                    break;
+            }
+        }
     }
 
     @Override

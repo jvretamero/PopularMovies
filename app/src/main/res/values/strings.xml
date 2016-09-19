@@ -7,5 +7,5 @@
 
     <string name="vote_average_order">vote_average</string>
     <string name="popularity_order">popularity</string>
-    <string name="default_order">@string/popularity</string>
+    <string name="default_order">@string/popularity_order</string>
 </resources>

@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_sort_popularity"
-        android:title="@string/popularity" />
-    <item
-        android:id="@+id/menu_sort_vote_average"
-        android:title="@string/vote_average" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_sort_popularity"
+            android:checkable="true"
+            android:title="@string/popularity" />
+        <item
+            android:id="@+id/menu_sort_vote_average"
+            android:checkable="true"
+            android:title="@string/vote_average" />
+    </group>
 </menu>
