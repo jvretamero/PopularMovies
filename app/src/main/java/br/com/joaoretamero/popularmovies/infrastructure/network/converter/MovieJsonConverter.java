@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure.network.converter;
+package br.com.joaoretamero.popularmovies.infrastructure.network.converter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,11 @@ import br.com.joaoretamero.popularmovies.domain.model.Genre;
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.model.Video;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.GenreJson;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.ProductionCompanyJson;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideoJson;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.VideosJsonResponse;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.GenreJson;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.MovieJson;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.ProductionCompanyJson;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.VideoJson;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.VideosJsonResponse;
 
 public class MovieJsonConverter {
 

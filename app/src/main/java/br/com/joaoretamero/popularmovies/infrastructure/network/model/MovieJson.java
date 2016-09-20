@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure.network.model;
+package br.com.joaoretamero.popularmovies.infrastructure.network.model;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;

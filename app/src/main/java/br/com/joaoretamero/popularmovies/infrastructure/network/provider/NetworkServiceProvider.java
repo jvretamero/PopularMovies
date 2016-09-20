@@ -1,6 +1,6 @@
-package br.com.joaoretamero.popularmovies.infraestructure.network.provider;
+package br.com.joaoretamero.popularmovies.infrastructure.network.provider;
 
-import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
+import br.com.joaoretamero.popularmovies.infrastructure.network.service.TheMovieDbService;
 
 public class NetworkServiceProvider {
 

@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure;
+package br.com.joaoretamero.popularmovies.infrastructure;
 
 import java.util.List;
 

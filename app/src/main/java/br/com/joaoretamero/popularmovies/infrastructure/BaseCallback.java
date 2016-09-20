@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure;
+package br.com.joaoretamero.popularmovies.infrastructure;
 
 public interface BaseCallback<T> {
     void onSuccess(T response);

@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure.network.model;
+package br.com.joaoretamero.popularmovies.infrastructure.network.model;
 
 import com.bluelinelabs.logansquare.annotation.JsonField;
 import com.bluelinelabs.logansquare.annotation.JsonObject;
@@ -6,8 +6,8 @@ import com.bluelinelabs.logansquare.annotation.JsonObject;
 import java.util.List;
 
 @JsonObject
-public class MovieJsonResponse {
+public class VideosJsonResponse {
 
     @JsonField(name = "results")
-    public List<MovieJson> results;
+    public List<VideoJson> results;
 }

@@ -1,4 +1,4 @@
-package br.com.joaoretamero.popularmovies.infraestructure.network.provider;
+package br.com.joaoretamero.popularmovies.infrastructure.network.provider;
 
 import android.content.Context;
 

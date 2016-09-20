@@ -1,9 +1,9 @@
-package br.com.joaoretamero.popularmovies.infraestructure.repository;
+package br.com.joaoretamero.popularmovies.infrastructure.repository;
 
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
-import br.com.joaoretamero.popularmovies.infraestructure.BaseCallback;
+import br.com.joaoretamero.popularmovies.infrastructure.BaseCallback;
 
 public interface MovieRepository {
 

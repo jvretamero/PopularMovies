@@ -1,13 +1,13 @@
-package br.com.joaoretamero.popularmovies.infraestructure.network;
+package br.com.joaoretamero.popularmovies.infrastructure.network;
 
 import java.util.List;
 
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
-import br.com.joaoretamero.popularmovies.infraestructure.MovieDataSource;
-import br.com.joaoretamero.popularmovies.infraestructure.network.converter.MovieJsonConverter;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJson;
-import br.com.joaoretamero.popularmovies.infraestructure.network.model.MovieJsonResponse;
-import br.com.joaoretamero.popularmovies.infraestructure.network.service.TheMovieDbService;
+import br.com.joaoretamero.popularmovies.infrastructure.MovieDataSource;
+import br.com.joaoretamero.popularmovies.infrastructure.network.converter.MovieJsonConverter;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.MovieJson;
+import br.com.joaoretamero.popularmovies.infrastructure.network.model.MovieJsonResponse;
+import br.com.joaoretamero.popularmovies.infrastructure.network.service.TheMovieDbService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
