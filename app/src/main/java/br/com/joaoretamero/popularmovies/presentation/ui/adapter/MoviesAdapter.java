@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.PicassoProvider;
-import br.com.joaoretamero.popularmovies.infraestructure.network.provider.UrlProvider;
+import br.com.joaoretamero.popularmovies.infrastructure.network.provider.PicassoProvider;
+import br.com.joaoretamero.popularmovies.infrastructure.network.provider.UrlProvider;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

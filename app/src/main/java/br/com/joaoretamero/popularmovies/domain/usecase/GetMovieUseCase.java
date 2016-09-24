@@ -1,7 +1,7 @@
 package br.com.joaoretamero.popularmovies.domain.usecase;
 
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
-import br.com.joaoretamero.popularmovies.infraestructure.repository.MovieRepository;
+import br.com.joaoretamero.popularmovies.infrastructure.repository.MovieRepository;
 
 public class GetMovieUseCase extends UseCase<Integer, Movie> {
 
