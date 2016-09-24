@@ -6,7 +6,7 @@ import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
 import br.com.joaoretamero.popularmovies.domain.usecase.UseCase;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 
-public class MoviePresenter {
+public class MoviePresenter implements MovieContract {
 
     private static final String TAG = MoviePresenter.class.getSimpleName();
     private MovieContract.View view;

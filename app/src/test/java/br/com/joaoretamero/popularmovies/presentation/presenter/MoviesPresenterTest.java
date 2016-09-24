@@ -50,7 +50,7 @@ public class MoviesPresenterTest {
         MOVIES.add(new Movie(3));
     }
 
-    public void verifyListMoviesAction() {
+    public void verifyShowMovies() {
         verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallbackCaptor.capture());
         movieRepositoryFindAllCallbackCaptor.getValue().onSuccess(MOVIES);
 
@@ -62,25 +62,49 @@ public class MoviesPresenterTest {
         assertThat(showMoviesArgumentCaptor.getValue().size(), is(equalTo(MOVIES.size())));
     }
 
-    @Test
-    public void loadMovies() throws Exception {
-        moviesPresenter.loadMovies("sort_order");
-        verify(moviesView).showRefreshIndicator(true);
-        verifyListMoviesAction();
+    public void verifyErrosMessageShown() {
+        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallbackCaptor.capture());
+        movieRepositoryFindAllCallbackCaptor.getValue().onError();
+
+        verify(moviesView).showRefreshIndicator(false);
+        verify(moviesView).showErrorLoadingMovies();
+        verifyNoMoreInteractions(moviesView);
     }
 
     @Test
-    public void onItemClick() throws Exception {
+    public void loadMoviesFromRepositoryAndShowThem() throws Exception {
+        moviesPresenter.loadMovies("sort_order");
+        verify(moviesView).showRefreshIndicator(true);
+        verifyShowMovies();
+    }
+
+    @Test
+    public void onItemClickThenShowMovieDetail() throws Exception {
         int movieId = 1;
 
         moviesPresenter.onItemClick(movieId);
         verify(moviesView).showMovieDetail(movieId);
+        verifyNoMoreInteractions(moviesView);
     }
 
     @Test
-    public void onRefresh() throws Exception {
+    public void onRefreshLoadMoviesFromRepositoryAndShowThem() throws Exception {
         moviesPresenter.onRefresh("sort_order");
-        verifyListMoviesAction();
+        verifyShowMovies();
+    }
+
+    @Test
+    public void errorLoadingMovies_DisplayErrorMessage() throws Exception {
+        moviesPresenter.loadMovies("sort_order");
+
+        verify(moviesView).showRefreshIndicator(true);
+        verifyErrosMessageShown();
+    }
+
+    @Test
+    public void errorLoadingMoviesOnRefresh_DisplayErrorMessage() throws Exception {
+        moviesPresenter.onRefresh("sort_order");
+        verifyErrosMessageShown();
     }
 
 }
