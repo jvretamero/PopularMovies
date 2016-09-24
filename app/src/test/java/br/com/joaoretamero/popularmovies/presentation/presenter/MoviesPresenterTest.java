@@ -24,16 +24,14 @@ public class MoviesPresenterTest {
     private MovieRepository movieRepository;
     private MoviesContract.View moviesView;
     private MoviesPresenter moviesPresenter;
-    private ArgumentCaptor<MovieRepository.FindAllCallback> movieRepositoryFindAllCallbackCaptor;
-    private ArgumentCaptor<GetMoviesUseCase.Callback> getMoviesCallbackCaptor;
+    private ArgumentCaptor<MovieRepository.FindAllCallback> movieRepositoryFindAllCallback;
 
     @Before
     public void setUp() throws Exception {
         moviesView = mock(MoviesContract.View.class);
         movieRepository = mock(MovieRepository.class);
 
-        movieRepositoryFindAllCallbackCaptor = ArgumentCaptor.forClass(MovieRepository.FindAllCallback.class);
-        getMoviesCallbackCaptor = ArgumentCaptor.forClass(GetMoviesUseCase.Callback.class);
+        movieRepositoryFindAllCallback = ArgumentCaptor.forClass(MovieRepository.FindAllCallback.class);
 
         TestUseCaseHandler testUseCaseHandler = new TestUseCaseHandler();
         GetMoviesUseCase getMoviesUseCase = new GetMoviesUseCase(movieRepository);
@@ -51,8 +49,8 @@ public class MoviesPresenterTest {
     }
 
     public void verifyShowMovies() {
-        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallbackCaptor.capture());
-        movieRepositoryFindAllCallbackCaptor.getValue().onSuccess(MOVIES);
+        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallback.capture());
+        movieRepositoryFindAllCallback.getValue().onSuccess(MOVIES);
 
         verify(moviesView).showRefreshIndicator(false);
 
@@ -63,8 +61,8 @@ public class MoviesPresenterTest {
     }
 
     public void verifyErrosMessageShown() {
-        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallbackCaptor.capture());
-        movieRepositoryFindAllCallbackCaptor.getValue().onError();
+        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallback.capture());
+        movieRepositoryFindAllCallback.getValue().onError();
 
         verify(moviesView).showRefreshIndicator(false);
         verify(moviesView).showErrorLoadingMovies();
