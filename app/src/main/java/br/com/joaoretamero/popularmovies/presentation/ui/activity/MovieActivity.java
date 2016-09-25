@@ -16,27 +16,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.joaoretamero.popularmovies.Injection;
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Genre;
 import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.model.ProductionCompany;
 import br.com.joaoretamero.popularmovies.domain.model.Video;
-import br.com.joaoretamero.popularmovies.domain.threading.MainThread;
-import br.com.joaoretamero.popularmovies.domain.threading.UseCaseExecutor;
 import br.com.joaoretamero.popularmovies.domain.threading.UseCaseHandler;
-import br.com.joaoretamero.popularmovies.domain.threading.impl.MainThreadImpl;
-import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseExecutorImpl;
-import br.com.joaoretamero.popularmovies.domain.threading.impl.UseCaseHandlerImpl;
 import br.com.joaoretamero.popularmovies.domain.usecase.GetMovieUseCase;
-import br.com.joaoretamero.popularmovies.infrastructure.MovieDataSource;
-import br.com.joaoretamero.popularmovies.infrastructure.network.MovieNetworkSource;
-import br.com.joaoretamero.popularmovies.infrastructure.network.converter.MovieJsonConverter;
-import br.com.joaoretamero.popularmovies.infrastructure.network.provider.NetworkServiceProvider;
 import br.com.joaoretamero.popularmovies.infrastructure.network.provider.PicassoProvider;
 import br.com.joaoretamero.popularmovies.infrastructure.network.provider.UrlProvider;
-import br.com.joaoretamero.popularmovies.infrastructure.network.service.TheMovieDbService;
-import br.com.joaoretamero.popularmovies.infrastructure.repository.MovieRepository;
-import br.com.joaoretamero.popularmovies.infrastructure.repository.impl.MovieRepositoryImpl;
 import br.com.joaoretamero.popularmovies.presentation.contract.MovieContract;
 import br.com.joaoretamero.popularmovies.presentation.presenter.MoviePresenter;
 import br.com.joaoretamero.popularmovies.presentation.ui.adapter.BaseAdapter;
@@ -89,15 +78,13 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         initToolbar();
         initVideosAdapter();
         initVideosList();
+        initPresenter();
+    }
 
-        MainThread mainThread = MainThreadImpl.getInstance();
-        UseCaseExecutor useCaseExecutor = UseCaseExecutorImpl.getInstance();
-        UseCaseHandler useCaseHandler = new UseCaseHandlerImpl(mainThread, useCaseExecutor);
-        TheMovieDbService movieDbService = NetworkServiceProvider.provideTheMovieDbService();
-        MovieJsonConverter movieJsonConverter = new MovieJsonConverter();
-        MovieDataSource networkSource = new MovieNetworkSource(movieDbService, movieJsonConverter);
-        MovieRepository movieRepository = new MovieRepositoryImpl(networkSource);
-        GetMovieUseCase getMovieUseCase = new GetMovieUseCase(movieRepository);
+    private void initPresenter() {
+        UseCaseHandler useCaseHandler = Injection.provideUseCaseHandler();
+        GetMovieUseCase getMovieUseCase = Injection.provideGetMovieUseCase();
+
         presenter = new MoviePresenter(this, useCaseHandler, getMovieUseCase);
     }
 
