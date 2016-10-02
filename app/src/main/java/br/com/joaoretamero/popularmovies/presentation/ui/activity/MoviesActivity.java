@@ -1,7 +1,9 @@
 package br.com.joaoretamero.popularmovies.presentation.ui.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -41,15 +43,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindString(R.string.default_order)
-    String sortOrder;
-
-    @BindString(R.string.popularity_order)
+    @BindString(R.string.popularity_order_key)
     String popularityOrder;
 
-    @BindString(R.string.vote_average_order)
+    @BindString(R.string.vote_average_order_key)
     String voteAverageOrder;
 
+    private String currentSortOrder;
     private MoviesPresenter presenter;
     private MoviesAdapter moviesAdapter;
 
@@ -64,7 +64,16 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         initAdapter();
         initRefreshLayout();
         initList();
+        initSortOrder();
         initPresenter();
+    }
+
+    private void initSortOrder() {
+        String orderPreferenceKey = getString(R.string.order_preference_key);
+        String orderPreferenceDefaultValue = getString(R.string.order_preference_default_value);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        currentSortOrder = sharedPreferences.getString(orderPreferenceKey, orderPreferenceDefaultValue);
     }
 
     private void initToolbar() {
@@ -85,7 +94,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.onRefresh(sortOrder);
+                presenter.onRefresh(currentSortOrder);
             }
         });
     }
@@ -101,7 +110,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         GetMoviesUseCase getMoviesUseCase = Injection.provideGetMoviesUseCase();
 
         presenter = new MoviesPresenter(MoviesActivity.this, useCaseHandler, getMoviesUseCase);
-        presenter.loadMovies(sortOrder);
+        presenter.loadMovies(currentSortOrder);
     }
 
     @Override
@@ -116,6 +125,9 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
         switch (itemId) {
             case R.id.menu_sort:
                 showSortOrderPopup();
+                return true;
+            case R.id.menu_settings:
+                showSettingsScreen();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -136,13 +148,13 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_sort_popularity:
-                        sortOrder = popularityOrder;
+                        currentSortOrder = popularityOrder;
                         break;
                     case R.id.menu_sort_vote_average:
-                        sortOrder = voteAverageOrder;
+                        currentSortOrder = voteAverageOrder;
                         break;
                 }
-                presenter.loadMovies(sortOrder);
+                presenter.loadMovies(currentSortOrder);
                 return true;
             }
         });
@@ -157,13 +169,18 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
             menuItem = sortOrderMenu.getItem(i);
             switch (menuItem.getItemId()) {
                 case R.id.menu_sort_popularity:
-                    menuItem.setChecked(sortOrder.equals(popularityOrder));
+                    menuItem.setChecked(currentSortOrder.equals(popularityOrder));
                     break;
                 case R.id.menu_sort_vote_average:
-                    menuItem.setChecked(sortOrder.equals(voteAverageOrder));
+                    menuItem.setChecked(currentSortOrder.equals(voteAverageOrder));
                     break;
             }
         }
+    }
+
+    private void showSettingsScreen() {
+        Intent settingsIntent = new Intent(MoviesActivity.this, SettingsActivity.class);
+        startActivity(settingsIntent);
     }
 
     @Override

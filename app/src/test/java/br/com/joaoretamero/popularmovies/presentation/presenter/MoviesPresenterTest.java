@@ -2,71 +2,46 @@ package br.com.joaoretamero.popularmovies.presentation.presenter;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import br.com.joaoretamero.popularmovies.TestUseCaseHandler;
-import br.com.joaoretamero.popularmovies.domain.model.Movie;
 import br.com.joaoretamero.popularmovies.domain.usecase.GetMoviesUseCase;
 import br.com.joaoretamero.popularmovies.infrastructure.repository.MovieRepository;
 import br.com.joaoretamero.popularmovies.presentation.contract.MoviesContract;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.anyString;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
+import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 public class MoviesPresenterTest {
 
-    private static List<Movie> MOVIES;
-    private MovieRepository movieRepository;
     private MoviesContract.View moviesView;
+    private MovieRepository movieRepository;
     private MoviesPresenter moviesPresenter;
-    private ArgumentCaptor<MovieRepository.FindAllCallback> movieRepositoryFindAllCallback;
+    private GetMoviesUseCase.Callback getMoviesUseCaseCallback;
 
     @Before
     public void setUp() throws Exception {
         moviesView = mock(MoviesContract.View.class);
         movieRepository = mock(MovieRepository.class);
+        getMoviesUseCaseCallback = mock(GetMoviesUseCase.Callback.class);
 
-        movieRepositoryFindAllCallback = ArgumentCaptor.forClass(MovieRepository.FindAllCallback.class);
-
-        TestUseCaseHandler testUseCaseHandler = new TestUseCaseHandler();
         GetMoviesUseCase getMoviesUseCase = new GetMoviesUseCase(movieRepository);
+        getMoviesUseCase.setCallback(getMoviesUseCaseCallback);
 
-        moviesPresenter = new MoviesPresenter(moviesView, testUseCaseHandler, getMoviesUseCase);
-
-        setUpMoviesList();
-    }
-
-    private void setUpMoviesList() {
-        MOVIES = new ArrayList<>();
-        MOVIES.add(new Movie(1));
-        MOVIES.add(new Movie(2));
-        MOVIES.add(new Movie(3));
+        moviesPresenter = new MoviesPresenter(moviesView, new TestUseCaseHandler(), getMoviesUseCase);
     }
 
     public void verifyShowMovies() {
-        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallback.capture());
-        movieRepositoryFindAllCallback.getValue().onSuccess(MOVIES);
-
+        verify(getMoviesUseCaseCallback).onSuccess(anyObject());
         verify(moviesView).showRefreshIndicator(false);
-
-        ArgumentCaptor<List> showMoviesArgumentCaptor = ArgumentCaptor.forClass(List.class);
-        verify(moviesView).showMovies(showMoviesArgumentCaptor.capture());
-
-        assertThat(showMoviesArgumentCaptor.getValue().size(), is(equalTo(MOVIES.size())));
+        verify(moviesView).showMovies(anyList());
     }
 
     public void verifyErrosMessageShown() {
-        verify(movieRepository).findAll(anyString(), movieRepositoryFindAllCallback.capture());
-        movieRepositoryFindAllCallback.getValue().onError();
-
+        verify(getMoviesUseCaseCallback).onError(any(Throwable.class));
         verify(moviesView).showRefreshIndicator(false);
         verify(moviesView).showErrorLoadingMovies();
         verifyNoMoreInteractions(moviesView);

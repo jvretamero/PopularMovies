@@ -1,11 +1,26 @@
 <resources>
     <string name="app_name">PopularMovies</string>
     <string name="sort">Sort order</string>
+    <string name="settings">Settings</string>
     <string name="movie_duration">%d min</string>
     <string name="vote_average">Vote average</string>
     <string name="popularity">Popularity</string>
 
-    <string name="vote_average_order">vote_average</string>
-    <string name="popularity_order">popularity</string>
-    <string name="default_order">@string/popularity_order</string>
+    <string name="vote_average_order_key">vote_average</string>
+    <string name="popularity_order_key">popularity</string>
+
+    <string name="order_preference_title">Default order</string>
+    <string name="order_preference_key">default_order</string>
+    <string name="order_preference_default_value">@string/popularity_order_key</string>
+    <string name="order_preference_summary">@string/popularity</string>
+
+    <string-array name="order_preference_entries">
+        <item>@string/vote_average</item>
+        <item>@string/popularity</item>
+    </string-array>
+
+    <string-array name="order_preference_entry_values">
+        <item>@string/vote_average_order_key</item>
+        <item>@string/popularity_order_key</item>
+    </string-array>
 </resources>
