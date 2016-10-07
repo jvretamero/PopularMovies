@@ -60,12 +60,15 @@
                 android:layout_height="wrap_content"
                 android:text="Rating" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/movie_vote_average"
-                style="@style/Text"
-                android:layout_width="match_parent"
+                style="?attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10" />
+                android:numStars="10"
+                android:rating="0"
+                android:stepSize="0.1"
+                android:theme="@style/RatingBar" />
 
             <TextView
                 style="@style/Text.Title"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -49,7 +50,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     CollapsingToolbarLayout toolbarLayout;
 
     @BindView(R.id.movie_vote_average)
-    TextView voteAverage;
+    AppCompatRatingBar voteAverage;
 
     @BindView(R.id.movie_genres)
     TextView genres;
@@ -159,7 +160,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
                 .into(backdrop);
 
         toolbarLayout.setTitle(movie.getTitle());
-        voteAverage.setText(String.valueOf(movie.getVoteAverage()));
+        voteAverage.setRating(movie.getVoteAverage());
         overview.setText(movie.getOverview());
 
         String durationStr = getResources().getString(R.string.movie_duration);
