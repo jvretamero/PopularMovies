@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -197,6 +198,8 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
 
     @Override
     public void showErrorMessage() {
-        //TODO implementar
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.generic_error_message);
+        builder.show();
     }
 }

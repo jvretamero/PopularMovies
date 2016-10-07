@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -192,7 +193,9 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
 
     @Override
     public void showErrorLoadingMovies() {
-        // TODO implementar
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.generic_error_message);
+        builder.show();
     }
 
     @Override
