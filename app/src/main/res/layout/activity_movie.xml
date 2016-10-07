@@ -20,6 +20,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="@dimen/activity_horizontal_margin"
             app:expandedTitleMarginStart="@dimen/activity_horizontal_margin"
+            app:expandedTitleTextAppearance="@style/ToolbarText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
@@ -62,10 +63,10 @@
 
             <android.support.v7.widget.AppCompatRatingBar
                 android:id="@+id/movie_vote_average"
-                style="?attr/ratingBarStyleSmall"
+                style="?attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:numStars="10"
+                android:numStars="5"
                 android:rating="0"
                 android:stepSize="0.1"
                 android:theme="@style/RatingBar" />

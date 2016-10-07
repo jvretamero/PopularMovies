@@ -29,7 +29,7 @@ public class MovieJsonConverter {
         List<ProductionCompany> productionCompanies = convertProductionCompaniesToDomain(movieJson.productionCompanies);
 
         Movie movie = new Movie(movieJson.id);
-        movie.setVoteAverage(movieJson.voteAverage);
+        movie.setVoteAverage(movieJson.voteAverage / 2f);
         movie.setTitle(movieJson.title);
         movie.setPoster(movieJson.poster);
         movie.setPopularity(movieJson.popularity);

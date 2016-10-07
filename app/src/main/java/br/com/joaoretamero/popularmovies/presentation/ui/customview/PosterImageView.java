@@ -1,13 +1,11 @@
 package br.com.joaoretamero.popularmovies.presentation.ui.customview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
 
-public class PosterImageView extends ImageView {
-
+public class PosterImageView extends AppCompatImageView {
+    
     public PosterImageView(Context context) {
         super(context);
     }
@@ -18,11 +16,6 @@ public class PosterImageView extends ImageView {
 
     public PosterImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public PosterImageView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

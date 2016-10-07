@@ -2,11 +2,11 @@ package br.com.joaoretamero.popularmovies.presentation.ui.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Video;
@@ -41,7 +41,7 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.video_item_image)
-        public ImageView image;
+        public AppCompatImageView image;
 
         public ViewHolder(View itemView) {
             super(itemView);

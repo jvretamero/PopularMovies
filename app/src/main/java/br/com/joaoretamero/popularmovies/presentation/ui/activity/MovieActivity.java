@@ -8,7 +8,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatRatingBar;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -114,7 +113,8 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     }
 
     private void initVideosList() {
-        videosList.setLayoutManager(new GridLayoutManager(MovieActivity.this, 2, LinearLayoutManager.VERTICAL, false));
+        //videosList.setLayoutManager(new GridLayoutManager(MovieActivity.this, 2, LinearLayoutManager.HORIZONTAL, false));
+        videosList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         videosList.setItemAnimator(new DefaultItemAnimator());
         videosList.setHasFixedSize(true);
         videosList.setAdapter(videoAdapter);
