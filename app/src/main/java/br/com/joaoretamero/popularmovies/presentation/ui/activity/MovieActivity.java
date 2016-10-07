@@ -113,7 +113,6 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     }
 
     private void initVideosList() {
-        //videosList.setLayoutManager(new GridLayoutManager(MovieActivity.this, 2, LinearLayoutManager.HORIZONTAL, false));
         videosList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         videosList.setItemAnimator(new DefaultItemAnimator());
         videosList.setHasFixedSize(true);
