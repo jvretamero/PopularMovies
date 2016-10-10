@@ -34,9 +34,10 @@ public class MoviesAdapter extends BaseAdapter<Movie, MoviesAdapter.ViewHolder> 
 
     @Override
     protected void onBindItemHolder(ViewHolder holder, final Movie item) {
-        // TODO criar drawable de erro
         PicassoProvider.provide(context)
                 .load(UrlProvider.providePosterUrl(item.getPoster()))
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_error)
                 .into(holder.posterImage);
 
         holder.title.setText(item.getTitle());

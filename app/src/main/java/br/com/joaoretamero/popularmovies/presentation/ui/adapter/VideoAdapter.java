@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Callback;
+
 import br.com.joaoretamero.popularmovies.R;
 import br.com.joaoretamero.popularmovies.domain.model.Video;
 import br.com.joaoretamero.popularmovies.infrastructure.network.provider.PicassoProvider;
@@ -32,16 +34,30 @@ public class VideoAdapter extends BaseAdapter<Video, VideoAdapter.ViewHolder> {
     }
 
     @Override
-    protected void onBindItemHolder(VideoAdapter.ViewHolder holder, Video item) {
+    protected void onBindItemHolder(final VideoAdapter.ViewHolder holder, Video item) {
         PicassoProvider.provide(context)
                 .load(UrlProvider.provideYoutubeUrl(item.getYoutubeId()))
-                .into(holder.image);
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_error)
+                .into(holder.image, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        holder.playButton.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onError() {
+                    }
+                });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.video_item_image)
         public AppCompatImageView image;
+
+        @BindView(R.id.video_item_play_button)
+        public AppCompatImageView playButton;
 
         public ViewHolder(View itemView) {
             super(itemView);

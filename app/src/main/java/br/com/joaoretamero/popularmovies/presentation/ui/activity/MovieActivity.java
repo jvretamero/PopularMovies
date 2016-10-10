@@ -151,11 +151,10 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
 
     @Override
     public void setMovie(Movie movie) {
-        // TODO criar drawable de erro
         PicassoProvider.provide(MovieActivity.this)
                 .load(UrlProvider.provideBackdropUrl(movie.getBackdrop()))
-                .fit()
-                .centerCrop()
+                .placeholder(R.drawable.image_placeholder)
+                .error(R.drawable.image_error)
                 .into(backdrop);
 
         toolbarLayout.setTitle(movie.getTitle());
