@@ -12,7 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,6 +40,12 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
 
     public static final String TAG = MovieActivity.class.getSimpleName();
     public static final String EXTRA_MOVIE_ID = "movie_id";
+
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.movie_content)
+    View movieContent;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -90,6 +98,7 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
     }
 
     private void initToolbar() {
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -167,6 +176,9 @@ public class MovieActivity extends AppCompatActivity implements MovieContract.Vi
         genres.setText(buildGenreLine(movie.getGenres()));
         productionCompanies.setText(buildProductionCompaniesLine(movie.getProductionCompanies()));
         videoAdapter.updateData(movie.getVideos());
+
+        progressBar.setVisibility(View.GONE);
+        movieContent.setVisibility(View.VISIBLE);
     }
 
     private String buildGenreLine(List<Genre> genres) {
