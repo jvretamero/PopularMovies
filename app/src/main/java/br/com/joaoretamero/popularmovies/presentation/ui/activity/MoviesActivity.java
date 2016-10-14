@@ -101,7 +101,7 @@ public class MoviesActivity extends AppCompatActivity implements MoviesContract.
     }
 
     private void initList() {
-        moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 2));
+        moviesList.setLayoutManager(new GridLayoutManager(MoviesActivity.this, 3));
         moviesList.setItemAnimator(new DefaultItemAnimator());
         moviesList.setAdapter(moviesAdapter);
     }

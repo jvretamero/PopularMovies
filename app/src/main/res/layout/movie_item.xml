@@ -5,22 +5,22 @@
     android:layout_marginBottom="8dp"
     android:background="@drawable/item_selector"
     android:orientation="vertical"
-    android:padding="@dimen/base_padding">
+    android:padding="4dp">
 
     <br.com.joaoretamero.popularmovies.presentation.ui.customview.PosterImageView
         android:id="@+id/movie_item_poster"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/base_padding"
+        android:layout_marginBottom="4dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_placeholder" />
 
     <TextView
         android:id="@+id/movie_item_title"
-        style="@style/Text.ItemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Titulo"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Caption" />
 
 </LinearLayout>
