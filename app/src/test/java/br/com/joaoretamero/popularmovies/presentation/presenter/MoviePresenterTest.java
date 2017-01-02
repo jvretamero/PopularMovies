@@ -27,10 +27,9 @@ public class MoviePresenterTest {
     public void setUp() throws Exception {
         movieView = mock(MovieContract.View.class);
         movieRepository = mock(MovieRepository.class);
+        movieRepositoryFindOneCallback = ArgumentCaptor.forClass(MovieRepository.FindOneCallback.class);
 
         MOVIE = new Movie(1);
-
-        movieRepositoryFindOneCallback = ArgumentCaptor.forClass(MovieRepository.FindOneCallback.class);
 
         GetMovieUseCase getMovieUseCase = new GetMovieUseCase(movieRepository);
 
