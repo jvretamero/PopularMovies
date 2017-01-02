@@ -6,9 +6,7 @@ Imagens
 -------
 
 ![Imagem 1][8]
-
 ![Imagem 2][9]
-
 ![Imagem 3][10]
 
 Desenvolvido por
