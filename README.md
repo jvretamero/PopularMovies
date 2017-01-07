@@ -2,6 +2,8 @@
 
 Aplicativo de filmes desenvolvido para aprendizagem.
 
+O aplicativo utiliza dados da API do [The Movie Database](https://www.themoviedb.org/)
+
 Imagens
 -------
 
